@@ -1,0 +1,53 @@
+
+{
+  "placeholderImages": [
+    {
+      "id": "WA0022",
+      "description": "Tropical guava juice bottle",
+      "imageUrl": "https://res.cloudinary.com/drmpjeatm/image/upload/q_auto/f_auto/v1775574830/Whisk_8e13f16450d1dbca76a4a21b38cf482edr_mklm4x.png",
+      "imageHint": "guava juice"
+    },
+    {
+      "id": "WA0023",
+      "description": "Crisp green apple juice bottle",
+      "imageUrl": "https://res.cloudinary.com/drmpjeatm/image/upload/q_auto/f_auto/v1775574830/Whisk_b27f025f2eb6153a39b448db383a25e9dr_donx23.png",
+      "imageHint": "apple juice"
+    },
+    {
+      "id": "WA0024",
+      "description": "Fresh strawberry juice bottle",
+      "imageUrl": "https://res.cloudinary.com/drmpjeatm/image/upload/q_auto/f_auto/v1775574831/Whisk_5ded24668f3739d9d09469c17ffb60d7dr_h9mfl6.png",
+      "imageHint": "strawberry juice"
+    },
+    {
+      "id": "WA0025",
+      "description": "Deep red cherry juice bottle",
+      "imageUrl": "https://res.cloudinary.com/drmpjeatm/image/upload/q_auto/f_auto/v1775574831/Whisk_03bddc76892ae9493a340545afadb486dr_qcfonm.png",
+      "imageHint": "cherry juice"
+    },
+    {
+      "id": "WA0026",
+      "description": "Zesty orange juice bottle",
+      "imageUrl": "https://res.cloudinary.com/drmpjeatm/image/upload/q_auto/f_auto/v1775574832/Whisk_b43a340c0dfc0ea9b6d461dd4ae11d27dr_mltqzc.png",
+      "imageHint": "orange juice"
+    },
+    {
+      "id": "WA0027",
+      "description": "Golden pineapple juice bottle",
+      "imageUrl": "https://res.cloudinary.com/drmpjeatm/image/upload/q_auto/f_auto/v1775574832/Whisk_d2a583f9d8507b297ac44fe94a32dfafdr_epwoao.png",
+      "imageHint": "pineapple juice"
+    },
+    {
+      "id": "WA0028",
+      "description": "Rich purple grape juice bottle",
+      "imageUrl": "https://res.cloudinary.com/drmpjeatm/image/upload/q_auto/f_auto/v1775574836/Whisk_5680db65a5a5a4685174bce120d48be3dr_e9wmrf.png",
+      "imageHint": "grape juice"
+    },
+    {
+      "id": "AUTH_BG",
+      "description": "Vibrant fruit background for auth",
+      "imageUrl": "https://res.cloudinary.com/drmpjeatm/image/upload/q_auto/f_auto/v1776608949/WhatsApp_Image_2026-04-19_at_8.24.59_PM_e78hs8.jpg",
+      "imageHint": "fresh fruit"
+    }
+  ]
+}

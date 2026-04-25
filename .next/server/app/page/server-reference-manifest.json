@@ -1,0 +1,20 @@
+{
+  "node": {
+    "40d9f61982e0383367495f2c6e3ffe436227516aed": {
+      "workers": {
+        "app/page": {
+          "moduleId": "[project]/.next-internal/server/app/page/actions.js { ACTIONS_MODULE0 => \"[project]/src/ai/flows/generate-review-flow.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "generateReview",
+          "filename": "src/ai/flows/generate-review-flow.ts"
+        }
+      },
+      "layer": {
+        "app/page": "action-browser"
+      },
+      "exportedName": "generateReview",
+      "filename": "src/ai/flows/generate-review-flow.ts"
+    }
+  },
+  "edge": {}
+}

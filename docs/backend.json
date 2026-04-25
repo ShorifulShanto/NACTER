@@ -1,0 +1,116 @@
+
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "type": "object",
+      "description": "Represents a user's profile information.",
+      "properties": {
+        "id": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "firstName": { "type": "string" },
+        "lastName": { "type": "string" },
+        "phoneNumber": { "type": "string" },
+        "location": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "email"]
+    },
+    "Product": {
+      "title": "Product",
+      "type": "object",
+      "description": "Represents a drink product in the catalog.",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "price": { "type": "number" },
+        "amount": { "type": "number", "description": "Inventory count. 0 means Sold Out." },
+        "image": { "type": "string" },
+        "description": { "type": "string" }
+      },
+      "required": ["id", "name", "price", "amount", "image"]
+    },
+    "Order": {
+      "title": "Order",
+      "type": "object",
+      "description": "Represents a customer's placed order stored at the top level.",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "items": { 
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "productId": { "type": "string" },
+              "name": { "type": "string" },
+              "quantity": { "type": "number" },
+              "price": { "type": "number" },
+              "image": { "type": "string" }
+            }
+          }
+        },
+        "totalAmount": { "type": "number" },
+        "status": { "type": "string", "enum": ["pending", "processing", "shipped", "delivered"] },
+        "shippingAddress": { "type": "object" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "userId", "items", "totalAmount", "status", "createdAt"]
+    },
+    "CentralHubEntry": {
+      "title": "CentralHubEntry",
+      "type": "object",
+      "description": "A centralized log of all user activities and site data.",
+      "properties": {
+        "id": { "type": "string" },
+        "type": { "type": "string", "enum": ["signup", "cart_addition", "newsletter", "profile_update", "account_deletion", "order_placed", "review_submitted"] },
+        "userId": { "type": "string" },
+        "userEmail": { "type": "string" },
+        "payload": { "type": "object" },
+        "timestamp": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "type", "timestamp"]
+    },
+    "Review": {
+      "title": "Review",
+      "type": "object",
+      "description": "A user's review stored at the top level.",
+      "properties": {
+        "id": { "type": "string" },
+        "productId": { "type": "string", "description": "Optional. If null, it is a brand review." },
+        "userId": { "type": "string" },
+        "userName": { "type": "string" },
+        "rating": { "type": "number" },
+        "comment": { "type": "string" },
+        "timestamp": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "userId", "rating", "timestamp"]
+    }
+  },
+  "auth": {
+    "providers": ["password", "google"]
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": { "$ref": "#/backend/entities/UserProfile" },
+      "description": "Private user profiles."
+    },
+    "/orders/{orderId}": {
+      "schema": { "$ref": "#/backend/entities/Order" },
+      "description": "Global order collection."
+    },
+    "/products/{productId}": {
+      "schema": { "$ref": "#/backend/entities/Product" },
+      "description": "Global product catalog."
+    },
+    "/central_hub/{entryId}": {
+      "schema": { "$ref": "#/backend/entities/CentralHubEntry" },
+      "description": "Centralized repository for all site activities."
+    },
+    "/reviews/{reviewId}": {
+      "schema": { "$ref": "#/backend/entities/Review" },
+      "description": "Global public reviews collection."
+    }
+  }
+}

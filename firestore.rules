@@ -1,0 +1,54 @@
+
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    function isAdmin() {
+      return isSignedIn() && request.auth.token.email == "md.si.shanto001@gmail.com";
+    }
+
+    match /central_hub/{entryId} {
+      allow create: if true;
+      allow get, list: if isAdmin();
+      allow update, delete: if isAdmin();
+    }
+
+    match /products/{productId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    match /reviews/{reviewId} {
+      allow read: if true;
+      allow create: if isSignedIn();
+      allow update, delete: if isSignedIn() && request.auth.uid == resource.data.userId;
+    }
+
+    match /orders/{orderId} {
+      allow create: if isSignedIn();
+      allow get: if isSignedIn() && (isAdmin() || resource.data.userId == request.auth.uid);
+      allow list: if isSignedIn() && (isAdmin() || request.query.limit <= 100);
+      allow update, delete: if isAdmin();
+    }
+
+    match /users/{userId} {
+      allow get: if isOwner(userId);
+      allow list: if isAdmin();
+      allow create: if isOwner(userId) && request.resource.data.id == userId;
+      allow update: if isOwner(userId) && request.resource.data.id == resource.data.id;
+      allow delete: if isOwner(userId);
+
+      match /cart/{productId} {
+        allow read, write: if isOwner(userId);
+      }
+    }
+  }
+}
