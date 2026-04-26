@@ -29,7 +29,7 @@ Follow these steps to push this exact version of the project to your GitHub repo
 4. **Connect to Remote**:
    Copy the SSH or HTTPS URL from GitHub and run:
    ```bash
-   git remote add origin <YOUR_GITHUB_REPO_URL>
+   git remote add origin <https://github.com/ShorifulShanto/NACTER>
    git branch -M main
    ```
 
