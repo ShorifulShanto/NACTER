@@ -33,7 +33,7 @@ import {
   DialogFooter
 } from "@/components/ui/dialog";
 
-const ADMIN_EMAIL = "md.si.shanto001@gmail.com";
+const ADMIN_EMAILS = ["md.si.shanto001@gmail.com", "md.si.shoriful001@gmail.com"];
 
 export default function AdminDashboard() {
   const [search, setSearch] = useState("");
@@ -54,15 +54,17 @@ export default function AdminDashboard() {
   const { user, isUserLoading } = useUser();
   const { toast } = useToast();
 
+  const isUserAdmin = user && ADMIN_EMAILS.includes(user.email || "");
+
   const hubQuery = useMemoFirebase(() => {
-    if (!db || user?.email !== ADMIN_EMAIL) return null;
+    if (!db || !isUserAdmin) return null;
     return collection(db, "central_hub");
-  }, [db, user]);
+  }, [db, isUserAdmin]);
 
   const productsQuery = useMemoFirebase(() => {
-    if (!db || user?.email !== ADMIN_EMAIL) return null;
+    if (!db || !isUserAdmin) return null;
     return collection(db, "products");
-  }, [db, user]);
+  }, [db, isUserAdmin]);
 
   const { data: entries, isLoading: isHubLoading, error: hubError } = useCollection(hubQuery);
   const { data: dbProducts, isLoading: isProductsLoading, error: productsError } = useCollection(productsQuery);
@@ -75,7 +77,7 @@ export default function AdminDashboard() {
     );
   }
 
-  if (!user || user.email !== ADMIN_EMAIL) {
+  if (!user || !isUserAdmin) {
     return (
       <div className="min-h-screen bg-black text-white flex flex-col items-center justify-center p-6 text-center">
         <div className="w-20 h-20 bg-red-500/10 border border-red-500/20 rounded-full flex items-center justify-center mb-6">

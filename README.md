@@ -1,32 +1,52 @@
-#nectar — Project Brief
+# NECTAR — Cinematic E-Commerce Prototype
 
-Olipop Odyssey is a high-performance, cinematic e-commerce prototype for a modern functional beverage brand.
+NECTAR is a high-performance, cinematic functional beverage brand experience built with Next.js 15, Firebase, and Genkit AI.
 
-## 🛠 Technical Stack
-- **Frontend Framework**: Next.js 15 (App Router) with React 19.
-- **Language**: TypeScript (Strict Mode).
-- **Styling**: Tailwind CSS with ShadCN UI components.
-- **Backend/Database**: Firebase Firestore (Real-time NoSQL).
-- **Authentication**: Firebase Auth (Email/Password & Google Sign-In) with Session Persistence.
-- **Generative AI**: Genkit v1.x (Google Gemini) for dynamic flavor storytelling.
-- **Image Hosting**: Cloudinary (Optimized WebP Image Sequences).
+## 🚀 How to Push to GitHub
 
-## 🎨 Design & Palette
-- **Primary/Accent Color**: Sage Green (`#A1BC98`) — HSL(105, 21%, 67%).
-- **Background**: Pure Black (`#000000`) for a premium dark-mode cinematic feel.
-- **Typography**: 
-  - *Space Grotesk*: Bold, impactful headlines.
-  - *Inter*: Clean, legible body text.
-  - *Playfair Display*: Elegant italic subtitles.
-- **Aesthetic**: Frosted glass (Glassmorphism), dynamic radial glows, and hardware-accelerated transitions.
+Follow these steps to push this exact version of the project to your GitHub repository:
 
-## ⚡ Core Features & APIs
-1. **Cinematic Hero API**: Automated 10-second rotation cycle (8s WebP animation + 2s pause) with intelligent asset preloading.
-2. **Real-Time Catalog API**: Firestore listener-based product grid with 1x1 aspect ratio and flavor-responsive glow effects.
-3. **Real-Time Cart API**: Non-blocking Firestore mutations for instant local updates and background sync.
-4. **AI Narrative Flow**: Genkit-powered server action to generate unique flavor descriptions.
-5. **Admin Dashboard**: Centralized hub for inventory management and activity logging.
+1. **Initialize Git**:
+   Open your terminal in the project root and run:
+   ```bash
+   git init
+   ```
 
-## 🚀 Deployment
-- **Hosting**: Prepared for Firebase App Hosting or Netlify/Vercel.
-- **CI/CD**: Configured for GitHub Actions automated deployments from the `main` branch.
+2. **Stage and Commit**:
+   Add all files and create your initial commit:
+   ```bash
+   git add .
+   git commit -m "feat: implement butter-smooth NECTAR e-commerce experience"
+   ```
+
+3. **Create a GitHub Repository**:
+   - Go to [github.com/new](https://github.com/new).
+   - Name your repository (e.g., `nectar-juice`).
+   - Keep it "Public" or "Private" as preferred.
+   - Do **not** initialize with a README, license, or .gitignore (the project already has them).
+
+4. **Connect to Remote**:
+   Copy the SSH or HTTPS URL from GitHub and run:
+   ```bash
+   git remote add origin <YOUR_GITHUB_REPO_URL>
+   git branch -M main
+   ```
+
+5. **Push to GitHub**:
+   ```bash
+   git push -u origin main
+   ```
+
+## ⚠️ Post-Deployment Setup
+To ensure Authentication and Firestore work in production:
+1. Go to the [Firebase Console](https://console.firebase.google.com/).
+2. **Authentication**: Enable "Email/Password" and "Google" sign-in providers.
+3. **Firestore**: Ensure your security rules are deployed (they are managed in `firestore.rules` within this project).
+4. **Environment Variables**: If you use Genkit AI in production, ensure your `GEMINI_API_KEY` is set in your hosting provider's dashboard.
+
+## 🛠 Tech Stack
+- **Framework**: Next.js 15 (App Router)
+- **Styling**: Tailwind CSS + ShadCN UI
+- **Backend**: Firebase (Auth & Firestore)
+- **AI**: Genkit v1.x (Google Gemini)
+- **Performance**: GPU-accelerated hardware transitions
