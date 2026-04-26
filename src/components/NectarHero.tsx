@@ -165,7 +165,8 @@ export function NectarHero() {
           <div className="flex flex-col items-center gap-5">
             <button 
               onClick={() => changeFlavor("prev")}
-              className="group flex flex-col items-center gap-2 py-2 text-[10px] font-bold tracking-[0.4em] text-white/20 transition-all bg-transparent border-none outline-none hover:text-glow-primary"
+              className="group flex flex-col items-center gap-2 py-2 text-[10px] font-bold tracking-[0.4em] text-white/20 transition-all bg-transparent border-none outline-none hover:text-glow-current"
+              style={{ '--current-glow': currentFlavor.accentHex } as any}
             >
               <ChevronUp className="w-4 h-4 group-hover:-translate-y-1 transition-transform" />
               <span className="transition-all uppercase">PREV</span>
@@ -173,7 +174,8 @@ export function NectarHero() {
             <div className="w-px h-12 bg-white/10" />
             <button 
               onClick={() => changeFlavor("next")}
-              className="group flex flex-col items-center gap-2 py-2 text-[10px] font-bold tracking-[0.4em] text-white/20 transition-all bg-transparent border-none outline-none hover:text-glow-primary"
+              className="group flex flex-col items-center gap-2 py-2 text-[10px] font-bold tracking-[0.4em] text-white/20 transition-all bg-transparent border-none outline-none hover:text-glow-current"
+              style={{ '--current-glow': currentFlavor.accentHex } as any}
             >
               <span className="transition-all uppercase">NEXT</span>
               <ChevronDown className="w-4 h-4 group-hover:translate-y-1 transition-transform" />
@@ -186,7 +188,9 @@ export function NectarHero() {
         <div className="flex gap-4">
           <Instagram className="w-4 h-4 text-white/15 hover:text-primary transition-colors cursor-pointer" />
           <Twitter className="w-4 h-4 text-white/15 hover:text-primary transition-colors cursor-pointer" />
-          <Facebook className="w-4 h-4 text-white/15 hover:text-primary transition-colors cursor-pointer" />
+          <a href="https://www.facebook.com/share/1JjgEWEg8M/" target="_blank" rel="noopener noreferrer">
+            <Facebook className="w-4 h-4 text-white/15 hover:text-primary transition-colors cursor-pointer" />
+          </a>
         </div>
         
         <div className="w-px h-4 bg-white/10" />
