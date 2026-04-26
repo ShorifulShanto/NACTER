@@ -376,7 +376,11 @@ body {
 
 h1:hover, h2:hover, h3:hover, h4:hover, h5:hover, h6:hover, p:hover, span:hover, a:hover, label:hover, button:hover {
   text-shadow: 0 0 15px var(--nectar-teal);
-  transition: text-shadow .3s;
+  transition: text-shadow .3s, box-shadow .3s;
+}
+
+button:hover, .interactive-glow:hover {
+  box-shadow: 0 0 20px var(--nectar-glow);
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -3644,10 +3648,6 @@ h1, h2, h3, h4, h5, h6 {
 
 .group\/menu-item:hover .group-hover\/menu-item\:opacity-100, .group:hover .group-hover\:opacity-100 {
   opacity: 1;
-}
-
-.group:hover .group-hover\:\[text-shadow\:0_0_15px_var\(--flavor-accent\)\] {
-  text-shadow: 0 0 15px var(--flavor-accent);
 }
 
 .group.destructive .group-\[\.destructive\]\:border-muted\/40 {

@@ -43,11 +43,15 @@
     text-rendering: optimizeLegibility;
   }
   
-  /* Universal Typographic Hover Glow - Strictly on Text */
+  /* Universal Typographic & Element Hover Glow */
   h1:hover, h2:hover, h3:hover, h4:hover, h5:hover, h6:hover,
   p:hover, span:hover, a:hover, label:hover, button:hover {
     text-shadow: 0 0 15px var(--nectar-teal);
-    transition: text-shadow 0.3s ease;
+    transition: text-shadow 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  button:hover, .interactive-glow:hover {
+    box-shadow: 0 0 20px var(--nectar-glow);
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -63,7 +67,7 @@
   color: var(--nectar-teal);
 }
 
-/* GPU Hardware Acceleration for Buttery Smoothness */
+/* GPU Hardware Acceleration */
 .gpu-smooth {
   transform: translate3d(0, 0, 0);
   backface-visibility: hidden;

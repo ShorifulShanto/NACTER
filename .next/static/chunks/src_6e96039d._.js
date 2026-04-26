@@ -606,7 +606,7 @@ function AuthModal(param) {
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 className: "text-center",
                                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
-                                    className: "text-3xl font-headline font-black text-primary uppercase tracking-tight hover:[text-shadow:0_0_15px_#7AE2CF] transition-all",
+                                    className: "text-3xl font-headline font-black text-primary uppercase tracking-tight",
                                     children: view === "login" ? "Login" : view === "signup" ? "Sign Up" : "Reset"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/AuthModal.tsx",
@@ -764,7 +764,7 @@ function AuthModal(param) {
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                         onClick: ()=>setView(view === "login" ? "signup" : "login"),
-                                        className: "text-[10px] font-bold text-white/40 hover:text-primary transition-colors uppercase tracking-widest hover:[text-shadow:0_0_10px_#7AE2CF]",
+                                        className: "text-[10px] font-bold text-white/40 hover:text-primary transition-colors uppercase tracking-widest",
                                         children: view === "login" ? "Need an account? Sign Up" : "Already a member? Sign In"
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/AuthModal.tsx",

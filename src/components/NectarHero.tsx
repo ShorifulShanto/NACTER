@@ -135,7 +135,7 @@ export function NectarHero() {
                   backgroundColor: isSoldOut ? '#333' : currentFlavor.accentHex,
                   color: '#000'
                 } as any}
-                className={`px-10 py-4 font-bold rounded-full uppercase tracking-widest text-[10px] transition-all active:scale-95 hover:scale-105`}
+                className={`px-10 py-4 font-bold rounded-full uppercase tracking-widest text-[10px] transition-all active:scale-95 hover:scale-105 shadow-xl`}
               >
                 {isSoldOut ? "SOLD OUT" : "ORDER NOW →"}
               </button>
@@ -169,18 +169,16 @@ export function NectarHero() {
             <button 
               onClick={() => changeFlavor("prev")}
               className="group flex flex-col items-center gap-2 py-2 text-[10px] font-bold tracking-[0.4em] text-white/20 transition-all bg-transparent border-none outline-none"
-              style={{ '--flavor-accent': currentFlavor.accentHex } as any}
             >
               <ChevronUp className="w-4 h-4 group-hover:-translate-y-1 transition-transform" />
-              <span className="group-hover:text-white transition-all group-hover:[text-shadow:0_0_15px_var(--flavor-accent)]">PREV</span>
+              <span className="group-hover:text-white transition-all">PREV</span>
             </button>
             <div className="w-px h-12 bg-white/10" />
             <button 
               onClick={() => changeFlavor("next")}
               className="group flex flex-col items-center gap-2 py-2 text-[10px] font-bold tracking-[0.4em] text-white/20 transition-all bg-transparent border-none outline-none"
-              style={{ '--flavor-accent': currentFlavor.accentHex } as any}
             >
-              <span className="group-hover:text-white transition-all group-hover:[text-shadow:0_0_15px_var(--flavor-accent)]">NEXT</span>
+              <span className="group-hover:text-white transition-all">NEXT</span>
               <ChevronDown className="w-4 h-4 group-hover:translate-y-1 transition-transform" />
             </button>
           </div>

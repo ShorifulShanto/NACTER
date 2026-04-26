@@ -10,35 +10,6 @@ import { CartSidebar } from "./CartSidebar";
 import { ProfileModal } from "./ProfileModal";
 import { useMemoFirebase } from "@/firebase/provider";
 
-function RainEffect() {
-  const drops = useMemo(() => {
-    return Array.from({ length: 20 }).map((_, i) => ({
-      id: i,
-      left: `${Math.random() * 100}%`,
-      duration: `${0.5 + Math.random() * 1}s`,
-      delay: `${Math.random() * 2}s`,
-      opacity: 0.1 + Math.random() * 0.3
-    }));
-  }, []);
-
-  return (
-    <div className="rain-container">
-      {drops.map((drop) => (
-        <div 
-          key={drop.id} 
-          className="rain-drop" 
-          style={{ 
-            left: drop.left, 
-            animationDuration: drop.duration, 
-            animationDelay: drop.delay,
-            opacity: drop.opacity
-          }} 
-        />
-      ))}
-    </div>
-  );
-}
-
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [isAuthOpen, setIsAuthOpen] = useState(false);
@@ -131,8 +102,6 @@ export function Navbar() {
         <div className={`absolute inset-0 bg-black/40 transition-opacity duration-500 ${isMenuOpen ? 'opacity-100' : 'opacity-0'}`} onClick={() => setIsMenuOpen(false)} />
         <div className={`absolute top-0 right-0 h-full w-full sm:max-w-[320px] frosted-glass transition-transform duration-700 ease-in-out ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'} shadow-2xl overflow-hidden`}>
           
-          {isMenuOpen && <RainEffect />}
-
           <div className="h-full flex flex-col p-8 md:p-12 relative z-10 overflow-y-auto scrollbar-hide">
             <div className="flex justify-between items-center mb-16">
               <span className="text-[10px] font-bold tracking-[0.4em] text-white/20 uppercase">Navigation</span>
