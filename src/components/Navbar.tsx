@@ -1,4 +1,3 @@
-
 "use client";
 
 import Link from "next/link";
@@ -8,14 +7,12 @@ import { collection } from "firebase/firestore";
 import { ShoppingCart, User, Menu, X } from "lucide-react";
 import { AuthModal } from "./AuthModal";
 import { CartSidebar } from "./CartSidebar";
-import { ProfileModal } from "./ProfileModal";
 import { useMemoFirebase } from "@/firebase/provider";
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [isAuthOpen, setIsAuthOpen] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
-  const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { user } = useUser();
   const db = useFirestore();
@@ -60,7 +57,7 @@ export function Navbar() {
           <div className="flex items-center gap-4 md:gap-8">
             <button 
               onClick={() => setIsCartOpen(true)}
-              className="relative p-2 text-white/60 hover:text-white transition-colors bg-transparent border-none"
+              className="relative p-2 text-white/60 hover:text-white transition-colors bg-transparent border-none no-glow"
             >
               <ShoppingCart size={20} strokeWidth={1.5} />
               {cartCount > 0 && (
@@ -71,15 +68,15 @@ export function Navbar() {
             </button>
 
             {user ? (
-              <button 
-                onClick={() => setIsProfileOpen(true)}
-                className="flex items-center gap-2 text-white/60 hover:text-white transition-colors group bg-transparent border-none"
+              <Link 
+                href="/profile"
+                className="flex items-center gap-2 text-white/60 hover:text-white transition-all group bg-transparent border-none hover:text-glow-primary"
               >
                 <User size={20} strokeWidth={1.5} className="group-hover:scale-110 transition-transform" />
                 <span className="text-[10px] uppercase tracking-widest hidden sm:block font-medium">
                   {user.email?.split('@')[0]}
                 </span>
-              </button>
+              </Link>
             ) : (
               <button 
                 onClick={() => setIsAuthOpen(true)}
@@ -91,7 +88,7 @@ export function Navbar() {
 
             <button 
               onClick={() => setIsMenuOpen(true)}
-              className="p-2 text-white/60 hover:text-white transition-colors bg-transparent border-none"
+              className="p-2 text-white/60 hover:text-white transition-colors bg-transparent border-none no-glow"
             >
               <Menu size={22} strokeWidth={1.5} />
             </button>
@@ -143,7 +140,6 @@ export function Navbar() {
 
       <AuthModal isOpen={isAuthOpen} onClose={() => setIsAuthOpen(false)} />
       <CartSidebar isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
-      <ProfileModal isOpen={isProfileOpen} onClose={() => setIsProfileOpen(false)} />
     </>
   );
 }

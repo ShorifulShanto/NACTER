@@ -38,16 +38,27 @@
     -webkit-tap-highlight-color: transparent;
   }
   body {
-    @apply bg-background text-foreground selection:bg-primary selection:text-black antialiased overflow-x-hidden;
+    @apply bg-background text-foreground selection:bg-primary selection:text-white antialiased overflow-x-hidden;
     font-feature-settings: "ss01", "ss02", "cv01", "cv02";
     text-rendering: optimizeLegibility;
   }
   
-  /* Universal Typographic & Element Hover Glow */
+  /* Precision Typographic Glow */
   h1:hover, h2:hover, h3:hover, h4:hover, h5:hover, h6:hover,
-  p:hover, span:hover, a:hover, label:hover {
+  p:hover, span:hover, a:hover:not(.no-glow), label:hover {
     text-shadow: 0 0 15px var(--nectar-teal);
     transition: text-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Specific Interactive Glows */
+  .hover\:text-glow-primary:hover {
+    text-shadow: 0 0 15px var(--nectar-teal) !important;
+    color: var(--nectar-teal) !important;
+  }
+
+  .hover\:text-glow-current:hover {
+    text-shadow: 0 0 20px var(--current-glow) !important;
+    color: var(--current-glow) !important;
   }
 
   button:hover:not(.no-glow), .interactive-glow:hover {
@@ -65,7 +76,6 @@
   background-color: var(--silver-dark);
 }
 
-/* GPU Hardware Acceleration for "Butter Smooth" feel */
 .gpu-smooth {
   transform: translate3d(0, 0, 0);
   backface-visibility: hidden;
@@ -108,7 +118,6 @@
   will-change: transform, filter;
 }
 
-/* Hero Border Style Number with Fill Effect */
 .border-style-number {
   color: transparent;
   -webkit-text-stroke: 1px currentColor;
@@ -120,4 +129,8 @@
   -webkit-text-stroke: 1px transparent;
   text-shadow: 0 0 40px var(--flavor-color, var(--nectar-teal));
   transform: scale(1.05);
+}
+
+.text-glow-precise {
+  text-shadow: 0 0 10px currentColor;
 }
