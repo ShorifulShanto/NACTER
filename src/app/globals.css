@@ -26,7 +26,7 @@
     --radius: 1rem;
     
     --nectar-teal: #1DCD9F;
-    --nectar-glow: rgba(29, 205, 159, 0.6);
+    --nectar-glow: rgba(29, 205, 159, 0.4);
     --hover-glow: #7AE2CF;
     --silver-dark: #0D0D0D;
   }
@@ -43,19 +43,11 @@
     text-rendering: optimizeLegibility;
   }
   
-  h1, h2, h3, h4, h5, h6, p, span, button, input, a {
-    @apply transition-all duration-300;
-  }
-
-  /* Universal Typographic Hover Glow */
+  /* Universal Typographic Hover Glow - Strictly on Text */
   h1:hover, h2:hover, h3:hover, h4:hover, h5:hover, h6:hover,
-  p:hover, span:hover, a:hover, label:hover {
-    text-shadow: 0 0 15px var(--nectar-glow);
-  }
-
-  /* Precise Glow Utility */
-  .hover-glow-text:hover {
-    text-shadow: 0 0 20px var(--nectar-glow);
+  p:hover, span:hover, a:hover, label:hover, button:hover {
+    text-shadow: 0 0 15px var(--nectar-teal);
+    transition: text-shadow 0.3s ease;
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -71,10 +63,6 @@
   color: var(--nectar-teal);
 }
 
-.text-nectar-teal:hover {
-  text-shadow: 0 0 20px var(--nectar-teal);
-}
-
 /* GPU Hardware Acceleration for Buttery Smoothness */
 .gpu-smooth {
   transform: translate3d(0, 0, 0);
@@ -83,11 +71,10 @@
   will-change: transform, opacity;
 }
 
-.glass-card-nectar {
-  background: rgba(10, 10, 10, 0.7);
-  backdrop-filter: blur(20px) saturate(160%);
-  -webkit-backdrop-filter: blur(20px) saturate(160%);
-  border: 1px solid rgba(29, 205, 159, 0.2);
+.frosted-glass {
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
 }
 
 .scrollbar-hide::-webkit-scrollbar {
@@ -104,12 +91,12 @@
 
 @keyframes heartbeat {
   0%, 100% { 
-    transform: translate3d(0,0,0) scale(1);
+    transform: scale(1);
     filter: drop-shadow(0 0 5px var(--nectar-glow));
   }
   50% { 
-    transform: translate3d(0,0,0) scale(1.02);
-    filter: drop-shadow(0 0 15px var(--nectar-teal));
+    transform: scale(1.02);
+    filter: drop-shadow(0 0 20px var(--nectar-teal));
   }
 }
 
@@ -119,6 +106,7 @@
   will-change: transform, filter;
 }
 
+/* Hero Border Style Number with Fill Effect */
 .border-style-number {
   color: transparent;
   -webkit-text-stroke: 1px currentColor;
@@ -128,5 +116,5 @@
 .border-style-number:hover {
   color: var(--flavor-color, currentColor);
   -webkit-text-stroke: 1px transparent;
-  text-shadow: 0 0 30px var(--flavor-color, var(--nectar-glow));
+  text-shadow: 0 0 40px var(--flavor-color, var(--nectar-teal));
 }

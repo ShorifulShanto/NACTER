@@ -87,14 +87,14 @@ export function ProductCollection() {
                 return (
                   <div 
                     key={product.id} 
-                    className="group relative flex flex-col items-center sm:items-start product-card-glow will-change-transform gpu-smooth"
+                    className="group relative flex flex-col items-center sm:items-start will-change-transform gpu-smooth"
                   >
                      <Link 
                        href={`/product/${product.id}`}
-                       className="aspect-square w-full rounded-[2.5rem] bg-transparent border border-white/5 overflow-hidden p-4 mb-6 flex flex-col items-center justify-center group-hover:border-primary/40 transition-all duration-700 shadow-2xl relative cursor-pointer"
+                       className="aspect-square w-full rounded-[2.5rem] bg-transparent border border-white/5 overflow-hidden p-4 mb-6 flex flex-col items-center justify-center group-hover:border-primary/40 transition-all duration-700 cursor-pointer"
                      >
                         {isSoldOut && (
-                          <div className="absolute top-4 left-4 z-10 border border-primary text-primary text-[8px] font-bold px-3 py-1.5 rounded-full uppercase tracking-widest shadow-lg bg-transparent backdrop-blur-sm">
+                          <div className="absolute top-4 left-4 z-10 border border-primary text-primary text-[8px] font-bold px-3 py-1.5 rounded-full uppercase tracking-widest bg-transparent backdrop-blur-sm">
                             Sold Out
                           </div>
                         )}
@@ -114,7 +114,7 @@ export function ProductCollection() {
                         {!isSoldOut && (
                           <button 
                             onClick={(e) => handleAddToCart(e, product.id, product.name, price, productImage, isSoldOut)}
-                            className="absolute bottom-6 right-6 w-12 h-12 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-500 shadow-2xl z-20 hover:scale-110 border bg-transparent"
+                            className="absolute bottom-6 right-6 w-12 h-12 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-500 z-20 hover:scale-110 border bg-transparent"
                             style={{ borderColor: accentColor, color: accentColor }}
                           >
                             <Plus size={20} />
@@ -122,10 +122,10 @@ export function ProductCollection() {
                         )}
                      </Link>
                      <div className="text-center sm:text-left px-2">
-                       <h4 className={`text-[12px] font-bold tracking-[0.3em] uppercase mb-1 transition-all duration-300 ${isSoldOut ? 'opacity-20' : 'text-white group-hover:text-primary group-hover:glow-precise'}`}>
+                       <h4 className={`text-[12px] font-bold tracking-[0.3em] uppercase mb-1 transition-all duration-300 ${isSoldOut ? 'opacity-20' : 'text-white'}`}>
                          {product.name}
                        </h4>
-                       <p className="text-[10px] text-foreground/40 uppercase tracking-[0.4em] font-medium font-mono group-hover:text-primary transition-colors">
+                       <p className="text-[10px] text-foreground/40 uppercase tracking-[0.4em] font-medium font-mono transition-colors">
                          ${price.toFixed(2)} — 350ml
                        </p>
                      </div>

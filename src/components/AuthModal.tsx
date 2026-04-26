@@ -122,7 +122,7 @@ export function AuthModal({ isOpen, onClose }: { isOpen: boolean; onClose: () =>
         <div className="flex-1 min-[720px]:flex-[0.45] p-8 min-[720px]:p-12 relative flex flex-col justify-center bg-black">
           <div className="max-w-[300px] mx-auto w-full space-y-6">
             <div className="text-center">
-              <h2 className="text-3xl font-headline font-black text-primary uppercase tracking-tight hover:[text-shadow:0_0_15px_#7AE2CF] transition-all">
+              <h2 className="text-3xl font-headline font-black text-primary uppercase tracking-tight">
                 {view === "login" ? "Login" : view === "signup" ? "Sign Up" : "Reset"}
               </h2>
             </div>
@@ -193,7 +193,7 @@ export function AuthModal({ isOpen, onClose }: { isOpen: boolean; onClose: () =>
               )}
               <button 
                 onClick={() => setView(view === "login" ? "signup" : "login")}
-                className="text-[10px] font-bold text-white/40 hover:text-primary transition-colors uppercase tracking-widest hover:[text-shadow:0_0_10px_#7AE2CF]"
+                className="text-[10px] font-bold text-white/40 hover:text-primary transition-colors uppercase tracking-widest"
               >
                 {view === "login" ? "Need an account? Sign Up" : "Already a member? Sign In"}
               </button>

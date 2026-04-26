@@ -20,9 +20,9 @@ export function FAQSection() {
         
         <Accordion type="single" collapsible className="space-y-4">
           {faqs.map((faq, i) => (
-            <AccordionItem key={i} value={`item-${i}`} className="border-white/5 bg-black/20 rounded-xl px-6 transition-all duration-300">
-              <AccordionTrigger className="text-[11px] md:text-sm font-headline font-bold hover:no-underline hover:text-primary py-5 uppercase tracking-widest text-left text-foreground transition-all group">
-                <span className="transition-all group-hover:glow-precise">{faq.q}</span>
+            <AccordionItem key={i} value={`item-${i}`} className="border-none bg-transparent rounded-xl px-6 transition-all duration-300">
+              <AccordionTrigger className="text-[11px] md:text-sm font-headline font-bold hover:no-underline py-5 uppercase tracking-widest text-left text-foreground transition-all group">
+                {faq.q}
               </AccordionTrigger>
               <AccordionContent className="text-foreground/40 text-[11px] pb-5 leading-relaxed font-light border-t border-white/5 pt-4">
                 {faq.a}

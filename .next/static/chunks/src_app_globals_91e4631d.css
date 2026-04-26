@@ -345,7 +345,7 @@ img, video {
   --ring: 164 75% 46%;
   --radius: 1rem;
   --nectar-teal: #1dcd9f;
-  --nectar-glow: rgba(29, 205, 159, .6);
+  --nectar-glow: rgba(29, 205, 159, .4);
   --hover-glow: #7ae2cf;
   --silver-dark: #0d0d0d;
 }
@@ -374,15 +374,9 @@ body {
   text-rendering: optimizeLegibility;
 }
 
-h1, h2, h3, h4, h5, h6, p, span, button, input, a {
-  transition-property: all;
-  transition-duration: .3s;
-  transition-timing-function: cubic-bezier(.4, 0, .2, 1);
-  animation-duration: .3s;
-}
-
-h1:hover, h2:hover, h3:hover, h4:hover, h5:hover, h6:hover, p:hover, span:hover, a:hover, label:hover {
-  text-shadow: 0 0 15px var(--nectar-glow);
+h1:hover, h2:hover, h3:hover, h4:hover, h5:hover, h6:hover, p:hover, span:hover, a:hover, label:hover, button:hover {
+  text-shadow: 0 0 15px var(--nectar-teal);
+  transition: text-shadow .3s;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -3139,10 +3133,6 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--nectar-teal);
 }
 
-.text-nectar-teal:hover {
-  text-shadow: 0 0 20px var(--nectar-teal);
-}
-
 .gpu-smooth {
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
@@ -3151,10 +3141,9 @@ h1, h2, h3, h4, h5, h6 {
   transform: translate3d(0, 0, 0);
 }
 
-.glass-card-nectar {
-  -webkit-backdrop-filter: blur(20px) saturate(160%);
-  background: rgba(10, 10, 10, .7);
-  border: 1px solid rgba(29, 205, 159, .2);
+.frosted-glass {
+  -webkit-backdrop-filter: blur(20px);
+  background: rgba(0, 0, 0, .5);
 }
 
 .scrollbar-hide::-webkit-scrollbar {
@@ -3173,12 +3162,12 @@ h1, h2, h3, h4, h5, h6 {
 @keyframes heartbeat {
   0%, 100% {
     filter: drop-shadow(0 0 5px var(--nectar-glow));
-    transform: translate3d(0, 0, 0)scale(1);
+    transform: scale(1);
   }
 
   50% {
-    filter: drop-shadow(0 0 15px var(--nectar-teal));
-    transform: translate3d(0, 0, 0)scale(1.02);
+    filter: drop-shadow(0 0 20px var(--nectar-teal));
+    transform: scale(1.02);
   }
 }
 
@@ -3197,7 +3186,7 @@ h1, h2, h3, h4, h5, h6 {
 .border-style-number:hover {
   color: var(--flavor-color, currentColor);
   -webkit-text-stroke: 1px transparent;
-  text-shadow: 0 0 30px var(--flavor-color, var(--nectar-glow));
+  text-shadow: 0 0 40px var(--flavor-color, var(--nectar-teal));
 }
 
 .selection\:bg-primary ::selection {
@@ -3477,14 +3466,6 @@ h1, h2, h3, h4, h5, h6 {
   box-shadow: var(--tw-ring-offset-shadow, 0 0 rgba(0, 0, 0, 0)), var(--tw-ring-shadow, 0 0 rgba(0, 0, 0, 0)), var(--tw-shadow);
 }
 
-.hover\:\[text-shadow\:0_0_10px_\#7AE2CF\]:hover {
-  text-shadow: 0 0 10px #7ae2cf;
-}
-
-.hover\:\[text-shadow\:0_0_15px_\#7AE2CF\]:hover {
-  text-shadow: 0 0 15px #7ae2cf;
-}
-
 .hover\:\[text-shadow\:0_0_20px_\#7AE2CF\]:hover {
   text-shadow: 0 0 20px #7ae2cf;
 }
@@ -3663,6 +3644,10 @@ h1, h2, h3, h4, h5, h6 {
 
 .group\/menu-item:hover .group-hover\/menu-item\:opacity-100, .group:hover .group-hover\:opacity-100 {
   opacity: 1;
+}
+
+.group:hover .group-hover\:\[text-shadow\:0_0_15px_var\(--flavor-accent\)\] {
+  text-shadow: 0 0 15px var(--flavor-accent);
 }
 
 .group.destructive .group-\[\.destructive\]\:border-muted\/40 {

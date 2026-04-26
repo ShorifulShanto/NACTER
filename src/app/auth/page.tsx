@@ -112,6 +112,7 @@ export default function NectarAuthPage() {
     <div className="min-h-[100svh] w-full bg-black flex items-center justify-center p-4 min-[720px]:p-10 font-body overflow-y-auto gpu-smooth">
       <div className="relative w-full max-w-[900px] bg-black border-[3px] border-primary shadow-[0_0_60px_rgba(29,205,159,0.15)] rounded-[2rem] min-[720px]:rounded-[3rem] overflow-hidden flex flex-col min-[720px]:flex-row">
         
+        {/* Brand Image Header (Stacked mobile, split desktop) */}
         <div className="flex-[0.4] min-[720px]:flex-[0.55] relative overflow-hidden bg-black border-b min-[720px]:border-b-0 min-[720px]:border-r border-primary/30 min-h-[300px] min-[720px]:min-h-0">
           <Image 
             src="https://res.cloudinary.com/dhzt5kvoz/image/upload/v1777057652/334fab87-6bd2-410d-93e5-5a4bc04edda9.png"
@@ -126,7 +127,7 @@ export default function NectarAuthPage() {
           <div className="w-full max-w-[320px] space-y-8">
             <div className="text-center">
               <p className="text-[10px] uppercase tracking-[0.4em] text-white/40 font-bold mb-2">NECTAR BATCH NO. 25</p>
-              <h2 className="text-4xl font-headline font-black text-primary uppercase tracking-tight hover:[text-shadow:0_0_20px_#7AE2CF] transition-all">
+              <h2 className="text-4xl font-headline font-black text-primary uppercase tracking-tight">
                 {view === "login" ? "Login" : view === "signup" ? "Sign Up" : "Reset"}
               </h2>
             </div>
@@ -205,7 +206,7 @@ export default function NectarAuthPage() {
               
               <button 
                 onClick={() => setView(view === "login" ? "signup" : "login")}
-                className="text-[11px] font-bold text-white/40 hover:text-primary transition-colors uppercase tracking-widest hover:[text-shadow:0_0_10px_#7AE2CF]"
+                className="text-[11px] font-bold text-white/40 hover:text-primary transition-colors uppercase tracking-widest"
               >
                 {view === "login" ? "Need an account? Sign Up" : "Already a member? Sign In"}
               </button>
