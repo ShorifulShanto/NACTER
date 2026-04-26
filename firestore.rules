@@ -38,10 +38,7 @@ service cloud.firestore {
     match /orders/{orderId} {
       allow create: if isSignedIn();
       allow get: if isSignedIn() && (isAdmin() || resource.data.userId == request.auth.uid);
-      allow list: if isSignedIn() && (
-        isAdmin() || 
-        (request.auth.uid == resource.data.userId && (request.query.limit == null || request.query.limit <= 100))
-      );
+      allow list: if isSignedIn() && (isAdmin() || request.auth.uid == resource.data.userId);
       allow update, delete: if isAdmin();
     }
 

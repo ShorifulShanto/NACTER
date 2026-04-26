@@ -71,7 +71,7 @@ export function Navbar() {
             {user ? (
               <Link 
                 href="/profile"
-                className="flex items-center gap-2 text-white/60 hover:text-white transition-all group bg-transparent border-none hover:text-glow-primary"
+                className="flex items-center gap-2 text-white/60 transition-all group bg-transparent border-none hover:text-glow-primary"
               >
                 <User size={20} strokeWidth={1.5} className="group-hover:scale-110 transition-transform" />
                 <span className="text-[10px] uppercase tracking-widest hidden sm:block font-medium">

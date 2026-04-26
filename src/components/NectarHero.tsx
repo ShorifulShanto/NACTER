@@ -165,8 +165,7 @@ export function NectarHero() {
           <div className="flex flex-col items-center gap-5">
             <button 
               onClick={() => changeFlavor("prev")}
-              className="group flex flex-col items-center gap-2 py-2 text-[10px] font-bold tracking-[0.4em] text-white/20 transition-all bg-transparent border-none outline-none hover:text-glow-current"
-              style={{ '--current-glow': currentFlavor.accentHex } as any}
+              className="group flex flex-col items-center gap-2 py-2 text-[10px] font-bold tracking-[0.4em] text-white/20 transition-all bg-transparent border-none outline-none hover:text-glow-primary"
             >
               <ChevronUp className="w-4 h-4 group-hover:-translate-y-1 transition-transform" />
               <span className="transition-all uppercase">PREV</span>
@@ -174,8 +173,7 @@ export function NectarHero() {
             <div className="w-px h-12 bg-white/10" />
             <button 
               onClick={() => changeFlavor("next")}
-              className="group flex flex-col items-center gap-2 py-2 text-[10px] font-bold tracking-[0.4em] text-white/20 transition-all bg-transparent border-none outline-none hover:text-glow-current"
-              style={{ '--current-glow': currentFlavor.accentHex } as any}
+              className="group flex flex-col items-center gap-2 py-2 text-[10px] font-bold tracking-[0.4em] text-white/20 transition-all bg-transparent border-none outline-none hover:text-glow-primary"
             >
               <span className="transition-all uppercase">NEXT</span>
               <ChevronDown className="w-4 h-4 group-hover:translate-y-1 transition-transform" />

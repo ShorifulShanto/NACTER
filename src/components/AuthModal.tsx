@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState } from "react";
@@ -12,7 +13,7 @@ import {
   updateProfile,
   sendPasswordResetEmail
 } from "firebase/auth";
-import { doc, getDoc, setDoc, serverTimestamp } from "firebase/firestore";
+import { doc, setDoc, serverTimestamp } from "firebase/firestore";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 import { Loader2 } from "lucide-react";
@@ -37,20 +38,18 @@ export function AuthModal({ isOpen, onClose }: { isOpen: boolean; onClose: () =>
   const syncUserToFirestore = async (user: User) => {
     if (!db) return;
     const userRef = doc(db, "users", user.uid);
-    const snap = await getDoc(userRef);
-    
-    await setDoc(userRef, {
-      id: user.uid,
-      email: user.email,
-      updatedAt: serverTimestamp(),
-      ...(snap.exists() ? {} : {
-        createdAt: serverTimestamp(),
+    try {
+      await setDoc(userRef, {
+        id: user.uid,
+        email: user.email,
+        updatedAt: serverTimestamp(),
         firstName: name.split(' ')[0] || user.displayName?.split(' ')[0] || "",
         lastName: name.split(' ').slice(1).join(' ') || user.displayName?.split(' ').slice(1).join(' ') || "",
-        phoneNumber: "",
-        location: ""
-      })
-    }, { merge: true });
+        createdAt: serverTimestamp(),
+      }, { merge: true });
+    } catch (e: any) {
+      console.warn("Firestore sync delayed:", e.message);
+    }
   };
 
   const handleAuth = async (e: React.FormEvent) => {
@@ -62,7 +61,7 @@ export function AuthModal({ isOpen, onClose }: { isOpen: boolean; onClose: () =>
         await syncUserToFirestore(userCred.user);
         onClose();
         toast({ title: "Welcome back to NECTAR" });
-        router.refresh();
+        window.location.reload();
       } else if (view === "signup") {
         const userCred = await createUserWithEmailAndPassword(auth, email, password);
         if (name) {
@@ -71,7 +70,7 @@ export function AuthModal({ isOpen, onClose }: { isOpen: boolean; onClose: () =>
         await syncUserToFirestore(userCred.user);
         onClose();
         toast({ title: "Welcome to NECTAR" });
-        router.refresh();
+        window.location.reload();
       } else if (view === "forgot-password") {
         await sendPasswordResetEmail(auth, email);
         toast({ title: "Reset link sent", description: "Please check your inbox." });
@@ -96,7 +95,7 @@ export function AuthModal({ isOpen, onClose }: { isOpen: boolean; onClose: () =>
       await syncUserToFirestore(userCred.user);
       onClose();
       toast({ title: "Welcome to NECTAR" });
-      router.refresh();
+      window.location.reload();
     } catch (error: any) {
       toast({ variant: "destructive", title: "Sign-In Failed", description: error.message });
     } finally {

@@ -24,7 +24,7 @@ Follow these steps to push this exact version of the project to your GitHub repo
    - Go to [github.com/new](https://github.com/new).
    - Name your repository (e.g., `nectar-juice`).
    - Keep it "Public" or "Private" as preferred.
-   - Do **not** initialize with a README, license, or .gitignore (the project already has them).
+   - Do **not** initialize with a README, license, or .gitignore.
 
 4. **Connect to Remote**:
    Copy the SSH or HTTPS URL from GitHub and run:
@@ -41,7 +41,9 @@ Follow these steps to push this exact version of the project to your GitHub repo
 ## ⚠️ Post-Deployment Setup
 To ensure Authentication and Firestore work in production:
 1. Go to the [Firebase Console](https://console.firebase.google.com/).
-2. **Authentication**: Enable "Email/Password" and "Google" sign-in providers.
+2. **Authentication**: 
+   - Enable "Email/Password" sign-in provider.
+   - Enable "Google" sign-in provider.
 3. **Firestore**: Ensure your security rules are deployed (they are managed in `firestore.rules` within this project).
 4. **Environment Variables**: If you use Genkit AI in production, ensure your `GEMINI_API_KEY` is set in your hosting provider's dashboard.
 

@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState, useEffect } from "react";
@@ -11,7 +12,7 @@ import {
   updateProfile,
   sendPasswordResetEmail
 } from "firebase/auth";
-import { doc, getDoc, setDoc, serverTimestamp } from "firebase/firestore";
+import { doc, setDoc, serverTimestamp } from "firebase/firestore";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 import { Loader2, ArrowRight } from "lucide-react";
@@ -42,20 +43,22 @@ export default function NectarAuthPage() {
   const syncUserToFirestore = async (user: User) => {
     if (!db) return;
     const userRef = doc(db, "users", user.uid);
-    const snap = await getDoc(userRef);
     
-    await setDoc(userRef, {
-      id: user.uid,
-      email: user.email,
-      updatedAt: serverTimestamp(),
-      ...(snap.exists() ? {} : {
-        createdAt: serverTimestamp(),
+    // Perform an atomic creation/merge to ensure user profile exists in Firestore
+    try {
+      await setDoc(userRef, {
+        id: user.uid,
+        email: user.email,
+        updatedAt: serverTimestamp(),
+        // Only set these if the user is being created (merge will handle existing ones)
         firstName: name.split(' ')[0] || user.displayName?.split(' ')[0] || "",
         lastName: name.split(' ').slice(1).join(' ') || user.displayName?.split(' ').slice(1).join(' ') || "",
-        phoneNumber: "",
-        location: ""
-      })
-    }, { merge: true });
+        createdAt: serverTimestamp(),
+      }, { merge: true });
+    } catch (e: any) {
+      console.warn("Firestore sync delayed or failed:", e.message);
+      // We don't throw here to avoid blocking sign-in if Auth itself succeeded
+    }
   };
 
   const handleAuth = async (e: React.FormEvent) => {
@@ -66,7 +69,7 @@ export default function NectarAuthPage() {
         const userCred = await signInWithEmailAndPassword(auth, email, password);
         await syncUserToFirestore(userCred.user);
         toast({ title: "Welcome back to NECTAR" });
-        router.push("/");
+        window.location.href = "/";
       } else if (view === "signup") {
         const userCred = await createUserWithEmailAndPassword(auth, email, password);
         if (name) {
@@ -74,7 +77,7 @@ export default function NectarAuthPage() {
         }
         await syncUserToFirestore(userCred.user);
         toast({ title: "Welcome to NECTAR" });
-        router.push("/");
+        window.location.href = "/";
       } else if (view === "forgot-password") {
         await sendPasswordResetEmail(auth, email);
         toast({ title: "Reset link sent", description: "Please check your inbox." });
@@ -98,7 +101,7 @@ export default function NectarAuthPage() {
       const userCred = await signInWithPopup(auth, provider);
       await syncUserToFirestore(userCred.user);
       toast({ title: "Welcome to NECTAR" });
-      router.push("/");
+      window.location.href = "/";
     } catch (error: any) {
       toast({ variant: "destructive", title: "Sign-In Failed", description: error.message });
     } finally {
@@ -112,7 +115,6 @@ export default function NectarAuthPage() {
     <div className="min-h-[100svh] w-full bg-black flex items-center justify-center p-4 min-[720px]:p-10 font-body overflow-y-auto gpu-smooth">
       <div className="relative w-full max-w-[900px] bg-black border-[3px] border-primary shadow-[0_0_60px_rgba(29,205,159,0.15)] rounded-[2rem] min-[720px]:rounded-[3rem] overflow-hidden flex flex-col min-[720px]:flex-row">
         
-        {/* Brand Image Header (Stacked mobile, split desktop) */}
         <div className="flex-[0.4] min-[720px]:flex-[0.55] relative overflow-hidden bg-black border-b min-[720px]:border-b-0 min-[720px]:border-r border-primary/30 min-h-[300px] min-[720px]:min-h-0">
           <Image 
             src="https://res.cloudinary.com/dhzt5kvoz/image/upload/v1777057652/334fab87-6bd2-410d-93e5-5a4bc04edda9.png"
