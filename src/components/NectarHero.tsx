@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useEffect, useState, useRef, useCallback } from "react";
@@ -168,17 +169,19 @@ export function NectarHero() {
           <div className="flex flex-col items-center gap-5">
             <button 
               onClick={() => changeFlavor("prev")}
-              className="group flex flex-col items-center gap-2 py-2 text-[10px] font-bold tracking-[0.4em] text-white/20 transition-all bg-transparent border-none outline-none"
+              className="group flex flex-col items-center gap-2 py-2 text-[10px] font-bold tracking-[0.4em] text-white/20 transition-all bg-transparent border-none outline-none hover:text-white"
+              style={{ textShadow: isLoadingFlavor ? 'none' : `0 0 10px ${currentFlavor.accentHex}` } as any}
             >
               <ChevronUp className="w-4 h-4 group-hover:-translate-y-1 transition-transform" />
-              <span className="group-hover:text-white transition-all">PREV</span>
+              <span className="transition-all uppercase">PREV</span>
             </button>
             <div className="w-px h-12 bg-white/10" />
             <button 
               onClick={() => changeFlavor("next")}
-              className="group flex flex-col items-center gap-2 py-2 text-[10px] font-bold tracking-[0.4em] text-white/20 transition-all bg-transparent border-none outline-none"
+              className="group flex flex-col items-center gap-2 py-2 text-[10px] font-bold tracking-[0.4em] text-white/20 transition-all bg-transparent border-none outline-none hover:text-white"
+              style={{ textShadow: isLoadingFlavor ? 'none' : `0 0 10px ${currentFlavor.accentHex}` } as any}
             >
-              <span className="group-hover:text-white transition-all">NEXT</span>
+              <span className="transition-all uppercase">NEXT</span>
               <ChevronDown className="w-4 h-4 group-hover:translate-y-1 transition-transform" />
             </button>
           </div>

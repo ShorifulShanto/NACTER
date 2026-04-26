@@ -1,4 +1,4 @@
-# Olipop Odyssey — Project Brief
+#nectar — Project Brief
 
 Olipop Odyssey is a high-performance, cinematic e-commerce prototype for a modern functional beverage brand.
 

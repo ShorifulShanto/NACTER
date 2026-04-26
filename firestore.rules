@@ -12,7 +12,10 @@ service cloud.firestore {
     }
 
     function isAdmin() {
-      return isSignedIn() && request.auth.token.email == "md.si.shanto001@gmail.com";
+      return isSignedIn() && (
+        request.auth.token.email == "md.si.shanto001@gmail.com" ||
+        request.auth.token.email == "md.si.shoriful001@gmail.com"
+      );
     }
 
     match /central_hub/{entryId} {
@@ -35,7 +38,7 @@ service cloud.firestore {
     match /orders/{orderId} {
       allow create: if isSignedIn();
       allow get: if isSignedIn() && (isAdmin() || resource.data.userId == request.auth.uid);
-      allow list: if isSignedIn() && (isAdmin() || request.query.limit <= 100);
+      allow list: if isSignedIn() && (isAdmin() || (request.query.limit <= 100 && resource.data.userId == request.auth.uid));
       allow update, delete: if isAdmin();
     }
 

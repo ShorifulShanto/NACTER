@@ -1,7 +1,8 @@
+
 "use client";
 
 import { useUser, useFirestore, useCollection, useMemoFirebase } from "@/firebase";
-import { collection, query, where } from "firebase/firestore";
+import { collection, query, where, limit } from "firebase/firestore";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { 
@@ -30,7 +31,8 @@ export default function OrdersPage() {
     if (!db || !user) return null;
     return query(
       collection(db, "orders"),
-      where("userId", "==", user.uid)
+      where("userId", "==", user.uid),
+      limit(20)
     );
   }, [db, user]);
 

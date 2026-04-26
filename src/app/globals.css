@@ -26,7 +26,7 @@
     --radius: 1rem;
     
     --nectar-teal: #1DCD9F;
-    --nectar-glow: rgba(29, 205, 159, 0.4);
+    --nectar-glow: rgba(29, 205, 159, 0.6);
     --hover-glow: #7AE2CF;
     --silver-dark: #0D0D0D;
   }
@@ -45,13 +45,15 @@
   
   /* Universal Typographic & Element Hover Glow */
   h1:hover, h2:hover, h3:hover, h4:hover, h5:hover, h6:hover,
-  p:hover, span:hover, a:hover, label:hover, button:hover {
+  p:hover, span:hover, a:hover, label:hover {
     text-shadow: 0 0 15px var(--nectar-teal);
-    transition: text-shadow 0.3s ease, box-shadow 0.3s ease;
+    transition: text-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
-  button:hover, .interactive-glow:hover {
+  button:hover:not(.no-glow), .interactive-glow:hover {
     box-shadow: 0 0 20px var(--nectar-glow);
+    text-shadow: 0 0 10px var(--nectar-teal);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -63,16 +65,12 @@
   background-color: var(--silver-dark);
 }
 
-.text-nectar-teal {
-  color: var(--nectar-teal);
-}
-
-/* GPU Hardware Acceleration */
+/* GPU Hardware Acceleration for "Butter Smooth" feel */
 .gpu-smooth {
   transform: translate3d(0, 0, 0);
   backface-visibility: hidden;
   perspective: 1000px;
-  will-change: transform, opacity;
+  will-change: transform, opacity, filter;
 }
 
 .frosted-glass {
@@ -114,11 +112,12 @@
 .border-style-number {
   color: transparent;
   -webkit-text-stroke: 1px currentColor;
-  transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .border-style-number:hover {
   color: var(--flavor-color, currentColor);
   -webkit-text-stroke: 1px transparent;
   text-shadow: 0 0 40px var(--flavor-color, var(--nectar-teal));
+  transform: scale(1.05);
 }

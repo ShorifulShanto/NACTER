@@ -12,10 +12,6 @@ import {
   ArrowLeft, 
   Plus, 
   Minus, 
-  ShieldCheck, 
-  Zap, 
-  Droplets, 
-  Leaf,
   ShoppingCart,
   Loader2,
   Star
@@ -120,12 +116,12 @@ export default function ProductDetailPage() {
         </button>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
-          <div className="relative aspect-square rounded-[3rem] bg-neutral-900/40 border border-white/5 overflow-hidden flex items-center justify-center p-12 group">
+          <div className="relative aspect-square rounded-[3rem] bg-transparent border border-white/5 overflow-hidden flex items-center justify-center p-12 group">
             <div 
               className="absolute inset-0 opacity-20 blur-[100px] pointer-events-none"
               style={{ background: `radial-gradient(circle at center, ${accentColor} 0%, transparent 70%)` }}
             />
-            <div className="relative w-full h-full">
+            <div className="relative w-full h-full transform group-hover:scale-105 transition-transform duration-1000">
               <Image src={image} alt={name} fill className="object-contain" priority />
             </div>
             {isSoldOut && (
