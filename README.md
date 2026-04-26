@@ -1,3 +1,4 @@
+
 # NECTAR — Cinematic E-Commerce Prototype
 
 NECTAR is a high-performance, cinematic functional beverage brand experience built with Next.js 15, Firebase, and Genkit AI.

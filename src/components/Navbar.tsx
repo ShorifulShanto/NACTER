@@ -1,3 +1,4 @@
+
 "use client";
 
 import Link from "next/link";
@@ -49,9 +50,9 @@ export function Navbar() {
     <>
       <nav className={`fixed top-0 left-0 w-full z-[100] transition-all duration-500 ${scrolled ? 'bg-black/80 backdrop-blur-xl py-4 border-b border-white/5' : 'bg-transparent py-10'}`}>
         <div className="container mx-auto px-6 md:px-12 flex items-center justify-between">
-          <Link href="/" className="text-2xl font-headline font-bold tracking-[0.2em] text-primary flex items-center gap-2">
+          <Link href="/" className="text-2xl font-headline font-bold tracking-[0.2em] text-primary flex items-center gap-2 group">
             NECTAR
-            <span className="w-1.5 h-1.5 bg-primary rounded-full" />
+            <span className="w-1.5 h-1.5 bg-primary rounded-full group-hover:scale-150 transition-transform" />
           </Link>
           
           <div className="flex items-center gap-4 md:gap-8">
@@ -61,7 +62,7 @@ export function Navbar() {
             >
               <ShoppingCart size={20} strokeWidth={1.5} />
               {cartCount > 0 && (
-                <span className="absolute top-0 right-0 w-4 h-4 bg-primary text-black text-[9px] font-bold rounded-full flex items-center justify-center">
+                <span className="absolute top-0 right-0 w-4 h-4 bg-primary text-black text-[9px] font-bold rounded-full flex items-center justify-center animate-pulse">
                   {String(cartCount)}
                 </span>
               )}
@@ -80,7 +81,7 @@ export function Navbar() {
             ) : (
               <button 
                 onClick={() => setIsAuthOpen(true)}
-                className="px-5 py-2 border border-primary/20 rounded-full text-[9px] uppercase tracking-widest font-bold hover:bg-white/5 transition-all bg-transparent backdrop-blur-md"
+                className="px-5 py-2 border border-primary/20 rounded-full text-[9px] uppercase tracking-widest font-bold hover:bg-white/5 transition-all bg-transparent backdrop-blur-md hover:text-glow-primary"
               >
                 Sign In
               </button>

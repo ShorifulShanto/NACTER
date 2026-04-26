@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useEffect, useState, useRef, useCallback } from "react";
@@ -44,7 +45,6 @@ export function NectarHero() {
     return () => clearTimeout(autoRotateTimer);
   }, [currentFlavorIndex, changeFlavor, isPaused]);
 
-  // Preload neighboring animations
   useEffect(() => {
     const nextIdx = (currentFlavorIndex + 1) % flavors.length;
     const prevIdx = (currentFlavorIndex - 1 + flavors.length) % flavors.length;
@@ -79,7 +79,6 @@ export function NectarHero() {
       id="hero" 
       className="group relative h-[100svh] w-full overflow-hidden bg-black flex items-center gpu-smooth"
     >
-      {/* Background Animated WebP */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-0">
         <div 
           ref={heroImageRef}
@@ -99,7 +98,6 @@ export function NectarHero() {
 
       <div className="absolute inset-0 hero-vignette z-10 pointer-events-none" />
 
-      {/* Main Content Overlay */}
       <div className="relative z-20 h-full w-full flex items-center justify-between px-6 md:px-24">
         <div 
           ref={contentRef}
@@ -148,7 +146,6 @@ export function NectarHero() {
           </div>
         </div>
 
-        {/* Navigation and Flavor Counter */}
         <div className="flex flex-col items-center gap-12">
           <div className="text-center relative">
              <span 

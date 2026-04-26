@@ -1,3 +1,4 @@
+
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
@@ -36,9 +37,7 @@ service cloud.firestore {
 
     match /orders/{orderId} {
       allow create: if isSignedIn();
-      // Allow get if owner or admin
       allow get: if isSignedIn() && (isAdmin() || resource.data.userId == request.auth.uid);
-      // Allow list if admin OR if the query is limited and filtered to the user's own orders
       allow list: if isSignedIn() && (
         isAdmin() || 
         (request.auth.uid == resource.data.userId && (request.query.limit == null || request.query.limit <= 100))
