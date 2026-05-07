@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useUser, useFirestore, useCollection, useDoc, useMemoFirebase } from "@/firebase";
-import { collection, doc, writeBatch } from "firebase/firestore";
+import { collection, doc, writeBatch, setDoc, serverTimestamp } from "firebase/firestore";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
@@ -19,7 +19,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/hooks/use-toast";
-import { addDocumentNonBlocking, setDocumentNonBlocking, updateDocumentNonBlocking, deleteDocumentNonBlocking } from "@/firebase/non-blocking-updates";
+import { updateDocumentNonBlocking, deleteDocumentNonBlocking } from "@/firebase/non-blocking-updates";
 
 export default function CheckoutPage() {
   const { user, isUserLoading } = useUser();
@@ -61,22 +61,21 @@ export default function CheckoutPage() {
   const handlePlaceOrder = async () => {
     if (!user || !db || !items || items.length === 0) return;
 
-    const isProfileIncomplete = !profile?.firstName || !profile?.lastName || !profile?.location;
-    
-    if (isProfileIncomplete) {
+    // Check if profile is truly complete before allowing order
+    if (!profile?.location || !profile?.firstName) {
       toast({
         title: "Profile Incomplete",
-        description: "Please update your delivery details in your profile before confirmation.",
+        description: "Please update your delivery details in your profile before confirming your order.",
         variant: "destructive"
       });
+      router.push("/profile?edit=true");
       return;
     }
 
     setIsProcessing(true);
     try {
       const orderId = `ORD_${Date.now()}`;
-      const ordersRef = collection(db, "orders");
-      const orderRef = doc(ordersRef, orderId);
+      const orderRef = doc(db, "orders", orderId);
 
       const orderItems = items.map(item => ({
         productId: item.productId,
@@ -90,7 +89,8 @@ export default function CheckoutPage() {
       const SHIPPING_FEE = 5.00;
       const totalAmount = subtotal + SHIPPING_FEE;
 
-      setDocumentNonBlocking(orderRef, {
+      // We use standard setDoc with await here to ensure the order is saved before clearing cart
+      await setDoc(orderRef, {
         id: orderId,
         userId: user.uid,
         items: orderItems,
@@ -102,16 +102,8 @@ export default function CheckoutPage() {
           location: profile.location,
           phoneNumber: profile.phoneNumber || ""
         },
-        createdAt: new Date().toISOString()
-      }, { merge: true });
-
-      const hubRef = collection(db, "central_hub");
-      addDocumentNonBlocking(hubRef, {
-        type: "order_placed",
-        userId: user.uid,
-        userEmail: user.email,
-        payload: { orderId, totalAmount },
-        timestamp: new Date().toISOString()
+        createdAt: new Date().toISOString(),
+        updatedAt: serverTimestamp()
       });
 
       const batch = writeBatch(db);
@@ -121,7 +113,7 @@ export default function CheckoutPage() {
       });
       await batch.commit();
 
-      toast({ title: "Order Confirmed", description: "Your harvest is being prepared." });
+      toast({ title: "Order Confirmed", description: "Your NECTAR harvest is being prepared." });
       router.push("/checkout/success");
     } catch (e: any) {
       toast({ variant: "destructive", title: "Order Failed", description: e.message });
@@ -186,7 +178,7 @@ export default function CheckoutPage() {
                             <h4 className="text-sm font-bold uppercase tracking-widest truncate">{item.name || "NECTAR Flavor"}</h4>
                             <button 
                               onClick={() => removeItem(item.id)}
-                              className="text-white/20 hover:text-red-500 transition-colors p-1"
+                              className="text-white/20 hover:text-red-500 transition-colors p-1 bg-transparent no-glow"
                             >
                               <Trash2 size={16} />
                             </button>
@@ -196,14 +188,14 @@ export default function CheckoutPage() {
                             <div className="flex items-center border border-white/10 rounded-full px-3 py-1 bg-black/40">
                               <button 
                                 onClick={() => updateQty(item.id, qty - 1)}
-                                className="p-1 text-white/40 hover:text-white transition-colors"
+                                className="p-1 text-white/40 hover:text-white transition-colors bg-transparent no-glow"
                               >
                                 <Minus size={14} />
                               </button>
                               <span className="w-10 text-center text-xs font-bold font-mono">{String(qty)}</span>
                               <button 
                                 onClick={() => updateQty(item.id, qty + 1)}
-                                className="p-1 text-white/40 hover:text-white transition-colors"
+                                className="p-1 text-white/40 hover:text-white transition-colors bg-transparent no-glow"
                               >
                                 <Plus size={14} />
                               </button>
@@ -218,7 +210,7 @@ export default function CheckoutPage() {
                   <div className="bg-white/5 border border-white/5 rounded-2xl p-12 text-center">
                     <ShoppingBag className="mx-auto text-white/10 mb-4" size={32} />
                     <p className="text-[10px] uppercase tracking-widest text-white/20">Selection is empty</p>
-                    <Button asChild variant="ghost" className="mt-6 text-primary uppercase tracking-widest text-[9px] hover:bg-primary/5">
+                    <Button asChild variant="ghost" className="mt-6 text-primary uppercase tracking-widest text-[9px] hover:bg-primary/5 rounded-full">
                       <Link href="/">Back to Shop</Link>
                     </Button>
                   </div>
@@ -232,7 +224,7 @@ export default function CheckoutPage() {
                     <MapPin className="text-primary" size={20} />
                   </div>
                   <div className="flex-1">
-                    {profile?.firstName ? (
+                    {profile?.location ? (
                       <div className="space-y-1">
                         <p className="text-[12px] font-bold uppercase tracking-widest">{profile.firstName} {profile.lastName}</p>
                         <p className="text-[11px] text-white/40 font-light leading-relaxed">{profile.location}</p>
@@ -241,8 +233,8 @@ export default function CheckoutPage() {
                     ) : (
                       <div className="space-y-4">
                         <p className="text-[11px] text-white/40 font-light italic">Delivery address not found in your profile.</p>
-                        <Button asChild variant="outline" className="rounded-full h-10 px-6 uppercase text-[9px] tracking-widest">
-                          <Link href="/orders">Update Profile</Link>
+                        <Button asChild variant="outline" className="rounded-full h-10 px-6 uppercase text-[9px] tracking-widest bg-transparent">
+                          <Link href="/profile">Update Profile</Link>
                         </Button>
                       </div>
                     )}
@@ -274,13 +266,13 @@ export default function CheckoutPage() {
                 <div className="space-y-4">
                   <Button 
                     onClick={handlePlaceOrder}
-                    disabled={isProcessing || !items?.length || !profile?.location}
-                    className="w-full h-14 bg-white text-black hover:bg-neutral-200 rounded-full font-bold uppercase tracking-[0.2em] text-[10px] shadow-2xl transition-all active:scale-95"
+                    disabled={isProcessing || !items?.length}
+                    className="w-full h-14 bg-white text-black hover:bg-neutral-200 rounded-full font-bold uppercase tracking-[0.2em] text-[10px] shadow-2xl transition-all active:scale-95 no-glow"
                   >
                     {isProcessing ? <Loader2 className="animate-spin" size={18} /> : "Proceed to Checkout"}
                   </Button>
                   
-                  <Button asChild variant="ghost" className="w-full h-12 text-white/30 hover:text-white uppercase tracking-widest text-[9px]">
+                  <Button asChild variant="ghost" className="w-full h-12 text-white/30 hover:text-white uppercase tracking-widest text-[9px] bg-transparent rounded-full">
                     <Link href="/">Continue Shopping</Link>
                   </Button>
                 </div>

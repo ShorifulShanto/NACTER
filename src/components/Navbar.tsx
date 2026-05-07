@@ -1,4 +1,3 @@
-
 "use client";
 
 import Link from "next/link";
@@ -50,7 +49,7 @@ export function Navbar() {
     <>
       <nav className={`fixed top-0 left-0 w-full z-[100] transition-all duration-500 ${scrolled ? 'bg-black/80 backdrop-blur-xl py-4 border-b border-white/5' : 'bg-transparent py-10'}`}>
         <div className="container mx-auto px-6 md:px-12 flex items-center justify-between">
-          <Link href="/" className="text-2xl font-headline font-bold tracking-[0.2em] text-primary flex items-center gap-2 group">
+          <Link href="/" className="text-2xl font-headline font-bold tracking-[0.2em] text-primary flex items-center gap-2 group hover:text-glow-primary">
             NECTAR
             <span className="w-1.5 h-1.5 bg-primary rounded-full group-hover:scale-150 transition-transform" />
           </Link>
@@ -104,7 +103,7 @@ export function Navbar() {
           <div className="h-full flex flex-col p-8 md:p-12 relative z-10 overflow-y-auto scrollbar-hide">
             <div className="flex justify-between items-center mb-16">
               <span className="text-[10px] font-bold tracking-[0.4em] text-white/20 uppercase">Navigation</span>
-              <button onClick={() => setIsMenuOpen(false)} className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-white/10 transition-colors">
+              <button onClick={() => setIsMenuOpen(false)} className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-white/10 transition-colors bg-transparent no-glow">
                 <X size={18} className="text-white/40" />
               </button>
             </div>

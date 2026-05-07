@@ -375,8 +375,8 @@ body {
 }
 
 h1:hover, h2:hover, h3:hover, h4:hover, h5:hover, h6:hover, p:hover, span:hover, a:hover:not(.no-glow), label:hover {
-  text-shadow: 0 0 15px var(--nectar-teal);
-  transition: text-shadow .3s cubic-bezier(.4, 0, .2, 1);
+  text-shadow: 0 0 15px var(--glow-color, var(--nectar-teal));
+  transition: all .3s cubic-bezier(.4, 0, .2, 1);
 }
 
 button:hover:not(.no-glow), .interactive-glow:hover {
