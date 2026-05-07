@@ -44,18 +44,6 @@ export function NectarHero() {
     return () => clearTimeout(autoRotateTimer);
   }, [currentFlavorIndex, changeFlavor, isPaused]);
 
-  useEffect(() => {
-    const nextIdx = (currentFlavorIndex + 1) % flavors.length;
-    const prevIdx = (currentFlavorIndex - 1 + flavors.length) % flavors.length;
-    
-    if (typeof window !== 'undefined') {
-      [nextIdx, prevIdx].forEach(idx => {
-        const img = new (window as any).Image();
-        img.src = flavors[idx].videoUrl;
-      });
-    }
-  }, [currentFlavorIndex]);
-
   const productRef = useMemoFirebase(() => {
     if (!db) return null;
     return doc(db, "products", currentFlavor.id);
@@ -164,7 +152,7 @@ export function NectarHero() {
           <div className="flex flex-col items-center gap-5">
             <button 
               onClick={() => changeFlavor("prev")}
-              className="group flex flex-col items-center gap-2 py-2 text-[10px] font-bold tracking-[0.4em] text-white/20 transition-all bg-transparent border-none outline-none hover:text-glow-current no-glow"
+              className="group flex flex-col items-center gap-2 py-2 text-[10px] font-bold tracking-[0.4em] text-white/20 transition-all bg-transparent border-none outline-none no-glow"
               style={{ '--current-glow': currentFlavor.accentHex } as any}
             >
               <ChevronUp className="w-4 h-4 group-hover:-translate-y-1 transition-transform" />
@@ -173,7 +161,7 @@ export function NectarHero() {
             <div className="w-px h-12 bg-white/10" />
             <button 
               onClick={() => changeFlavor("next")}
-              className="group flex flex-col items-center gap-2 py-2 text-[10px] font-bold tracking-[0.4em] text-white/20 transition-all bg-transparent border-none outline-none hover:text-glow-current no-glow"
+              className="group flex flex-col items-center gap-2 py-2 text-[10px] font-bold tracking-[0.4em] text-white/20 transition-all bg-transparent border-none outline-none no-glow"
               style={{ '--current-glow': currentFlavor.accentHex } as any}
             >
               <span className="transition-all uppercase">NEXT</span>
@@ -187,7 +175,7 @@ export function NectarHero() {
         <div className="flex gap-4">
           <Instagram className="w-4 h-4 text-white/15 hover:text-primary transition-colors cursor-pointer" />
           <Twitter className="w-4 h-4 text-white/15 hover:text-primary transition-colors cursor-pointer" />
-          <a href="https://www.facebook.com/share/1JjgEWEg8M/" target="_blank" rel="noopener noreferrer">
+          <a href="https://www.facebook.com/share/1JjgEWEg8M/" target="_blank" rel="noopener noreferrer" className="no-glow">
             <Facebook className="w-4 h-4 text-white/15 hover:text-primary transition-colors cursor-pointer" />
           </a>
         </div>

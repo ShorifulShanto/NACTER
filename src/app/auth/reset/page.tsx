@@ -1,4 +1,3 @@
-
 "use client";
 
 import { Suspense, useState, useEffect } from "react";
@@ -67,7 +66,7 @@ function ResetPasswordForm() {
         </div>
         <h2 className="text-2xl font-headline font-bold text-red-500 uppercase tracking-widest">Invalid Link</h2>
         <p className="text-white/40 text-[10px] uppercase tracking-widest max-w-[200px] mx-auto">This reset link has expired or has already been used.</p>
-        <Button asChild variant="outline" className="rounded-full px-8 border-white/10 uppercase text-[10px] tracking-widest">
+        <Button asChild variant="outline" className="rounded-full px-8 border-white/10 uppercase text-[10px] tracking-widest no-glow">
           <Link href="/auth">Back to Login</Link>
         </Button>
       </div>
@@ -109,7 +108,7 @@ function ResetPasswordForm() {
         <button 
           type="submit" 
           disabled={isLoading || !isValidCode}
-          className="w-full h-12 bg-primary text-black font-bold rounded-xl text-[12px] uppercase tracking-widest hover:bg-[#7AE2CF] transition-all flex items-center justify-center gap-2 mt-4 shadow-[0_0_20px_rgba(29,205,159,0.3)]"
+          className="w-full h-12 bg-primary text-black font-bold rounded-xl text-[12px] uppercase tracking-widest hover:bg-[#7AE2CF] transition-all flex items-center justify-center gap-2 mt-4 shadow-[0_0_20px_rgba(29,205,159,0.3)] no-glow"
         >
           {isLoading ? <Loader2 className="animate-spin" size={18} /> : <span>Update Password</span>}
         </button>
@@ -135,7 +134,7 @@ export default function ResetPasswordPage() {
         </Suspense>
       </div>
       
-      <Link href="/" className="fixed bottom-10 text-[10px] uppercase tracking-[0.5em] text-white/20 hover:text-primary transition-all font-bold flex items-center gap-2">
+      <Link href="/" className="fixed bottom-10 text-[10px] uppercase tracking-[0.5em] text-white/20 hover:text-primary transition-all font-bold flex items-center gap-2 no-glow">
         <ArrowRight size={14} className="rotate-180" /> Back to Home
       </Link>
     </div>

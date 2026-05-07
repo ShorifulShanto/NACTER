@@ -2014,25 +2014,6 @@ function NectarHero() {
         changeFlavor,
         isPaused
     ]);
-    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
-        "NectarHero.useEffect": ()=>{
-            const nextIdx = (currentFlavorIndex + 1) % __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$flavor$2d$data$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["flavors"].length;
-            const prevIdx = (currentFlavorIndex - 1 + __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$flavor$2d$data$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["flavors"].length) % __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$flavor$2d$data$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["flavors"].length;
-            if ("TURBOPACK compile-time truthy", 1) {
-                [
-                    nextIdx,
-                    prevIdx
-                ].forEach({
-                    "NectarHero.useEffect": (idx)=>{
-                        const img = new window.Image();
-                        img.src = __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$flavor$2d$data$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["flavors"][idx].videoUrl;
-                    }
-                }["NectarHero.useEffect"]);
-            }
-        }
-    }["NectarHero.useEffect"], [
-        currentFlavorIndex
-    ]);
     const productRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$firebase$2f$provider$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useMemoFirebase"])({
         "NectarHero.useMemoFirebase[productRef]": ()=>{
             if (!db) return null;
@@ -2072,24 +2053,24 @@ function NectarHero() {
                         priority: true
                     }, currentFlavor.id, false, {
                         fileName: "[project]/src/components/NectarHero.tsx",
-                        lineNumber: 86,
+                        lineNumber: 74,
                         columnNumber: 11
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/src/components/NectarHero.tsx",
-                    lineNumber: 82,
+                    lineNumber: 70,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/components/NectarHero.tsx",
-                lineNumber: 81,
+                lineNumber: 69,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: "absolute inset-0 hero-vignette z-10 pointer-events-none"
             }, void 0, false, {
                 fileName: "[project]/src/components/NectarHero.tsx",
-                lineNumber: 98,
+                lineNumber: 86,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2106,7 +2087,7 @@ function NectarHero() {
                                     children: "NECTAR — real pressed"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/NectarHero.tsx",
-                                    lineNumber: 106,
+                                    lineNumber: 94,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
@@ -2117,7 +2098,7 @@ function NectarHero() {
                                     children: currentFlavor.name
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/NectarHero.tsx",
-                                    lineNumber: 109,
+                                    lineNumber: 97,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2128,7 +2109,7 @@ function NectarHero() {
                                     children: currentFlavor.subtitle
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/NectarHero.tsx",
-                                    lineNumber: 115,
+                                    lineNumber: 103,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2136,7 +2117,7 @@ function NectarHero() {
                                     children: (productData === null || productData === void 0 ? void 0 : productData.description) || currentFlavor.description
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/NectarHero.tsx",
-                                    lineNumber: 118,
+                                    lineNumber: 106,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2147,7 +2128,7 @@ function NectarHero() {
                                             children: "Cold Pressed"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/NectarHero.tsx",
-                                            lineNumber: 123,
+                                            lineNumber: 111,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -2155,7 +2136,7 @@ function NectarHero() {
                                             children: "High Vit C"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/NectarHero.tsx",
-                                            lineNumber: 124,
+                                            lineNumber: 112,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -2163,13 +2144,13 @@ function NectarHero() {
                                             children: "No Added Sugar"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/NectarHero.tsx",
-                                            lineNumber: 125,
+                                            lineNumber: 113,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/components/NectarHero.tsx",
-                                    lineNumber: 122,
+                                    lineNumber: 110,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2185,7 +2166,7 @@ function NectarHero() {
                                             children: isSoldOut ? "SOLD OUT" : "ORDER NOW →"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/NectarHero.tsx",
-                                            lineNumber: 129,
+                                            lineNumber: 117,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -2196,24 +2177,24 @@ function NectarHero() {
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/components/NectarHero.tsx",
-                                            lineNumber: 139,
+                                            lineNumber: 127,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/components/NectarHero.tsx",
-                                    lineNumber: 128,
+                                    lineNumber: 116,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/NectarHero.tsx",
-                            lineNumber: 105,
+                            lineNumber: 93,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/components/NectarHero.tsx",
-                        lineNumber: 101,
+                        lineNumber: 89,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2231,7 +2212,7 @@ function NectarHero() {
                                         children: currentFlavor.index
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/NectarHero.tsx",
-                                        lineNumber: 150,
+                                        lineNumber: 138,
                                         columnNumber: 14
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2245,13 +2226,13 @@ function NectarHero() {
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/components/NectarHero.tsx",
-                                        lineNumber: 159,
+                                        lineNumber: 147,
                                         columnNumber: 14
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/components/NectarHero.tsx",
-                                lineNumber: 149,
+                                lineNumber: 137,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2259,7 +2240,7 @@ function NectarHero() {
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                         onClick: ()=>changeFlavor("prev"),
-                                        className: "group flex flex-col items-center gap-2 py-2 text-[10px] font-bold tracking-[0.4em] text-white/20 transition-all bg-transparent border-none outline-none hover:text-glow-current no-glow",
+                                        className: "group flex flex-col items-center gap-2 py-2 text-[10px] font-bold tracking-[0.4em] text-white/20 transition-all bg-transparent border-none outline-none no-glow",
                                         style: {
                                             '--current-glow': currentFlavor.accentHex
                                         },
@@ -2268,7 +2249,7 @@ function NectarHero() {
                                                 className: "w-4 h-4 group-hover:-translate-y-1 transition-transform"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/NectarHero.tsx",
-                                                lineNumber: 170,
+                                                lineNumber: 158,
                                                 columnNumber: 15
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -2276,25 +2257,25 @@ function NectarHero() {
                                                 children: "PREV"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/NectarHero.tsx",
-                                                lineNumber: 171,
+                                                lineNumber: 159,
                                                 columnNumber: 15
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/components/NectarHero.tsx",
-                                        lineNumber: 165,
+                                        lineNumber: 153,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                         className: "w-px h-12 bg-white/10"
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/NectarHero.tsx",
-                                        lineNumber: 173,
+                                        lineNumber: 161,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                         onClick: ()=>changeFlavor("next"),
-                                        className: "group flex flex-col items-center gap-2 py-2 text-[10px] font-bold tracking-[0.4em] text-white/20 transition-all bg-transparent border-none outline-none hover:text-glow-current no-glow",
+                                        className: "group flex flex-col items-center gap-2 py-2 text-[10px] font-bold tracking-[0.4em] text-white/20 transition-all bg-transparent border-none outline-none no-glow",
                                         style: {
                                             '--current-glow': currentFlavor.accentHex
                                         },
@@ -2304,38 +2285,38 @@ function NectarHero() {
                                                 children: "NEXT"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/NectarHero.tsx",
-                                                lineNumber: 179,
+                                                lineNumber: 167,
                                                 columnNumber: 15
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chevron$2d$down$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ChevronDown$3e$__["ChevronDown"], {
                                                 className: "w-4 h-4 group-hover:translate-y-1 transition-transform"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/NectarHero.tsx",
-                                                lineNumber: 180,
+                                                lineNumber: 168,
                                                 columnNumber: 15
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/components/NectarHero.tsx",
-                                        lineNumber: 174,
+                                        lineNumber: 162,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/components/NectarHero.tsx",
-                                lineNumber: 164,
+                                lineNumber: 152,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/NectarHero.tsx",
-                        lineNumber: 148,
+                        lineNumber: 136,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/NectarHero.tsx",
-                lineNumber: 100,
+                lineNumber: 88,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2348,43 +2329,44 @@ function NectarHero() {
                                 className: "w-4 h-4 text-white/15 hover:text-primary transition-colors cursor-pointer"
                             }, void 0, false, {
                                 fileName: "[project]/src/components/NectarHero.tsx",
-                                lineNumber: 188,
+                                lineNumber: 176,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$twitter$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Twitter$3e$__["Twitter"], {
                                 className: "w-4 h-4 text-white/15 hover:text-primary transition-colors cursor-pointer"
                             }, void 0, false, {
                                 fileName: "[project]/src/components/NectarHero.tsx",
-                                lineNumber: 189,
+                                lineNumber: 177,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
                                 href: "https://www.facebook.com/share/1JjgEWEg8M/",
                                 target: "_blank",
                                 rel: "noopener noreferrer",
+                                className: "no-glow",
                                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$facebook$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Facebook$3e$__["Facebook"], {
                                     className: "w-4 h-4 text-white/15 hover:text-primary transition-colors cursor-pointer"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/NectarHero.tsx",
-                                    lineNumber: 191,
+                                    lineNumber: 179,
                                     columnNumber: 13
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/components/NectarHero.tsx",
-                                lineNumber: 190,
+                                lineNumber: 178,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/NectarHero.tsx",
-                        lineNumber: 187,
+                        lineNumber: 175,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "w-px h-4 bg-white/10"
                     }, void 0, false, {
                         fileName: "[project]/src/components/NectarHero.tsx",
-                        lineNumber: 195,
+                        lineNumber: 183,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -2397,7 +2379,7 @@ function NectarHero() {
                                     fill: "currentColor"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/NectarHero.tsx",
-                                    lineNumber: 202,
+                                    lineNumber: 190,
                                     columnNumber: 15
                                 }, this),
                                 " PLAY"
@@ -2409,7 +2391,7 @@ function NectarHero() {
                                     fill: "currentColor"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/NectarHero.tsx",
-                                    lineNumber: 204,
+                                    lineNumber: 192,
                                     columnNumber: 15
                                 }, this),
                                 " PAUSE"
@@ -2417,13 +2399,13 @@ function NectarHero() {
                         }, void 0, true)
                     }, void 0, false, {
                         fileName: "[project]/src/components/NectarHero.tsx",
-                        lineNumber: 197,
+                        lineNumber: 185,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/NectarHero.tsx",
-                lineNumber: 186,
+                lineNumber: 174,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$AuthModal$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["AuthModal"], {
@@ -2431,17 +2413,17 @@ function NectarHero() {
                 onClose: ()=>setIsAuthOpen(false)
             }, void 0, false, {
                 fileName: "[project]/src/components/NectarHero.tsx",
-                lineNumber: 209,
+                lineNumber: 197,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/NectarHero.tsx",
-        lineNumber: 77,
+        lineNumber: 65,
         columnNumber: 5
     }, this);
 }
-_s(NectarHero, "TsV37KUqEpmEIv9L3vPanQlTkDg=", false, function() {
+_s(NectarHero, "MCl4HhFVu3VDqVfVWtGibbjnTKI=", false, function() {
     return [
         __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$firebase$2f$provider$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useUser"],
         __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$firebase$2f$provider$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useFirestore"],

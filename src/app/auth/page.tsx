@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState, useEffect } from "react";
@@ -43,21 +42,17 @@ export default function NectarAuthPage() {
   const syncUserToFirestore = async (user: User) => {
     if (!db) return;
     const userRef = doc(db, "users", user.uid);
-    
-    // Perform an atomic creation/merge to ensure user profile exists in Firestore
     try {
       await setDoc(userRef, {
         id: user.uid,
         email: user.email,
         updatedAt: serverTimestamp(),
-        // Only set these if the user is being created (merge will handle existing ones)
         firstName: name.split(' ')[0] || user.displayName?.split(' ')[0] || "",
         lastName: name.split(' ').slice(1).join(' ') || user.displayName?.split(' ').slice(1).join(' ') || "",
         createdAt: serverTimestamp(),
       }, { merge: true });
     } catch (e: any) {
-      console.warn("Firestore sync delayed or failed:", e.message);
-      // We don't throw here to avoid blocking sign-in if Auth itself succeeded
+      console.warn("Firestore sync delayed:", e.message);
     }
   };
 
@@ -69,7 +64,7 @@ export default function NectarAuthPage() {
         const userCred = await signInWithEmailAndPassword(auth, email, password);
         await syncUserToFirestore(userCred.user);
         toast({ title: "Welcome back to NECTAR" });
-        window.location.href = "/";
+        router.push("/");
       } else if (view === "signup") {
         const userCred = await createUserWithEmailAndPassword(auth, email, password);
         if (name) {
@@ -77,10 +72,10 @@ export default function NectarAuthPage() {
         }
         await syncUserToFirestore(userCred.user);
         toast({ title: "Welcome to NECTAR" });
-        window.location.href = "/";
+        router.push("/");
       } else if (view === "forgot-password") {
         await sendPasswordResetEmail(auth, email);
-        toast({ title: "Reset link sent", description: "Please check your inbox." });
+        toast({ title: "Reset link sent", description: "Security protocol initiated. Check your inbox." });
         setView("login");
       }
     } catch (error: any) {
@@ -101,7 +96,7 @@ export default function NectarAuthPage() {
       const userCred = await signInWithPopup(auth, provider);
       await syncUserToFirestore(userCred.user);
       toast({ title: "Welcome to NECTAR" });
-      window.location.href = "/";
+      router.push("/");
     } catch (error: any) {
       toast({ variant: "destructive", title: "Sign-In Failed", description: error.message });
     } finally {
@@ -112,7 +107,7 @@ export default function NectarAuthPage() {
   if (!mounted) return null;
 
   return (
-    <div className="min-h-[100svh] w-full bg-black flex items-center justify-center p-4 min-[720px]:p-10 font-body overflow-y-auto gpu-smooth">
+    <div className="min-h-screen w-full bg-black flex items-center justify-center p-4 min-[720px]:p-10 font-body overflow-y-auto gpu-smooth">
       <div className="relative w-full max-w-[900px] bg-black border-[3px] border-primary shadow-[0_0_60px_rgba(29,205,159,0.15)] rounded-[2rem] min-[720px]:rounded-[3rem] overflow-hidden flex flex-col min-[720px]:flex-row">
         
         <div className="flex-[0.4] min-[720px]:flex-[0.55] relative overflow-hidden bg-black border-b min-[720px]:border-b-0 min-[720px]:border-r border-primary/30 min-h-[300px] min-[720px]:min-h-0">
@@ -178,7 +173,7 @@ export default function NectarAuthPage() {
               <button 
                 type="submit" 
                 disabled={isLoading}
-                className="w-full h-12 bg-primary text-black font-bold rounded-xl text-[12px] uppercase tracking-widest hover:bg-[#7AE2CF] transition-all flex items-center justify-center gap-2 active:scale-95 disabled:opacity-50 shadow-[0_0_20px_rgba(29,205,159,0.3)] mt-4"
+                className="w-full h-12 bg-primary text-black font-bold rounded-xl text-[12px] uppercase tracking-widest hover:bg-[#7AE2CF] transition-all flex items-center justify-center gap-2 active:scale-95 disabled:opacity-50 shadow-[0_0_20px_rgba(29,205,159,0.3)] mt-4 no-glow"
               >
                 {isLoading ? <Loader2 className="animate-spin" size={18} /> : <span>{view === "login" ? "Sign In" : view === "signup" ? "Create Account" : "Send Reset Link"}</span>}
               </button>

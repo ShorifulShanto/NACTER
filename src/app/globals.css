@@ -43,9 +43,16 @@
     text-rendering: optimizeLegibility;
   }
   
+  /* Universal Text & Element Glow on Hover */
   h1:hover, h2:hover, h3:hover, h4:hover, h5:hover, h6:hover,
-  p:hover, span:hover, a:hover:not(.no-glow), label:hover {
+  p:hover, span:hover, a:hover:not(.no-glow), label:hover, li:hover {
     text-shadow: 0 0 15px var(--glow-color, var(--nectar-teal));
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  button:hover:not(.no-glow), .interactive-glow:hover {
+    box-shadow: 0 0 25px var(--nectar-glow);
+    text-shadow: 0 0 10px var(--nectar-teal);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
@@ -57,12 +64,6 @@
   .hover\:text-glow-current:hover {
     text-shadow: 0 0 20px var(--current-glow) !important;
     color: var(--current-glow) !important;
-  }
-
-  button:hover:not(.no-glow), .interactive-glow:hover {
-    box-shadow: 0 0 20px var(--nectar-glow);
-    text-shadow: 0 0 10px var(--nectar-teal);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   h1, h2, h3, h4, h5, h6 {

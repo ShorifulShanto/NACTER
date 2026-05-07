@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useParams, useRouter } from "next/navigation";
@@ -14,12 +13,14 @@ import {
   Minus, 
   ShoppingCart,
   Loader2,
-  Star
+  Star,
+  Sparkles
 } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { setDocumentNonBlocking } from "@/firebase/non-blocking-updates";
 import { Button } from "@/components/ui/button";
+import { generateFlavorDescription } from "@/ai/flows/generate-flavor-description";
 
 export default function ProductDetailPage() {
   const params = useParams();
@@ -28,7 +29,10 @@ export default function ProductDetailPage() {
   const { user } = useUser();
   const db = useFirestore();
   const { toast } = useToast();
+  
   const [quantity, setQuantity] = useState(1);
+  const [aiStory, setAiStory] = useState("");
+  const [isAiLoading, setIsAiLoading] = useState(false);
 
   const flavorStatic = flavors.find(f => f.id === productId);
   
@@ -49,6 +53,33 @@ export default function ProductDetailPage() {
   const { data: productData, isLoading } = useDoc(productRef);
   const { data: reviews } = useCollection(reviewsQuery);
 
+  const name = productData?.name || flavorStatic?.name || "NECTAR Product";
+  const price = productData?.price || 12.00;
+  const description = productData?.description || flavorStatic?.description || "A premium cold-pressed functional beverage.";
+  const image = productData?.image || flavorStatic?.imageUrl || "https://picsum.photos/seed/juice/400/600";
+  const accentColor = flavorStatic?.accentHex || '#ffffff';
+  const isSoldOut = productData ? productData.amount <= 0 : false;
+
+  useEffect(() => {
+    if (name && name !== "NECTAR Product") {
+      const fetchAiStory = async () => {
+        setIsAiLoading(true);
+        try {
+          const res = await generateFlavorDescription({ 
+            flavorName: name, 
+            flavorColor: flavorStatic?.color || "Fresh" 
+          });
+          setAiStory(res.description);
+        } catch (e) {
+          console.error("AI Story generation failed", e);
+        } finally {
+          setIsAiLoading(false);
+        }
+      };
+      fetchAiStory();
+    }
+  }, [name, flavorStatic?.color]);
+
   if (isLoading) {
     return (
       <div className="min-h-screen bg-black flex items-center justify-center">
@@ -56,24 +87,6 @@ export default function ProductDetailPage() {
       </div>
     );
   }
-
-  if (!flavorStatic && !productData) {
-    return (
-      <div className="min-h-screen bg-black flex flex-col items-center justify-center text-center p-6">
-        <h1 className="text-2xl font-headline font-bold uppercase mb-4">Product Not Found</h1>
-        <Button onClick={() => router.push('/')} variant="outline" className="rounded-full uppercase tracking-widest text-[10px]">
-          Return to Site
-        </Button>
-      </div>
-    );
-  }
-
-  const name = productData?.name || flavorStatic?.name || "NECTAR Product";
-  const price = productData?.price || 12.00;
-  const description = productData?.description || flavorStatic?.description || "A premium cold-pressed functional beverage.";
-  const image = productData?.image || flavorStatic?.imageUrl || "https://picsum.photos/seed/juice/400/600";
-  const accentColor = flavorStatic?.accentHex || '#ffffff';
-  const isSoldOut = productData ? productData.amount <= 0 : false;
 
   const handleAddToCart = () => {
     if (!user || !db) {
@@ -137,9 +150,30 @@ export default function ProductDetailPage() {
               <h1 className="text-6xl md:text-8xl font-headline font-bold uppercase leading-[0.85] tracking-tighter mb-6" style={{ color: accentColor }}>
                 {name}
               </h1>
-              <p className="text-[13px] md:text-[15px] text-white/40 leading-relaxed max-w-lg font-light">
-                {description}
-              </p>
+              
+              <div className="space-y-6">
+                <p className="text-[13px] md:text-[15px] text-white/40 leading-relaxed max-w-lg font-light">
+                  {description}
+                </p>
+                
+                {/* AI Storytelling Section */}
+                <div className="pt-6 border-t border-white/5">
+                  <div className="flex items-center gap-2 mb-4">
+                    <Sparkles className="text-primary" size={14} />
+                    <span className="text-[9px] uppercase tracking-[0.4em] text-primary font-bold">NECTAR AI Story</span>
+                  </div>
+                  {isAiLoading ? (
+                    <div className="flex items-center gap-3 text-white/20">
+                      <Loader2 className="animate-spin" size={14} />
+                      <span className="text-[10px] uppercase tracking-widest animate-pulse">Brewing sensory narrative...</span>
+                    </div>
+                  ) : (
+                    <p className="text-[14px] text-white/70 italic font-accent leading-relaxed max-w-lg">
+                      {aiStory || "Nature's purest essence, captured in a single, refined bottle."}
+                    </p>
+                  )}
+                </div>
+              </div>
             </div>
 
             <div className="flex items-end gap-6 pb-6 border-b border-white/5">
@@ -154,7 +188,7 @@ export default function ProductDetailPage() {
                 <button onClick={() => setQuantity(quantity + 1)} className="w-12 h-12 flex items-center justify-center text-white/40 hover:text-white"><Plus size={18} /></button>
               </div>
 
-              <Button disabled={isSoldOut} onClick={handleAddToCart} className="flex-1 h-16 bg-white text-black hover:bg-neutral-200 rounded-full font-bold uppercase tracking-widest text-[11px]">
+              <Button disabled={isSoldOut} onClick={handleAddToCart} className="flex-1 h-16 bg-white text-black hover:bg-neutral-200 rounded-full font-bold uppercase tracking-widest text-[11px] no-glow">
                 <ShoppingCart size={18} className="mr-2" />
                 {isSoldOut ? "Currently Unavailable" : "Add to Collection"}
               </Button>

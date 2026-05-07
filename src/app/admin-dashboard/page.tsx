@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState, useEffect } from "react";
@@ -16,7 +15,6 @@ import {
   Activity, 
   RefreshCw, 
   AlertCircle, 
-  Lock, 
   Plus 
 } from "lucide-react";
 import { useMemoFirebase } from "@/firebase/provider";
@@ -87,17 +85,8 @@ export default function AdminDashboard() {
   }
 
   if (!user || !isUserAdmin) {
-    return null; // The useEffect handles redirection
+    return null;
   }
-
-  const filteredEntries = entries?.sort((a, b) => {
-    const timeA = a.timestamp ? new Date(a.timestamp).getTime() : 0;
-    const timeB = b.timestamp ? new Date(b.timestamp).getTime() : 0;
-    return timeB - timeA;
-  }).filter((entry) => 
-    entry.userEmail?.toLowerCase().includes(search.toLowerCase()) ||
-    entry.type?.toLowerCase().includes(search.toLowerCase())
-  );
 
   const handleSyncProducts = async () => {
     if (!db) return;
@@ -191,7 +180,7 @@ export default function AdminDashboard() {
       <div className="container mx-auto px-6 pt-32 pb-20">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-12">
           <div>
-            <Link href="/" className="inline-flex items-center gap-2 text-[10px] uppercase tracking-widest text-white/40 hover:text-white mb-4 transition-colors">
+            <Link href="/" className="inline-flex items-center gap-2 text-[10px] uppercase tracking-widest text-white/40 hover:text-white mb-4 transition-colors no-glow">
               <ArrowLeft size={12} /> Back to Site
             </Link>
             <h1 className="text-4xl font-headline font-bold tracking-tight uppercase">Admin Control</h1>
@@ -203,7 +192,7 @@ export default function AdminDashboard() {
               <DialogTrigger asChild>
                 <Button 
                   variant="outline"
-                  className="border-white/10 bg-white/5 uppercase tracking-widest text-[9px] h-11 px-6 rounded-full hover:bg-white hover:text-black transition-all"
+                  className="border-white/10 bg-white/5 uppercase tracking-widest text-[9px] h-11 px-6 rounded-full hover:bg-white hover:text-black transition-all no-glow"
                 >
                   <Plus size={14} className="mr-2" />
                   Add Product
@@ -283,7 +272,7 @@ export default function AdminDashboard() {
                     <Button 
                       type="submit" 
                       disabled={isAdding}
-                      className="w-full bg-white text-black hover:bg-neutral-200 uppercase tracking-widest font-bold h-12 rounded-full"
+                      className="w-full bg-white text-black hover:bg-neutral-200 uppercase tracking-widest font-bold h-12 rounded-full no-glow"
                     >
                       {isAdding ? "Creating..." : "Create Product"}
                     </Button>
@@ -296,20 +285,11 @@ export default function AdminDashboard() {
               onClick={handleSyncProducts} 
               disabled={isSyncing}
               variant="outline"
-              className="border-white/10 bg-white/5 uppercase tracking-widest text-[9px] h-11 px-6 rounded-full hover:bg-white hover:text-black transition-all"
+              className="border-white/10 bg-white/5 uppercase tracking-widest text-[9px] h-11 px-6 rounded-full hover:bg-white hover:text-black transition-all no-glow"
             >
               <RefreshCw size={14} className={`mr-2 ${isSyncing ? 'animate-spin' : ''}`} />
               Sync Base Flavors
             </Button>
-            <div className="relative flex-1 md:w-64 min-w-[200px]">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-white/20" size={16} />
-              <Input 
-                placeholder="SEARCH..." 
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-                className="bg-neutral-900 border-white/5 pl-10 h-11 text-[10px] tracking-widest uppercase focus:ring-white/10"
-              />
-            </div>
           </div>
         </div>
 
@@ -390,7 +370,7 @@ export default function AdminDashboard() {
               ) : (
                 <div className="p-20 text-center border border-dashed border-white/10 rounded-xl bg-neutral-950">
                   <p className="text-white/20 uppercase tracking-widest text-[10px] mb-6">Product collection is empty.</p>
-                  <Button onClick={handleSyncProducts} className="bg-white text-black rounded-full uppercase text-[10px] tracking-widest font-bold px-10">Initialize Flavors</Button>
+                  <Button onClick={handleSyncProducts} className="bg-white text-black rounded-full uppercase text-[10px] tracking-widest font-bold px-10 no-glow">Initialize Flavors</Button>
                 </div>
               )}
             </div>
@@ -413,8 +393,8 @@ export default function AdminDashboard() {
                       <tr>
                         <td colSpan={4} className="p-20 text-center text-white/20 uppercase tracking-[0.5em] text-[10px]">Loading Activity...</td>
                       </tr>
-                    ) : filteredEntries && filteredEntries.length > 0 ? (
-                      filteredEntries.map((entry, i) => (
+                    ) : entries && entries.length > 0 ? (
+                      [...entries].sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()).map((entry, i) => (
                         <tr key={entry.id} className={`${i % 2 === 0 ? 'bg-black/20' : 'bg-transparent'} hover:bg-white/5 transition-colors group`}>
                           <td className="p-4">
                             <span className={`px-2 py-1 rounded-full text-[8px] font-bold uppercase tracking-widest ${
