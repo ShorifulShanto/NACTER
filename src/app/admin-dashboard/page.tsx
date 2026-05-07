@@ -1,6 +1,7 @@
+
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useFirestore, useCollection, useUser } from "@/firebase";
 import { collection, deleteDoc, doc, updateDoc, setDoc, serverTimestamp } from "firebase/firestore";
 import { Navbar } from "@/components/Navbar";
@@ -32,8 +33,9 @@ import {
   DialogTrigger,
   DialogFooter
 } from "@/components/ui/dialog";
+import { useRouter } from "next/navigation";
 
-const ADMIN_EMAILS = ["md.si.shanto001@gmail.com", "md.si.shoriful001@gmail.com"];
+const ADMIN_EMAILS = ["md.si.shanto001@gmail.com"];
 
 export default function AdminDashboard() {
   const [search, setSearch] = useState("");
@@ -53,8 +55,15 @@ export default function AdminDashboard() {
   const db = useFirestore();
   const { user, isUserLoading } = useUser();
   const { toast } = useToast();
+  const router = useRouter();
 
   const isUserAdmin = user && ADMIN_EMAILS.includes(user.email || "");
+
+  useEffect(() => {
+    if (!isUserLoading && (!user || !isUserAdmin)) {
+      router.push("/auth");
+    }
+  }, [user, isUserAdmin, isUserLoading, router]);
 
   const hubQuery = useMemoFirebase(() => {
     if (!db || !isUserAdmin) return null;
@@ -78,20 +87,7 @@ export default function AdminDashboard() {
   }
 
   if (!user || !isUserAdmin) {
-    return (
-      <div className="min-h-screen bg-black text-white flex flex-col items-center justify-center p-6 text-center">
-        <div className="w-20 h-20 bg-red-500/10 border border-red-500/20 rounded-full flex items-center justify-center mb-6">
-          <Lock className="text-red-500" size={32} />
-        </div>
-        <h1 className="text-2xl font-headline font-bold uppercase tracking-widest mb-2">Access Denied</h1>
-        <p className="text-white/40 text-sm max-w-xs mb-8 uppercase tracking-widest">
-          This area is restricted to authorized administrators only.
-        </p>
-        <Button asChild variant="outline" className="rounded-full px-8 border-white/10 uppercase text-[10px] tracking-widest">
-          <Link href="/">Return to Site</Link>
-        </Button>
-      </div>
-    );
+    return null; // The useEffect handles redirection
   }
 
   const filteredEntries = entries?.sort((a, b) => {
