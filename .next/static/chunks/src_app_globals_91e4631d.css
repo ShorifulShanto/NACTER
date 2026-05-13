@@ -1036,6 +1036,10 @@ h1, h2, h3, h4, h5, h6 {
   min-height: 100svh;
 }
 
+.min-h-\[100px\] {
+  min-height: 100px;
+}
+
 .w-0 {
   width: 0;
 }
@@ -1386,6 +1390,10 @@ h1, h2, h3, h4, h5, h6 {
   -webkit-user-select: none;
   -moz-user-select: none;
   user-select: none;
+}
+
+.resize-none {
+  resize: none;
 }
 
 .grid-cols-1 {
@@ -4227,6 +4235,10 @@ h1, h2, h3, h4, h5, h6 {
 
   .sm\:max-w-sm {
     max-width: 24rem;
+  }
+
+  .sm\:max-w-lg {
+    max-width: 32rem;
   }
 
   .sm\:grid-cols-2 {

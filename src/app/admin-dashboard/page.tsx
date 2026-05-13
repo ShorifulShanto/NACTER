@@ -2,10 +2,10 @@
 
 import { useState, useEffect } from "react";
 import { useFirestore, useCollection, useUser } from "@/firebase";
-import { collection, doc, setDoc, serverTimestamp, deleteDoc } from "firebase/firestore";
+import { collection, doc, setDoc, serverTimestamp, deleteDoc, updateDoc } from "firebase/firestore";
 import { Navbar } from "@/components/Navbar";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, RefreshCw, Plus, Upload, Loader2, Trash2 } from "lucide-react";
+import { ArrowLeft, RefreshCw, Plus, Upload, Loader2, Trash2, Edit3, Save } from "lucide-react";
 import { useMemoFirebase } from "@/firebase/provider";
 import Link from "next/link";
 import { useToast } from "@/hooks/use-toast";
@@ -24,6 +24,7 @@ import {
   AlertDialogTrigger 
 } from "@/components/ui/alert-dialog";
 import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import { useRouter } from "next/navigation";
 import { uploadToCloudinary } from "@/app/actions/cloudinary";
 
@@ -34,10 +35,16 @@ export default function AdminDashboard() {
   const db = useFirestore();
   const { toast } = useToast();
   const router = useRouter();
+  
   const [isSyncing, setIsSyncing] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
+  
   const [newProduct, setNewProduct] = useState({ name: "", price: 12.0, amount: 50, description: "" });
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
+  
+  const [editingProduct, setEditingProduct] = useState<any>(null);
+  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
 
   useEffect(() => {
     if (!isUserLoading && (!user || !ADMIN_EMAILS.includes(user.email || ""))) {
@@ -83,7 +90,10 @@ export default function AdminDashboard() {
   };
 
   const handleAddProduct = async () => {
-    if (!db || !selectedImage) return;
+    if (!db || !selectedImage) {
+      toast({ variant: "destructive", title: "Incomplete Entry", description: "Product image is required." });
+      return;
+    }
     setIsUploading(true);
     try {
       const formData = new FormData();
@@ -106,6 +116,33 @@ export default function AdminDashboard() {
       toast({ variant: "destructive", title: "Upload Failed", description: e.message });
     } finally {
       setIsUploading(false);
+    }
+  };
+
+  const handleEditProduct = (product: any) => {
+    setEditingProduct({ ...product });
+    setIsEditDialogOpen(true);
+  };
+
+  const handleUpdateProduct = async () => {
+    if (!db || !editingProduct) return;
+    setIsSaving(true);
+    try {
+      const productRef = doc(db, "products", editingProduct.id);
+      await updateDoc(productRef, {
+        name: editingProduct.name,
+        price: parseFloat(editingProduct.price),
+        amount: parseInt(editingProduct.amount),
+        description: editingProduct.description,
+        updatedAt: serverTimestamp()
+      });
+      toast({ title: "Protocol Updated", description: `${editingProduct.name} configuration saved.` });
+      setIsEditDialogOpen(false);
+      setEditingProduct(null);
+    } catch (e: any) {
+      toast({ variant: "destructive", title: "Update Failed", description: e.message });
+    } finally {
+      setIsSaving(false);
     }
   };
 
@@ -137,39 +174,43 @@ export default function AdminDashboard() {
             </div>
             <Dialog>
               <DialogTrigger asChild>
-                <Button className="rounded-full bg-white text-black hover:bg-neutral-200 px-8 uppercase text-[10px] tracking-widest font-bold">
+                <Button className="rounded-full bg-white text-black hover:bg-neutral-200 px-8 uppercase text-[10px] tracking-widest font-bold h-12">
                   <Plus size={14} className="mr-2" /> Add Flavor
                 </Button>
               </DialogTrigger>
-              <DialogContent className="bg-neutral-900 border-white/10 text-white rounded-3xl">
+              <DialogContent className="bg-neutral-900 border-white/10 text-white rounded-3xl sm:max-w-lg">
                 <DialogHeader>
                   <DialogTitle className="font-headline tracking-widest uppercase">New Product Entry</DialogTitle>
                 </DialogHeader>
                 <div className="space-y-4 py-4">
                   <div className="space-y-2">
                     <label className="text-[10px] uppercase tracking-widest text-white/40">Flavor Name</label>
-                    <Input value={newProduct.name} onChange={e => setNewProduct({...newProduct, name: e.target.value})} className="bg-black/40 border-white/5" />
+                    <Input value={newProduct.name} onChange={e => setNewProduct({...newProduct, name: e.target.value})} className="bg-black/40 border-white/5 h-12" />
                   </div>
                   <div className="grid grid-cols-2 gap-4">
                     <div className="space-y-2">
                       <label className="text-[10px] uppercase tracking-widest text-white/40">Price ($)</label>
-                      <Input type="number" value={newProduct.price} onChange={e => setNewProduct({...newProduct, price: parseFloat(e.target.value)})} className="bg-black/40 border-white/5" />
+                      <Input type="number" value={newProduct.price} onChange={e => setNewProduct({...newProduct, price: parseFloat(e.target.value)})} className="bg-black/40 border-white/5 h-12" />
                     </div>
                     <div className="space-y-2">
                       <label className="text-[10px] uppercase tracking-widest text-white/40">Initial Stock</label>
-                      <Input type="number" value={newProduct.amount} onChange={e => setNewProduct({...newProduct, amount: parseInt(e.target.value)})} className="bg-black/40 border-white/5" />
+                      <Input type="number" value={newProduct.amount} onChange={e => setNewProduct({...newProduct, amount: parseInt(e.target.value)})} className="bg-black/40 border-white/5 h-12" />
                     </div>
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-[10px] uppercase tracking-widest text-white/40">Description</label>
+                    <Textarea value={newProduct.description} onChange={e => setNewProduct({...newProduct, description: e.target.value})} className="bg-black/40 border-white/5 min-h-[100px]" />
                   </div>
                   <div className="space-y-2">
                     <label className="text-[10px] uppercase tracking-widest text-white/40">Product Imagery</label>
                     <div className="flex items-center gap-4">
-                      <Input type="file" accept="image/*" onChange={e => setSelectedImage(e.target.files?.[0] || null)} className="bg-black/40 border-white/5 text-[10px]" />
+                      <Input type="file" accept="image/*" onChange={e => setSelectedImage(e.target.files?.[0] || null)} className="bg-black/40 border-white/5 text-[10px] h-12 flex items-center" />
                       <Upload size={20} className="text-primary" />
                     </div>
                   </div>
                 </div>
                 <DialogFooter>
-                  <Button onClick={handleAddProduct} disabled={isUploading} className="w-full bg-primary text-black font-bold rounded-full h-12">
+                  <Button onClick={handleAddProduct} disabled={isUploading} className="w-full bg-primary text-black font-bold rounded-full h-12 uppercase tracking-widest text-[11px] no-glow">
                     {isUploading ? <Loader2 className="animate-spin" /> : "Deploy to Catalog"}
                   </Button>
                 </DialogFooter>
@@ -191,18 +232,28 @@ export default function AdminDashboard() {
               ) : dbProducts && dbProducts.length > 0 ? (
                 dbProducts.map((product) => (
                   <div key={product.id} className="bg-neutral-950 border border-white/5 rounded-2xl p-6 flex items-center gap-6 group hover:border-primary/20 transition-all">
-                    <div className="w-16 h-16 bg-neutral-900 rounded-xl overflow-hidden flex-shrink-0">
+                    <div className="w-16 h-16 bg-neutral-900 rounded-xl overflow-hidden flex-shrink-0 relative">
                       <img src={product.image} alt={product.name} className="w-full h-full object-contain p-2" />
                     </div>
-                    <div className="flex-1">
-                      <h4 className="text-sm font-bold uppercase tracking-widest">{product.name}</h4>
-                      <p className="text-[10px] text-white/40 font-mono tracking-widest">${product.price.toFixed(2)} • Stock: {product.amount}</p>
+                    <div className="flex-1 min-w-0">
+                      <h4 className="text-sm font-bold uppercase tracking-widest truncate">{product.name}</h4>
+                      <p className="text-[10px] text-white/40 font-mono tracking-widest mt-1">
+                        ${Number(product.price).toFixed(2)} • Stock: <span className={product.amount <= 0 ? "text-red-500 font-bold" : ""}>{product.amount}</span>
+                      </p>
                     </div>
-                    <div className="flex items-center gap-4">
-                      <p className="text-[8px] uppercase tracking-[0.4em] text-white/10 group-hover:text-primary transition-colors">{product.id}</p>
+                    <div className="flex items-center gap-3">
+                      <Button 
+                        onClick={() => handleEditProduct(product)}
+                        variant="ghost" 
+                        size="icon" 
+                        className="text-white/20 hover:text-primary transition-colors bg-white/5 rounded-xl no-glow"
+                      >
+                        <Edit3 size={16} />
+                      </Button>
+                      
                       <AlertDialog>
                         <AlertDialogTrigger asChild>
-                          <Button variant="ghost" size="icon" className="text-white/20 hover:text-red-500 transition-colors bg-transparent no-glow">
+                          <Button variant="ghost" size="icon" className="text-white/20 hover:text-red-500 transition-colors bg-white/5 rounded-xl no-glow">
                             <Trash2 size={16} />
                           </Button>
                         </AlertDialogTrigger>
@@ -214,7 +265,7 @@ export default function AdminDashboard() {
                             </AlertDialogDescription>
                           </AlertDialogHeader>
                           <AlertDialogFooter className="mt-6">
-                            <AlertDialogCancel className="bg-white/5 border-white/10 text-white hover:bg-white/10 rounded-full h-12 uppercase text-[10px] tracking-widest">Cancel</AlertDialogCancel>
+                            <AlertDialogCancel className="bg-white/5 border-white/10 text-white hover:bg-white/10 rounded-full h-12 uppercase text-[10px] tracking-widest no-glow">Cancel</AlertDialogCancel>
                             <AlertDialogAction onClick={() => handleDeleteProduct(product.id)} className="bg-red-500 text-white hover:bg-red-600 rounded-full h-12 uppercase text-[10px] tracking-widest font-bold">Terminate</AlertDialogAction>
                           </AlertDialogFooter>
                         </AlertDialogContent>
@@ -240,6 +291,64 @@ export default function AdminDashboard() {
           </TabsContent>
         </Tabs>
       </div>
+
+      {/* Edit Product Dialog */}
+      <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
+        <DialogContent className="bg-neutral-900 border-white/10 text-white rounded-3xl sm:max-w-lg">
+          <DialogHeader>
+            <DialogTitle className="font-headline tracking-widest uppercase text-primary">Protocol Adjustment</DialogTitle>
+          </DialogHeader>
+          {editingProduct && (
+            <div className="space-y-6 py-4">
+              <div className="space-y-2">
+                <label className="text-[10px] uppercase tracking-widest text-white/40 ml-1">Flavor Identity</label>
+                <Input 
+                  value={editingProduct.name} 
+                  onChange={e => setEditingProduct({...editingProduct, name: e.target.value})} 
+                  className="bg-black/40 border-white/5 h-14" 
+                />
+              </div>
+              <div className="grid grid-cols-2 gap-6">
+                <div className="space-y-2">
+                  <label className="text-[10px] uppercase tracking-widest text-white/40 ml-1">Value ($)</label>
+                  <Input 
+                    type="number" 
+                    value={editingProduct.price} 
+                    onChange={e => setEditingProduct({...editingProduct, price: e.target.value})} 
+                    className="bg-black/40 border-white/5 h-14" 
+                  />
+                </div>
+                <div className="space-y-2">
+                  <label className="text-[10px] uppercase tracking-widest text-white/40 ml-1">Inventory Count</label>
+                  <Input 
+                    type="number" 
+                    value={editingProduct.amount} 
+                    onChange={e => setEditingProduct({...editingProduct, amount: e.target.value})} 
+                    className="bg-black/40 border-white/5 h-14" 
+                  />
+                </div>
+              </div>
+              <div className="space-y-2">
+                <label className="text-[10px] uppercase tracking-widest text-white/40 ml-1">Sensory Description</label>
+                <Textarea 
+                  value={editingProduct.description} 
+                  onChange={e => setEditingProduct({...editingProduct, description: e.target.value})} 
+                  className="bg-black/40 border-white/5 min-h-[120px] resize-none" 
+                />
+              </div>
+              <DialogFooter className="pt-4">
+                <Button 
+                  onClick={handleUpdateProduct} 
+                  disabled={isSaving} 
+                  className="w-full bg-white text-black hover:bg-neutral-200 rounded-full h-16 uppercase tracking-widest text-[11px] font-bold no-glow"
+                >
+                  {isSaving ? <Loader2 className="animate-spin" /> : <><Save size={16} className="mr-2" /> Save Protocol</>}
+                </Button>
+              </DialogFooter>
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
