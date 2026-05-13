@@ -7,7 +7,7 @@ import { flavors } from "@/lib/flavor-data";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import Image from "next/image";
-import { ArrowLeft, Plus, Minus, ShoppingCart, Loader2, Star, Sparkles } from "lucide-react";
+import { ArrowLeft, Plus, Minus, ShoppingCart, Loader2, Star, Sparkles, ShieldCheck } from "lucide-react";
 import { useState, useEffect } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { setDocumentNonBlocking } from "@/firebase/non-blocking-updates";
@@ -46,7 +46,16 @@ export default function ProductDetailPage() {
   const description = productData?.description || flavorStatic?.description || "A premium cold-pressed functional beverage.";
   const image = productData?.image || flavorStatic?.imageUrl || "https://picsum.photos/seed/juice/400/600";
   const accentColor = flavorStatic?.accentHex || '#ffffff';
-  const isSoldOut = productData ? productData.amount <= 0 : false;
+  
+  const availableStock = productData?.amount ?? 0;
+  const isSoldOut = availableStock <= 0;
+
+  // Ensure quantity doesn't exceed stock if stock changes
+  useEffect(() => {
+    if (availableStock > 0 && quantity > availableStock) {
+      setQuantity(availableStock);
+    }
+  }, [availableStock, quantity]);
 
   useEffect(() => {
     if (name && name !== "NECTAR Product") {
@@ -76,6 +85,11 @@ export default function ProductDetailPage() {
       toast({ variant: "destructive", title: "Sold Out" });
       return;
     }
+    if (quantity > availableStock) {
+        toast({ variant: "destructive", title: "Stock Limit", description: `Only ${availableStock} units remaining.` });
+        return;
+    }
+
     const itemRef = doc(db, "users", user.uid, "cart", productId);
     setDocumentNonBlocking(itemRef, {
       productId,
@@ -112,6 +126,14 @@ export default function ProductDetailPage() {
               <h1 className="text-6xl md:text-8xl font-headline font-bold uppercase leading-[0.85] tracking-tighter mb-6" style={{ color: accentColor }}>{name}</h1>
               <div className="space-y-6">
                 <p className="text-[13px] md:text-[15px] text-white/40 leading-relaxed max-w-lg font-light">{description}</p>
+                
+                <div className="flex items-center gap-4 py-4 px-6 bg-white/5 border border-white/5 rounded-2xl w-fit">
+                    <ShieldCheck size={14} className={isSoldOut ? "text-red-500" : "text-primary"} />
+                    <p className="text-[10px] uppercase tracking-widest font-bold">
+                        {isSoldOut ? "Inventory Exhausted" : `Available Stock: ${availableStock} units`}
+                    </p>
+                </div>
+
                 <div className="pt-6 border-t border-white/5">
                   <div className="flex items-center gap-2 mb-4">
                     <Sparkles className="text-primary" size={14} />
@@ -131,9 +153,20 @@ export default function ProductDetailPage() {
 
             <div className="flex flex-col sm:flex-row gap-6">
               <div className="flex items-center bg-white/5 border border-white/10 rounded-full p-1 h-16 w-full sm:w-40 justify-between">
-                <button onClick={() => setQuantity(Math.max(1, quantity - 1))} className="w-12 h-12 flex items-center justify-center text-white/40 hover:text-white"><Minus size={18} /></button>
+                <button 
+                    onClick={() => setQuantity(Math.max(1, quantity - 1))} 
+                    className="w-12 h-12 flex items-center justify-center text-white/40 hover:text-white"
+                >
+                    <Minus size={18} />
+                </button>
                 <span className="text-lg font-mono font-bold">{quantity}</span>
-                <button onClick={() => setQuantity(quantity + 1)} className="w-12 h-12 flex items-center justify-center text-white/40 hover:text-white"><Plus size={18} /></button>
+                <button 
+                    onClick={() => setQuantity(Math.min(availableStock, quantity + 1))} 
+                    disabled={quantity >= availableStock}
+                    className="w-12 h-12 flex items-center justify-center text-white/40 hover:text-white disabled:opacity-10"
+                >
+                    <Plus size={18} />
+                </button>
               </div>
               <Button disabled={isSoldOut} onClick={handleAddToCart} className="flex-1 h-16 bg-white text-black hover:bg-neutral-200 rounded-full font-bold uppercase tracking-widest text-[11px] no-glow">
                 <ShoppingCart size={18} className="mr-2" />

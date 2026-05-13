@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useUser, useFirestore, useCollection, useDoc, useMemoFirebase } from "@/firebase";
-import { collection, doc, writeBatch, setDoc, serverTimestamp } from "firebase/firestore";
+import { collection, doc, writeBatch, setDoc, serverTimestamp, increment, getDoc } from "firebase/firestore";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
@@ -14,7 +14,8 @@ import {
   Trash2,
   Plus,
   Minus,
-  ShieldCheck
+  ShieldCheck,
+  AlertCircle
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -74,8 +75,24 @@ export default function CheckoutPage() {
 
     setIsProcessing(true);
     try {
+      // 1. Verify stock for all items first
+      for (const item of items) {
+        const prodRef = doc(db, "products", item.productId);
+        const prodSnap = await getDoc(prodRef);
+        if (!prodSnap.exists() || (prodSnap.data().amount < item.quantity)) {
+            toast({
+                variant: "destructive",
+                title: "Stock Depleted",
+                description: `The flavor ${item.name} is currently low in stock. Please adjust your selection.`
+            });
+            setIsProcessing(false);
+            return;
+        }
+      }
+
       const orderId = `ORD_${Date.now()}`;
       const orderRef = doc(db, "orders", orderId);
+      const batch = writeBatch(db);
 
       const orderItems = items.map(item => ({
         productId: item.productId,
@@ -89,7 +106,8 @@ export default function CheckoutPage() {
       const SHIPPING_FEE = 5.00;
       const totalAmount = subtotal + SHIPPING_FEE;
 
-      await setDoc(orderRef, {
+      // Create Order
+      batch.set(orderRef, {
         id: orderId,
         userId: user.uid,
         items: orderItems,
@@ -105,11 +123,17 @@ export default function CheckoutPage() {
         updatedAt: serverTimestamp()
       });
 
-      const batch = writeBatch(db);
+      // Clear Cart and Decrease Stock
       items.forEach((item) => {
-        const itemRef = doc(db, "users", user.uid, "cart", item.id);
-        batch.delete(itemRef);
+        const cartItemRef = doc(db, "users", user.uid, "cart", item.id);
+        const productRef = doc(db, "products", item.productId);
+        
+        batch.delete(cartItemRef);
+        batch.update(productRef, {
+            amount: increment(-item.quantity)
+        });
       });
+
       await batch.commit();
 
       toast({ title: "Order Transmitted", description: "Your NECTAR harvest is being prepared for dispatch." });
