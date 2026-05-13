@@ -234,7 +234,11 @@ const ai = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$g
 ]);
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$build$2f$webpack$2f$loaders$2f$next$2d$flight$2d$loader$2f$server$2d$reference$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/build/webpack/loaders/next-flight-loader/server-reference.js [app-rsc] (ecmascript)");
 /**
- * @fileOverview Optimized Genkit flow for rapid flavor storytelling.
+ * @fileOverview A Genkit flow for generating captivating and unique short descriptions for drink flavors.
+ *
+ * - generateFlavorDescription - A function that handles the flavor description generation process.
+ * - GenerateFlavorDescriptionInput - The input type for the generateFlavorDescription function.
+ * - GenerateFlavorDescriptionOutput - The return type for the generateFlavorDescription function.
  */ var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$ai$2f$genkit$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/ai/genkit.ts [app-rsc] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$genkit$2f$lib$2f$index$2e$mjs__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__$3c$locals$3e$__ = __turbopack_context__.i("[project]/node_modules/genkit/lib/index.mjs [app-rsc] (ecmascript) <locals>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$genkit$2f$lib$2f$common$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/genkit/lib/common.js [app-rsc] (ecmascript)");
@@ -243,11 +247,11 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist
 ;
 ;
 const GenerateFlavorDescriptionInputSchema = __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$genkit$2f$lib$2f$common$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["z"].object({
-    flavorName: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$genkit$2f$lib$2f$common$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["z"].string().describe('The name of the drink flavor.'),
-    flavorColor: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$genkit$2f$lib$2f$common$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["z"].string().describe('The color associated with the flavor.')
+    flavorName: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$genkit$2f$lib$2f$common$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["z"].string().describe('The name of the drink flavor (e.g., "Guava", "Apple").'),
+    flavorColor: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$genkit$2f$lib$2f$common$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["z"].string().describe('The primary color associated with the drink flavor (e.g., "Green", "Pink").')
 });
 const GenerateFlavorDescriptionOutputSchema = __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$genkit$2f$lib$2f$common$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["z"].object({
-    description: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$genkit$2f$lib$2f$common$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["z"].string().describe('A 1-2 sentence evocative sensory description.')
+    description: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$genkit$2f$lib$2f$common$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["z"].string().describe('A captivating and unique 1-3 line description for the drink flavor.')
 });
 async function generateFlavorDescription(input) {
     return generateFlavorDescriptionFlow(input);
@@ -260,12 +264,14 @@ const prompt = __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$ai$2f$genk
     output: {
         schema: GenerateFlavorDescriptionOutputSchema
     },
-    config: {
-        temperature: 0.7,
-        maxOutputTokens: 100
-    },
-    prompt: `Act as a luxury copywriter for NECTAR. Write a single, highly evocative and short sensory sentence (max 20 words) for the flavor: {{{flavorName}}}. 
-Use its color ({{{flavorColor}}}) as inspiration. Focus on crispness and raw fruit essence. No fluff.`
+    prompt: `You are a creative copywriter for NECTAR, a luxury functional beverage brand.
+Your task is to generate a captivating and unique short narrative description for a drink flavor.
+
+The description should be 1-3 lines long and evoke the essence of the flavor, making it sound appealing and fresh.
+Consider the flavor name and its associated color to inspire the description.
+
+Flavor Name: {{{flavorName}}}
+Flavor Color: {{{flavorColor}}}`
 });
 const generateFlavorDescriptionFlow = __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$ai$2f$genkit$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["ai"].defineFlow({
     name: 'generateFlavorDescriptionFlow',

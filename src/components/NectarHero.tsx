@@ -15,7 +15,6 @@ export function NectarHero() {
   const [isPaused, setIsPaused] = useState(false);
   
   const heroImageRef = useRef<HTMLDivElement>(null);
-  const contentRef = useRef<HTMLDivElement>(null);
   
   const { user } = useUser();
   const db = useFirestore();
@@ -36,11 +35,9 @@ export function NectarHero() {
 
   useEffect(() => {
     if (isPaused) return;
-
     const autoRotateTimer = setTimeout(() => {
       changeFlavor("next");
     }, 10000); 
-
     return () => clearTimeout(autoRotateTimer);
   }, [currentFlavorIndex, changeFlavor, isPaused]);
 
@@ -50,83 +47,40 @@ export function NectarHero() {
   }, [db, currentFlavor.id]);
 
   const { data: productData } = useDoc(productRef);
-
   const price = productData?.price ?? 12.00;
   const isSoldOut = productData?.amount === 0;
 
-  const scrollToProducts = () => {
-    const section = document.getElementById('product');
-    if (section) {
-      section.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
   return (
-    <section 
-      id="hero" 
-      className="group relative h-[100svh] w-full overflow-hidden bg-black flex items-center gpu-smooth"
-    >
+    <section id="hero" className="group relative h-[100svh] w-full overflow-hidden bg-black flex items-center gpu-smooth">
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-0">
         <div 
           ref={heroImageRef}
           className={`relative w-full h-full transition-all duration-1000 ease-in-out will-change-transform gpu-smooth ${isLoadingFlavor ? 'opacity-0 scale-105 blur-xl' : 'opacity-100 scale-100'}`}
         >
-          <Image 
-            key={currentFlavor.id}
-            src={currentFlavor.videoUrl} 
-            alt={`${currentFlavor.name} sequence`} 
-            fill 
-            className="object-contain p-8 md:p-20"
-            unoptimized 
-            priority 
-          />
+          <Image key={currentFlavor.id} src={currentFlavor.videoUrl} alt={currentFlavor.name} fill className="object-contain p-8 md:p-20" unoptimized priority />
         </div>
       </div>
 
       <div className="absolute inset-0 hero-vignette z-10 pointer-events-none" />
 
       <div className="relative z-20 h-full w-full flex items-center justify-between px-6 md:px-24">
-        <div 
-          ref={contentRef}
-          className={`max-w-md transition-all duration-700 gpu-smooth ${isLoadingFlavor ? 'opacity-0 translate-y-8 blur-lg' : 'opacity-100 translate-y-0'}`}
-        >
+        <div className={`max-w-md transition-all duration-700 gpu-smooth ${isLoadingFlavor ? 'opacity-0 translate-y-8 blur-lg' : 'opacity-100 translate-y-0'}`}>
           <div className="space-y-6">
-            <p className="text-white/40 font-bold tracking-[0.5em] text-[9px] uppercase hover:text-white transition-colors">
-              NECTAR — real pressed
-            </p>
-            <h1 
-              className="text-4xl md:text-5xl font-headline font-bold leading-[0.85] tracking-tighter uppercase transition-all duration-1000"
-              style={{ color: currentFlavor.accentHex } as any}
-            >
+            <p className="text-white/40 font-bold tracking-[0.5em] text-[9px] uppercase hover:text-white transition-colors">NECTAR — real pressed</p>
+            <h1 className="text-4xl md:text-5xl font-headline font-bold uppercase transition-all duration-1000" style={{ color: currentFlavor.accentHex }}>
               {currentFlavor.name}
             </h1>
-            <p className="text-[11px] md:text-[12px] font-accent tracking-[0.2em] italic transition-colors duration-1000" style={{ color: `${currentFlavor.accentHex}80` }}>
-              {currentFlavor.subtitle}
-            </p>
-            <p className="text-[10px] md:text-[11px] text-white/40 leading-relaxed max-w-[300px] font-light hover:text-white transition-colors">
-              {productData?.description || currentFlavor.description}
-            </p>
+            <p className="text-[11px] md:text-[12px] font-accent tracking-[0.2em] italic opacity-60" style={{ color: currentFlavor.accentHex }}>{currentFlavor.subtitle}</p>
+            <p className="text-[10px] md:text-[11px] text-white/40 leading-relaxed max-w-[300px] font-light">{productData?.description || currentFlavor.description}</p>
             
-            <div className="flex flex-wrap gap-2 pt-2">
-              <span className="px-3 py-1 bg-transparent border border-white/10 rounded-full text-[8px] uppercase tracking-widest text-white/30 hover:border-primary/40 transition-colors">Cold Pressed</span>
-              <span className="px-3 py-1 bg-transparent border border-white/10 rounded-full text-[8px] uppercase tracking-widest text-white/30 hover:border-primary/40 transition-colors">High Vit C</span>
-              <span className="px-3 py-1 bg-transparent border border-white/10 rounded-full text-[8px] uppercase tracking-widest text-white/30 hover:border-primary/40 transition-colors">No Added Sugar</span>
-            </div>
-
             <div className="flex gap-4 pt-8">
               <button 
-                onClick={scrollToProducts}
-                style={{ 
-                  backgroundColor: isSoldOut ? '#333' : currentFlavor.accentHex,
-                  color: '#000'
-                } as any}
-                className={`px-10 py-4 font-bold rounded-full uppercase tracking-widest text-[10px] transition-all active:scale-95 hover:scale-105 shadow-xl no-glow`}
+                className="px-10 py-4 font-bold rounded-full uppercase tracking-widest text-[10px] transition-all no-glow"
+                style={{ backgroundColor: isSoldOut ? '#333' : currentFlavor.accentHex, color: '#000' }}
               >
                 {isSoldOut ? "SOLD OUT" : "ORDER NOW →"}
               </button>
-              <button 
-                className="px-10 py-4 border border-white/10 bg-transparent text-white font-bold rounded-full uppercase tracking-widest text-[10px] hover:bg-white/5 transition-all backdrop-blur-sm"
-              >
+              <button className="px-10 py-4 border border-white/10 bg-transparent text-white font-bold rounded-full uppercase tracking-widest text-[10px] backdrop-blur-sm">
                 ${price.toFixed(2)}
               </button>
             </div>
@@ -137,34 +91,20 @@ export function NectarHero() {
           <div className="text-center relative">
              <span 
                className="font-headline font-bold text-7xl md:text-8xl leading-none select-none transition-all duration-1000 inline-block border-style-number"
-               style={{ 
-                 WebkitTextStroke: `1px ${currentFlavor.accentHex}`,
-                 '--flavor-color': currentFlavor.accentHex
-               } as any}
+               style={{ WebkitTextStroke: `1px ${currentFlavor.accentHex}`, '--flavor-color': currentFlavor.accentHex } as any}
              >
                {currentFlavor.index}
              </span>
-             <p className="text-[9px] uppercase tracking-[0.5em] mt-2 font-bold transition-colors duration-1000" style={{ color: `${currentFlavor.accentHex}40` }}>
-               {currentFlavor.index} / 07
-             </p>
           </div>
           
           <div className="flex flex-col items-center gap-5">
-            <button 
-              onClick={() => changeFlavor("prev")}
-              className="group flex flex-col items-center gap-2 py-2 text-[10px] font-bold tracking-[0.4em] text-white/20 transition-all bg-transparent border-none outline-none no-glow"
-              style={{ '--current-glow': currentFlavor.accentHex } as any}
-            >
+            <button onClick={() => changeFlavor("prev")} className="group flex flex-col items-center gap-2 text-[10px] font-bold tracking-[0.4em] text-white/20 transition-all bg-transparent no-glow">
               <ChevronUp className="w-4 h-4 group-hover:-translate-y-1 transition-transform" />
-              <span className="transition-all uppercase">PREV</span>
+              <span className="hover:text-primary transition-all">PREV</span>
             </button>
             <div className="w-px h-12 bg-white/10" />
-            <button 
-              onClick={() => changeFlavor("next")}
-              className="group flex flex-col items-center gap-2 py-2 text-[10px] font-bold tracking-[0.4em] text-white/20 transition-all bg-transparent border-none outline-none no-glow"
-              style={{ '--current-glow': currentFlavor.accentHex } as any}
-            >
-              <span className="transition-all uppercase">NEXT</span>
+            <button onClick={() => changeFlavor("next")} className="group flex flex-col items-center gap-2 text-[10px] font-bold tracking-[0.4em] text-white/20 transition-all bg-transparent no-glow">
+              <span className="hover:text-primary transition-all">NEXT</span>
               <ChevronDown className="w-4 h-4 group-hover:translate-y-1 transition-transform" />
             </button>
           </div>
@@ -179,21 +119,14 @@ export function NectarHero() {
             <Facebook className="w-4 h-4 text-white/15 hover:text-primary transition-colors cursor-pointer" />
           </a>
         </div>
-        
         <div className="w-px h-4 bg-white/10" />
-        
         <button 
           onClick={() => setIsPaused(!isPaused)}
           className="group flex items-center gap-2 text-[9px] font-bold tracking-[0.3em] text-white/20 hover:text-white transition-all bg-transparent px-4 py-2 rounded-full border border-white/10"
         >
-          {isPaused ? (
-            <><Play size={10} fill="currentColor" /> PLAY</>
-          ) : (
-            <><Pause size={10} fill="currentColor" /> PAUSE</>
-          )}
+          {isPaused ? <><Play size={10} fill="currentColor" /> PLAY</> : <><Pause size={10} fill="currentColor" /> PAUSE</>}
         </button>
       </div>
-
       <AuthModal isOpen={isAuthOpen} onClose={() => setIsAuthOpen(false)} />
     </section>
   );

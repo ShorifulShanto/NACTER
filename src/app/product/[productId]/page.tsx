@@ -7,15 +7,7 @@ import { flavors } from "@/lib/flavor-data";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import Image from "next/image";
-import { 
-  ArrowLeft, 
-  Plus, 
-  Minus, 
-  ShoppingCart,
-  Loader2,
-  Star,
-  Sparkles
-} from "lucide-react";
+import { ArrowLeft, Plus, Minus, ShoppingCart, Loader2, Star, Sparkles } from "lucide-react";
 import { useState, useEffect } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { setDocumentNonBlocking } from "@/firebase/non-blocking-updates";
@@ -43,11 +35,7 @@ export default function ProductDetailPage() {
 
   const reviewsQuery = useMemoFirebase(() => {
     if (!db || !productId) return null;
-    return query(
-      collection(db, "reviews"),
-      where("productId", "==", productId),
-      limit(5)
-    );
+    return query(collection(db, "reviews"), where("productId", "==", productId), limit(5));
   }, [db, productId]);
 
   const { data: productData, isLoading } = useDoc(productRef);
@@ -65,13 +53,10 @@ export default function ProductDetailPage() {
       const fetchAiStory = async () => {
         setIsAiLoading(true);
         try {
-          const res = await generateFlavorDescription({ 
-            flavorName: name, 
-            flavorColor: flavorStatic?.color || "Fresh" 
-          });
+          const res = await generateFlavorDescription({ flavorName: name, flavorColor: flavorStatic?.color || "Fresh" });
           setAiStory(res.description);
         } catch (e) {
-          console.error("AI Story generation failed", e);
+          console.error("AI Story failed", e);
         } finally {
           setIsAiLoading(false);
         }
@@ -80,83 +65,53 @@ export default function ProductDetailPage() {
     }
   }, [name, flavorStatic?.color]);
 
-  if (isLoading) {
-    return (
-      <div className="min-h-screen bg-black flex items-center justify-center">
-        <Loader2 className="animate-spin text-primary" size={40} />
-      </div>
-    );
-  }
+  if (isLoading) return <div className="min-h-screen bg-black flex items-center justify-center"><Loader2 className="animate-spin text-primary" size={40} /></div>;
 
   const handleAddToCart = () => {
     if (!user || !db) {
-      toast({ title: "Please sign in to shop", description: "You need an account to add items to cart." });
+      toast({ title: "Please sign in to shop" });
       return;
     }
-
     if (isSoldOut) {
-      toast({ variant: "destructive", title: "Sold Out", description: "This flavor is currently unavailable." });
+      toast({ variant: "destructive", title: "Sold Out" });
       return;
     }
-
     const itemRef = doc(db, "users", user.uid, "cart", productId);
-    
     setDocumentNonBlocking(itemRef, {
-      productId: productId,
+      productId,
       userId: user.uid,
-      cartId: 'default_cart',
-      quantity: quantity, 
+      quantity,
       priceAtAddToCart: price,
       name,
       image,
       updatedAt: new Date().toISOString()
     }, { merge: true });
-
-    toast({ title: `${quantity}x ${name} added to cart.` });
+    toast({ title: `${quantity}x ${name} added.` });
   };
 
   return (
     <main className="min-h-screen bg-[#050505] text-white">
       <Navbar />
-      
       <div className="container mx-auto px-6 pt-32 pb-20">
-        <button 
-          onClick={() => router.back()}
-          className="group flex items-center gap-2 text-[10px] uppercase tracking-[0.4em] text-white/30 hover:text-white transition-all mb-12"
-        >
+        <button onClick={() => router.back()} className="group flex items-center gap-2 text-[10px] uppercase tracking-[0.4em] text-white/30 hover:text-white transition-all mb-12">
           <ArrowLeft size={14} className="group-hover:-translate-x-1 transition-transform" />
-          Back to the Grove
+          Back to Selection
         </button>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
           <div className="relative aspect-square rounded-[3rem] bg-transparent border border-white/5 overflow-hidden flex items-center justify-center p-12 group">
-            <div 
-              className="absolute inset-0 opacity-20 blur-[100px] pointer-events-none"
-              style={{ background: `radial-gradient(circle at center, ${accentColor} 0%, transparent 70%)` }}
-            />
+            <div className="absolute inset-0 opacity-20 blur-[100px] pointer-events-none" style={{ background: `radial-gradient(circle at center, ${accentColor} 0%, transparent 70%)` }} />
             <div className="relative w-full h-full transform group-hover:scale-105 transition-transform duration-1000">
               <Image src={image} alt={name} fill className="object-contain" priority />
             </div>
-            {isSoldOut && (
-              <div className="absolute top-8 left-8 bg-primary text-black text-[10px] font-bold px-4 py-2 rounded-full uppercase tracking-widest z-20">
-                Sold Out
-              </div>
-            )}
           </div>
 
           <div className="space-y-10">
             <div>
               <p className="text-primary text-[9px] uppercase tracking-[0.5em] mb-4 font-bold">Cold Pressed Batch No. {flavorStatic?.index || '01'}</p>
-              <h1 className="text-6xl md:text-8xl font-headline font-bold uppercase leading-[0.85] tracking-tighter mb-6" style={{ color: accentColor }}>
-                {name}
-              </h1>
-              
+              <h1 className="text-6xl md:text-8xl font-headline font-bold uppercase leading-[0.85] tracking-tighter mb-6" style={{ color: accentColor }}>{name}</h1>
               <div className="space-y-6">
-                <p className="text-[13px] md:text-[15px] text-white/40 leading-relaxed max-w-lg font-light">
-                  {description}
-                </p>
-                
-                {/* AI Storytelling Section */}
+                <p className="text-[13px] md:text-[15px] text-white/40 leading-relaxed max-w-lg font-light">{description}</p>
                 <div className="pt-6 border-t border-white/5">
                   <div className="flex items-center gap-2 mb-4">
                     <Sparkles className="text-primary" size={14} />
@@ -168,17 +123,10 @@ export default function ProductDetailPage() {
                       <span className="text-[10px] uppercase tracking-widest animate-pulse">Brewing sensory narrative...</span>
                     </div>
                   ) : (
-                    <p className="text-[14px] text-white/70 italic font-accent leading-relaxed max-w-lg">
-                      {aiStory || "Nature's purest essence, captured in a single, refined bottle."}
-                    </p>
+                    <p className="text-[14px] text-white/70 italic leading-relaxed max-w-lg">{aiStory || "Nature's purest essence, captured in a single bottle."}</p>
                   )}
                 </div>
               </div>
-            </div>
-
-            <div className="flex items-end gap-6 pb-6 border-b border-white/5">
-              <span className="text-5xl font-headline font-bold">${price.toFixed(2)}</span>
-              <span className="text-[11px] uppercase tracking-widest text-white/20 pb-1.5">Per 350ml Bottle</span>
             </div>
 
             <div className="flex flex-col sm:flex-row gap-6">
@@ -187,29 +135,11 @@ export default function ProductDetailPage() {
                 <span className="text-lg font-mono font-bold">{quantity}</span>
                 <button onClick={() => setQuantity(quantity + 1)} className="w-12 h-12 flex items-center justify-center text-white/40 hover:text-white"><Plus size={18} /></button>
               </div>
-
               <Button disabled={isSoldOut} onClick={handleAddToCart} className="flex-1 h-16 bg-white text-black hover:bg-neutral-200 rounded-full font-bold uppercase tracking-widest text-[11px] no-glow">
                 <ShoppingCart size={18} className="mr-2" />
-                {isSoldOut ? "Currently Unavailable" : "Add to Collection"}
+                {isSoldOut ? "Sold Out" : "Add to Collection"}
               </Button>
             </div>
-
-            {reviews && reviews.length > 0 && (
-              <div className="pt-10 border-t border-white/5">
-                <h4 className="text-[10px] uppercase tracking-[0.4em] text-white/20 font-bold mb-6">Tasting Notes</h4>
-                <div className="space-y-6">
-                  {reviews.map((review) => (
-                    <div key={review.id} className="bg-white/2 p-4 rounded-2xl border border-white/5">
-                      <div className="flex gap-1 text-primary mb-2">
-                        {[...Array(review.rating)].map((_, i) => <Star key={i} size={10} fill="currentColor" />)}
-                      </div>
-                      <p className="text-[12px] text-white/60 font-light mb-2 italic">"{review.comment}"</p>
-                      <p className="text-[9px] uppercase tracking-widest text-white/20">— {review.userName}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
           </div>
         </div>
       </div>

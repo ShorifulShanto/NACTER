@@ -35,18 +35,15 @@ service cloud.firestore {
 
     match /orders/{orderId} {
       allow create: if isSignedIn();
-      // Allow users to list their own orders reliably. 
-      // Query safety: Ensure rules are simple enough for standard queries.
-      allow list: if isSignedIn() && (isAdmin() || request.auth.uid == resource.data.userId);
       allow get: if isSignedIn() && (isAdmin() || resource.data.userId == request.auth.uid);
-      allow update, delete: if isAdmin();
+      allow list: if isSignedIn() && (isAdmin() || request.query.limit <= 20); 
     }
 
     match /users/{userId} {
       allow get: if isOwner(userId);
       allow list: if isAdmin();
-      allow create: if isOwner(userId) && request.resource.data.id == userId;
-      allow update: if isOwner(userId) && request.resource.data.id == resource.data.id;
+      allow create: if isOwner(userId);
+      allow update: if isOwner(userId);
       allow delete: if isOwner(userId);
 
       match /cart/{productId} {

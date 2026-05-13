@@ -79,11 +79,7 @@ export default function NectarAuthPage() {
         setView("login");
       }
     } catch (error: any) {
-      toast({ 
-        variant: "destructive", 
-        title: "Auth Failed", 
-        description: error.message 
-      });
+      toast({ variant: "destructive", title: "Auth Failed", description: error.message });
     } finally {
       setIsLoading(false);
     }

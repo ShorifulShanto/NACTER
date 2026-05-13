@@ -154,7 +154,6 @@ export default function ProfilePage() {
       
       <div className="container mx-auto px-6 pt-32 pb-32">
         <div className="max-w-6xl mx-auto">
-          {/* Header */}
           <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-8 mb-16 pb-12 border-b border-white/5">
             <div>
               <p className="text-primary text-[9px] uppercase tracking-[0.5em] mb-4 font-bold">Member Dashboard</p>
@@ -181,7 +180,6 @@ export default function ProfilePage() {
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
-            {/* User Info Column */}
             <div className="space-y-8">
               <div className="bg-white/5 border border-white/5 rounded-3xl p-10 backdrop-blur-xl relative overflow-hidden group">
                 <div className="absolute top-0 right-0 p-8 text-primary/10 group-hover:text-primary/20 transition-colors">
@@ -243,7 +241,6 @@ export default function ProfilePage() {
               </div>
             </div>
 
-            {/* Profile Edit / Activity Column */}
             <div className="lg:col-span-2 space-y-8">
               {isEditing ? (
                 <div className="bg-white/5 border border-white/10 rounded-[2.5rem] p-12 backdrop-blur-xl animate-in fade-in slide-in-from-bottom-4 duration-500">
@@ -336,28 +333,6 @@ export default function ProfilePage() {
                         </Button>
                       </div>
                     )}
-                  </div>
-
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div className="bg-primary/5 border border-primary/10 rounded-3xl p-8 group">
-                      <h4 className="text-[10px] font-bold text-primary uppercase tracking-[0.4em] mb-4">NECTAR Points</h4>
-                      <div className="flex items-end gap-2 mb-2">
-                        <span className="text-4xl font-headline font-bold text-white group-hover:glow-precise transition-all">2,450</span>
-                        <span className="text-[10px] text-primary uppercase tracking-widest mb-1.5 font-bold">Available</span>
-                      </div>
-                      <div className="h-1.5 w-full bg-black/40 rounded-full overflow-hidden mt-6">
-                        <div className="h-full bg-primary w-[65%]" />
-                      </div>
-                      <p className="text-[9px] text-white/20 uppercase tracking-widest mt-4">Next reward at 3,000 pts</p>
-                    </div>
-                    
-                    <div className="bg-white/5 border border-white/5 rounded-3xl p-8 group hover:border-white/10 transition-all">
-                      <h4 className="text-[10px] font-bold text-white/20 uppercase tracking-[0.4em] mb-4">Support</h4>
-                      <p className="text-[11px] text-white/40 font-light leading-relaxed mb-6">Need assistance with your selection? Our grove experts are here to help.</p>
-                      <Button variant="outline" className="w-full h-11 rounded-full border-white/10 uppercase text-[9px] tracking-widest font-bold">
-                        Contact Support
-                      </Button>
-                    </div>
                   </div>
                 </div>
               )}

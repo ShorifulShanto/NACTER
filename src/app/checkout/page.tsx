@@ -61,7 +61,6 @@ export default function CheckoutPage() {
   const handlePlaceOrder = async () => {
     if (!user || !db || !items || items.length === 0) return;
 
-    // Check if profile is truly complete before allowing order
     if (!profile?.location || !profile?.firstName) {
       toast({
         title: "Profile Incomplete",
@@ -89,7 +88,6 @@ export default function CheckoutPage() {
       const SHIPPING_FEE = 5.00;
       const totalAmount = subtotal + SHIPPING_FEE;
 
-      // We use standard setDoc with await here to ensure the order is saved before clearing cart
       await setDoc(orderRef, {
         id: orderId,
         userId: user.uid,
@@ -161,13 +159,12 @@ export default function CheckoutPage() {
                   items.map((item) => {
                     const price = item.priceAtAddToCart || 12.00;
                     const qty = Number(item.quantity) || 0;
-                    const imageSrc = (typeof item.image === 'string' && item.image) ? item.image : "https://picsum.photos/seed/juice/400/600";
                     
                     return (
                       <div key={item.id} className="bg-white/5 border border-white/5 rounded-2xl p-6 flex items-center gap-6 group">
                         <div className="relative w-20 h-20 bg-black/40 rounded-xl overflow-hidden flex-shrink-0">
                           <Image 
-                            src={imageSrc} 
+                            src={item.image || "https://picsum.photos/seed/juice/400/600"} 
                             alt={item.name || "NECTAR Flavor"} 
                             fill 
                             className="object-contain p-2" 
@@ -186,19 +183,9 @@ export default function CheckoutPage() {
                           
                           <div className="flex justify-between items-center mt-6">
                             <div className="flex items-center border border-white/10 rounded-full px-3 py-1 bg-black/40">
-                              <button 
-                                onClick={() => updateQty(item.id, qty - 1)}
-                                className="p-1 text-white/40 hover:text-white transition-colors bg-transparent no-glow"
-                              >
-                                <Minus size={14} />
-                              </button>
+                              <button onClick={() => updateQty(item.id, qty - 1)} className="p-1 text-white/40 hover:text-white transition-colors bg-transparent no-glow"><Minus size={14} /></button>
                               <span className="w-10 text-center text-xs font-bold font-mono">{String(qty)}</span>
-                              <button 
-                                onClick={() => updateQty(item.id, qty + 1)}
-                                className="p-1 text-white/40 hover:text-white transition-colors bg-transparent no-glow"
-                              >
-                                <Plus size={14} />
-                              </button>
+                              <button onClick={() => updateQty(item.id, qty + 1)} className="p-1 text-white/40 hover:text-white transition-colors bg-transparent no-glow"><Plus size={14} /></button>
                             </div>
                             <p className="text-sm font-bold text-primary">${(price * qty).toFixed(2)}</p>
                           </div>
@@ -210,9 +197,6 @@ export default function CheckoutPage() {
                   <div className="bg-white/5 border border-white/5 rounded-2xl p-12 text-center">
                     <ShoppingBag className="mx-auto text-white/10 mb-4" size={32} />
                     <p className="text-[10px] uppercase tracking-widest text-white/20">Selection is empty</p>
-                    <Button asChild variant="ghost" className="mt-6 text-primary uppercase tracking-widest text-[9px] hover:bg-primary/5 rounded-full">
-                      <Link href="/">Back to Shop</Link>
-                    </Button>
                   </div>
                 )}
               </div>
@@ -232,7 +216,7 @@ export default function CheckoutPage() {
                       </div>
                     ) : (
                       <div className="space-y-4">
-                        <p className="text-[11px] text-white/40 font-light italic">Delivery address not found in your profile.</p>
+                        <p className="text-[11px] text-white/40 font-light italic">Delivery address not found.</p>
                         <Button asChild variant="outline" className="rounded-full h-10 px-6 uppercase text-[9px] tracking-widest bg-transparent">
                           <Link href="/profile">Update Profile</Link>
                         </Button>
@@ -270,10 +254,6 @@ export default function CheckoutPage() {
                     className="w-full h-14 bg-white text-black hover:bg-neutral-200 rounded-full font-bold uppercase tracking-[0.2em] text-[10px] shadow-2xl transition-all active:scale-95 no-glow"
                   >
                     {isProcessing ? <Loader2 className="animate-spin" size={18} /> : "Proceed to Checkout"}
-                  </Button>
-                  
-                  <Button asChild variant="ghost" className="w-full h-12 text-white/30 hover:text-white uppercase tracking-widest text-[9px] bg-transparent rounded-full">
-                    <Link href="/">Continue Shopping</Link>
                   </Button>
                 </div>
               </div>

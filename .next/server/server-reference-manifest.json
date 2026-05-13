@@ -14,6 +14,21 @@
       },
       "filename": "src/ai/flows/generate-review-flow.ts",
       "exportedName": "generateReview"
+    },
+    "40efb87a8ee3b24bc62c2c63ca86bbcec3cc248b23": {
+      "workers": {
+        "app/product/[productId]/page": {
+          "moduleId": "[project]/.next-internal/server/app/product/[productId]/page/actions.js { ACTIONS_MODULE0 => \"[project]/src/ai/flows/generate-flavor-description.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "generateFlavorDescription",
+          "filename": "src/ai/flows/generate-flavor-description.ts"
+        }
+      },
+      "layer": {
+        "app/product/[productId]/page": "action-browser"
+      },
+      "filename": "src/ai/flows/generate-flavor-description.ts",
+      "exportedName": "generateFlavorDescription"
     }
   },
   "edge": {},

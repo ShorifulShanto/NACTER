@@ -70,17 +70,17 @@ export function Navbar() {
             {user ? (
               <Link 
                 href="/profile"
-                className="flex items-center gap-2 text-white/60 transition-all group bg-transparent border-none hover:text-glow-primary"
+                className="flex items-center gap-2 text-white/60 transition-all group bg-transparent border-none"
               >
                 <User size={20} strokeWidth={1.5} className="group-hover:scale-110 transition-transform" />
-                <span className="text-[10px] uppercase tracking-widest hidden sm:block font-medium">
+                <span className="text-[10px] uppercase tracking-widest hidden sm:block font-medium group-hover:text-primary transition-all">
                   {user.email?.split('@')[0]}
                 </span>
               </Link>
             ) : (
               <button 
                 onClick={() => setIsAuthOpen(true)}
-                className="px-5 py-2 border border-primary/20 rounded-full text-[9px] uppercase tracking-widest font-bold hover:bg-white/5 transition-all bg-transparent backdrop-blur-md hover:text-glow-primary"
+                className="px-5 py-2 border border-primary/20 rounded-full text-[9px] uppercase tracking-widest font-bold hover:bg-white/5 transition-all bg-transparent backdrop-blur-md"
               >
                 Sign In
               </button>
@@ -98,7 +98,7 @@ export function Navbar() {
 
       <div className={`fixed inset-0 z-[110] transition-all duration-500 ${isMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}>
         <div className={`absolute inset-0 bg-black/40 transition-opacity duration-500 ${isMenuOpen ? 'opacity-100' : 'opacity-0'}`} onClick={() => setIsMenuOpen(false)} />
-        <div className={`absolute top-0 right-0 h-full w-full sm:max-w-[320px] frosted-glass transition-transform duration-700 ease-in-out ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'} shadow-2xl overflow-hidden`}>
+        <div className={`absolute top-0 right-0 h-full w-full sm:max-w-[320px] bg-black/80 backdrop-blur-2xl transition-transform duration-700 ease-in-out ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'} shadow-2xl overflow-hidden`}>
           
           <div className="h-full flex flex-col p-8 md:p-12 relative z-10 overflow-y-auto scrollbar-hide">
             <div className="flex justify-between items-center mb-16">

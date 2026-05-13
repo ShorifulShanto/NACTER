@@ -56,23 +56,9 @@
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
-  .hover\:text-glow-primary:hover {
-    text-shadow: 0 0 15px var(--nectar-teal) !important;
-    color: var(--nectar-teal) !important;
-  }
-
-  .hover\:text-glow-current:hover {
-    text-shadow: 0 0 20px var(--current-glow) !important;
-    color: var(--current-glow) !important;
-  }
-
   h1, h2, h3, h4, h5, h6 {
     @apply font-headline tracking-tighter uppercase;
   }
-}
-
-.bg-silver-dark {
-  background-color: var(--silver-dark);
 }
 
 .gpu-smooth {
@@ -82,39 +68,8 @@
   will-change: transform, opacity, filter;
 }
 
-.frosted-glass {
-  background: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-}
-
-.scrollbar-hide::-webkit-scrollbar {
-  display: none;
-}
-.scrollbar-hide {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
-
 .hero-vignette {
   background: radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.9) 100%);
-}
-
-@keyframes heartbeat {
-  0%, 100% { 
-    transform: scale(1);
-    filter: drop-shadow(0 0 5px var(--nectar-glow));
-  }
-  50% { 
-    transform: scale(1.02);
-    filter: drop-shadow(0 0 20px var(--nectar-teal));
-  }
-}
-
-.animate-heartbeat {
-  animation: heartbeat 3s ease-in-out infinite;
-  transform-origin: center;
-  will-change: transform, filter;
 }
 
 .border-style-number {
@@ -128,8 +83,4 @@
   -webkit-text-stroke: 1px transparent;
   text-shadow: 0 0 40px var(--flavor-color, var(--nectar-teal));
   transform: scale(1.05);
-}
-
-.text-glow-precise {
-  text-shadow: 0 0 10px currentColor;
 }

@@ -1473,7 +1473,7 @@ function Navbar() {
                                 }, this),
                                 user ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
                                     href: "/profile",
-                                    className: "flex items-center gap-2 text-white/60 transition-all group bg-transparent border-none hover:text-glow-primary",
+                                    className: "flex items-center gap-2 text-white/60 transition-all group bg-transparent border-none",
                                     children: [
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$user$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__User$3e$__["User"], {
                                             size: 20,
@@ -1485,7 +1485,7 @@ function Navbar() {
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                            className: "text-[10px] uppercase tracking-widest hidden sm:block font-medium",
+                                            className: "text-[10px] uppercase tracking-widest hidden sm:block font-medium group-hover:text-primary transition-all",
                                             children: (_user_email = user.email) === null || _user_email === void 0 ? void 0 : _user_email.split('@')[0]
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/Navbar.tsx",
@@ -1499,7 +1499,7 @@ function Navbar() {
                                     columnNumber: 15
                                 }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                     onClick: ()=>setIsAuthOpen(true),
-                                    className: "px-5 py-2 border border-primary/20 rounded-full text-[9px] uppercase tracking-widest font-bold hover:bg-white/5 transition-all bg-transparent backdrop-blur-md hover:text-glow-primary",
+                                    className: "px-5 py-2 border border-primary/20 rounded-full text-[9px] uppercase tracking-widest font-bold hover:bg-white/5 transition-all bg-transparent backdrop-blur-md",
                                     children: "Sign In"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/Navbar.tsx",
@@ -1551,7 +1551,7 @@ function Navbar() {
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "absolute top-0 right-0 h-full w-full sm:max-w-[320px] frosted-glass transition-transform duration-700 ease-in-out ".concat(isMenuOpen ? 'translate-x-0' : 'translate-x-full', " shadow-2xl overflow-hidden"),
+                        className: "absolute top-0 right-0 h-full w-full sm:max-w-[320px] bg-black/80 backdrop-blur-2xl transition-transform duration-700 ease-in-out ".concat(isMenuOpen ? 'translate-x-0' : 'translate-x-full', " shadow-2xl overflow-hidden"),
                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                             className: "h-full flex flex-col p-8 md:p-12 relative z-10 overflow-y-auto scrollbar-hide",
                             children: [
@@ -1974,7 +1974,6 @@ function NectarHero() {
     const [isAuthOpen, setIsAuthOpen] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
     const [isPaused, setIsPaused] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
     const heroImageRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRef"])(null);
-    const contentRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRef"])(null);
     const { user } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$firebase$2f$provider$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useUser"])();
     const db = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$firebase$2f$provider$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useFirestore"])();
     const currentFlavor = __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$flavor$2d$data$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["flavors"][currentFlavorIndex];
@@ -2027,14 +2026,6 @@ function NectarHero() {
     var _productData_price;
     const price = (_productData_price = productData === null || productData === void 0 ? void 0 : productData.price) !== null && _productData_price !== void 0 ? _productData_price : 12.00;
     const isSoldOut = (productData === null || productData === void 0 ? void 0 : productData.amount) === 0;
-    const scrollToProducts = ()=>{
-        const section = document.getElementById('product');
-        if (section) {
-            section.scrollIntoView({
-                behavior: 'smooth'
-            });
-        }
-    };
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
         id: "hero",
         className: "group relative h-[100svh] w-full overflow-hidden bg-black flex items-center gpu-smooth",
@@ -2046,38 +2037,37 @@ function NectarHero() {
                     className: "relative w-full h-full transition-all duration-1000 ease-in-out will-change-transform gpu-smooth ".concat(isLoadingFlavor ? 'opacity-0 scale-105 blur-xl' : 'opacity-100 scale-100'),
                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$image$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
                         src: currentFlavor.videoUrl,
-                        alt: "".concat(currentFlavor.name, " sequence"),
+                        alt: currentFlavor.name,
                         fill: true,
                         className: "object-contain p-8 md:p-20",
                         unoptimized: true,
                         priority: true
                     }, currentFlavor.id, false, {
                         fileName: "[project]/src/components/NectarHero.tsx",
-                        lineNumber: 74,
+                        lineNumber: 60,
                         columnNumber: 11
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/src/components/NectarHero.tsx",
-                    lineNumber: 70,
+                    lineNumber: 56,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/components/NectarHero.tsx",
-                lineNumber: 69,
+                lineNumber: 55,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: "absolute inset-0 hero-vignette z-10 pointer-events-none"
             }, void 0, false, {
                 fileName: "[project]/src/components/NectarHero.tsx",
-                lineNumber: 86,
+                lineNumber: 64,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: "relative z-20 h-full w-full flex items-center justify-between px-6 md:px-24",
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        ref: contentRef,
                         className: "max-w-md transition-all duration-700 gpu-smooth ".concat(isLoadingFlavor ? 'opacity-0 translate-y-8 blur-lg' : 'opacity-100 translate-y-0'),
                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                             className: "space-y-6",
@@ -2087,114 +2077,80 @@ function NectarHero() {
                                     children: "NECTAR — real pressed"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/NectarHero.tsx",
-                                    lineNumber: 94,
+                                    lineNumber: 69,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
-                                    className: "text-4xl md:text-5xl font-headline font-bold leading-[0.85] tracking-tighter uppercase transition-all duration-1000",
+                                    className: "text-4xl md:text-5xl font-headline font-bold uppercase transition-all duration-1000",
                                     style: {
                                         color: currentFlavor.accentHex
                                     },
                                     children: currentFlavor.name
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/NectarHero.tsx",
-                                    lineNumber: 97,
+                                    lineNumber: 70,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                    className: "text-[11px] md:text-[12px] font-accent tracking-[0.2em] italic transition-colors duration-1000",
+                                    className: "text-[11px] md:text-[12px] font-accent tracking-[0.2em] italic opacity-60",
                                     style: {
-                                        color: "".concat(currentFlavor.accentHex, "80")
+                                        color: currentFlavor.accentHex
                                     },
                                     children: currentFlavor.subtitle
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/NectarHero.tsx",
-                                    lineNumber: 103,
+                                    lineNumber: 73,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                    className: "text-[10px] md:text-[11px] text-white/40 leading-relaxed max-w-[300px] font-light hover:text-white transition-colors",
+                                    className: "text-[10px] md:text-[11px] text-white/40 leading-relaxed max-w-[300px] font-light",
                                     children: (productData === null || productData === void 0 ? void 0 : productData.description) || currentFlavor.description
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/NectarHero.tsx",
-                                    lineNumber: 106,
-                                    columnNumber: 13
-                                }, this),
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                    className: "flex flex-wrap gap-2 pt-2",
-                                    children: [
-                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                            className: "px-3 py-1 bg-transparent border border-white/10 rounded-full text-[8px] uppercase tracking-widest text-white/30 hover:border-primary/40 transition-colors",
-                                            children: "Cold Pressed"
-                                        }, void 0, false, {
-                                            fileName: "[project]/src/components/NectarHero.tsx",
-                                            lineNumber: 111,
-                                            columnNumber: 15
-                                        }, this),
-                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                            className: "px-3 py-1 bg-transparent border border-white/10 rounded-full text-[8px] uppercase tracking-widest text-white/30 hover:border-primary/40 transition-colors",
-                                            children: "High Vit C"
-                                        }, void 0, false, {
-                                            fileName: "[project]/src/components/NectarHero.tsx",
-                                            lineNumber: 112,
-                                            columnNumber: 15
-                                        }, this),
-                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                            className: "px-3 py-1 bg-transparent border border-white/10 rounded-full text-[8px] uppercase tracking-widest text-white/30 hover:border-primary/40 transition-colors",
-                                            children: "No Added Sugar"
-                                        }, void 0, false, {
-                                            fileName: "[project]/src/components/NectarHero.tsx",
-                                            lineNumber: 113,
-                                            columnNumber: 15
-                                        }, this)
-                                    ]
-                                }, void 0, true, {
-                                    fileName: "[project]/src/components/NectarHero.tsx",
-                                    lineNumber: 110,
+                                    lineNumber: 74,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                     className: "flex gap-4 pt-8",
                                     children: [
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                            onClick: scrollToProducts,
+                                            className: "px-10 py-4 font-bold rounded-full uppercase tracking-widest text-[10px] transition-all no-glow",
                                             style: {
                                                 backgroundColor: isSoldOut ? '#333' : currentFlavor.accentHex,
                                                 color: '#000'
                                             },
-                                            className: "px-10 py-4 font-bold rounded-full uppercase tracking-widest text-[10px] transition-all active:scale-95 hover:scale-105 shadow-xl no-glow",
                                             children: isSoldOut ? "SOLD OUT" : "ORDER NOW →"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/NectarHero.tsx",
-                                            lineNumber: 117,
+                                            lineNumber: 77,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                            className: "px-10 py-4 border border-white/10 bg-transparent text-white font-bold rounded-full uppercase tracking-widest text-[10px] hover:bg-white/5 transition-all backdrop-blur-sm",
+                                            className: "px-10 py-4 border border-white/10 bg-transparent text-white font-bold rounded-full uppercase tracking-widest text-[10px] backdrop-blur-sm",
                                             children: [
                                                 "$",
                                                 price.toFixed(2)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/components/NectarHero.tsx",
-                                            lineNumber: 127,
+                                            lineNumber: 83,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/components/NectarHero.tsx",
-                                    lineNumber: 116,
+                                    lineNumber: 76,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/NectarHero.tsx",
-                            lineNumber: 93,
+                            lineNumber: 68,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/components/NectarHero.tsx",
-                        lineNumber: 89,
+                        lineNumber: 67,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2202,37 +2158,21 @@ function NectarHero() {
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 className: "text-center relative",
-                                children: [
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                        className: "font-headline font-bold text-7xl md:text-8xl leading-none select-none transition-all duration-1000 inline-block border-style-number",
-                                        style: {
-                                            WebkitTextStroke: "1px ".concat(currentFlavor.accentHex),
-                                            '--flavor-color': currentFlavor.accentHex
-                                        },
-                                        children: currentFlavor.index
-                                    }, void 0, false, {
-                                        fileName: "[project]/src/components/NectarHero.tsx",
-                                        lineNumber: 138,
-                                        columnNumber: 14
-                                    }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                        className: "text-[9px] uppercase tracking-[0.5em] mt-2 font-bold transition-colors duration-1000",
-                                        style: {
-                                            color: "".concat(currentFlavor.accentHex, "40")
-                                        },
-                                        children: [
-                                            currentFlavor.index,
-                                            " / 07"
-                                        ]
-                                    }, void 0, true, {
-                                        fileName: "[project]/src/components/NectarHero.tsx",
-                                        lineNumber: 147,
-                                        columnNumber: 14
-                                    }, this)
-                                ]
-                            }, void 0, true, {
+                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                    className: "font-headline font-bold text-7xl md:text-8xl leading-none select-none transition-all duration-1000 inline-block border-style-number",
+                                    style: {
+                                        WebkitTextStroke: "1px ".concat(currentFlavor.accentHex),
+                                        '--flavor-color': currentFlavor.accentHex
+                                    },
+                                    children: currentFlavor.index
+                                }, void 0, false, {
+                                    fileName: "[project]/src/components/NectarHero.tsx",
+                                    lineNumber: 92,
+                                    columnNumber: 14
+                                }, this)
+                            }, void 0, false, {
                                 fileName: "[project]/src/components/NectarHero.tsx",
-                                lineNumber: 137,
+                                lineNumber: 91,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2240,83 +2180,77 @@ function NectarHero() {
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                         onClick: ()=>changeFlavor("prev"),
-                                        className: "group flex flex-col items-center gap-2 py-2 text-[10px] font-bold tracking-[0.4em] text-white/20 transition-all bg-transparent border-none outline-none no-glow",
-                                        style: {
-                                            '--current-glow': currentFlavor.accentHex
-                                        },
+                                        className: "group flex flex-col items-center gap-2 text-[10px] font-bold tracking-[0.4em] text-white/20 transition-all bg-transparent no-glow",
                                         children: [
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chevron$2d$up$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ChevronUp$3e$__["ChevronUp"], {
                                                 className: "w-4 h-4 group-hover:-translate-y-1 transition-transform"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/NectarHero.tsx",
-                                                lineNumber: 158,
+                                                lineNumber: 102,
                                                 columnNumber: 15
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                className: "transition-all uppercase",
+                                                className: "hover:text-primary transition-all",
                                                 children: "PREV"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/NectarHero.tsx",
-                                                lineNumber: 159,
+                                                lineNumber: 103,
                                                 columnNumber: 15
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/components/NectarHero.tsx",
-                                        lineNumber: 153,
+                                        lineNumber: 101,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                         className: "w-px h-12 bg-white/10"
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/NectarHero.tsx",
-                                        lineNumber: 161,
+                                        lineNumber: 105,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                         onClick: ()=>changeFlavor("next"),
-                                        className: "group flex flex-col items-center gap-2 py-2 text-[10px] font-bold tracking-[0.4em] text-white/20 transition-all bg-transparent border-none outline-none no-glow",
-                                        style: {
-                                            '--current-glow': currentFlavor.accentHex
-                                        },
+                                        className: "group flex flex-col items-center gap-2 text-[10px] font-bold tracking-[0.4em] text-white/20 transition-all bg-transparent no-glow",
                                         children: [
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                className: "transition-all uppercase",
+                                                className: "hover:text-primary transition-all",
                                                 children: "NEXT"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/NectarHero.tsx",
-                                                lineNumber: 167,
+                                                lineNumber: 107,
                                                 columnNumber: 15
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chevron$2d$down$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ChevronDown$3e$__["ChevronDown"], {
                                                 className: "w-4 h-4 group-hover:translate-y-1 transition-transform"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/NectarHero.tsx",
-                                                lineNumber: 168,
+                                                lineNumber: 108,
                                                 columnNumber: 15
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/components/NectarHero.tsx",
-                                        lineNumber: 162,
+                                        lineNumber: 106,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/components/NectarHero.tsx",
-                                lineNumber: 152,
+                                lineNumber: 100,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/NectarHero.tsx",
-                        lineNumber: 136,
+                        lineNumber: 90,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/NectarHero.tsx",
-                lineNumber: 88,
+                lineNumber: 66,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2329,14 +2263,14 @@ function NectarHero() {
                                 className: "w-4 h-4 text-white/15 hover:text-primary transition-colors cursor-pointer"
                             }, void 0, false, {
                                 fileName: "[project]/src/components/NectarHero.tsx",
-                                lineNumber: 176,
+                                lineNumber: 116,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$twitter$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Twitter$3e$__["Twitter"], {
                                 className: "w-4 h-4 text-white/15 hover:text-primary transition-colors cursor-pointer"
                             }, void 0, false, {
                                 fileName: "[project]/src/components/NectarHero.tsx",
-                                lineNumber: 177,
+                                lineNumber: 117,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
@@ -2348,25 +2282,25 @@ function NectarHero() {
                                     className: "w-4 h-4 text-white/15 hover:text-primary transition-colors cursor-pointer"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/NectarHero.tsx",
-                                    lineNumber: 179,
+                                    lineNumber: 119,
                                     columnNumber: 13
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/components/NectarHero.tsx",
-                                lineNumber: 178,
+                                lineNumber: 118,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/NectarHero.tsx",
-                        lineNumber: 175,
+                        lineNumber: 115,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "w-px h-4 bg-white/10"
                     }, void 0, false, {
                         fileName: "[project]/src/components/NectarHero.tsx",
-                        lineNumber: 183,
+                        lineNumber: 122,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -2379,8 +2313,8 @@ function NectarHero() {
                                     fill: "currentColor"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/NectarHero.tsx",
-                                    lineNumber: 190,
-                                    columnNumber: 15
+                                    lineNumber: 127,
+                                    columnNumber: 25
                                 }, this),
                                 " PLAY"
                             ]
@@ -2391,21 +2325,21 @@ function NectarHero() {
                                     fill: "currentColor"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/NectarHero.tsx",
-                                    lineNumber: 192,
-                                    columnNumber: 15
+                                    lineNumber: 127,
+                                    columnNumber: 76
                                 }, this),
                                 " PAUSE"
                             ]
                         }, void 0, true)
                     }, void 0, false, {
                         fileName: "[project]/src/components/NectarHero.tsx",
-                        lineNumber: 185,
+                        lineNumber: 123,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/NectarHero.tsx",
-                lineNumber: 174,
+                lineNumber: 114,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$AuthModal$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["AuthModal"], {
@@ -2413,17 +2347,17 @@ function NectarHero() {
                 onClose: ()=>setIsAuthOpen(false)
             }, void 0, false, {
                 fileName: "[project]/src/components/NectarHero.tsx",
-                lineNumber: 197,
+                lineNumber: 130,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/NectarHero.tsx",
-        lineNumber: 65,
+        lineNumber: 54,
         columnNumber: 5
     }, this);
 }
-_s(NectarHero, "MCl4HhFVu3VDqVfVWtGibbjnTKI=", false, function() {
+_s(NectarHero, "qVTVgJujJsYyMmdNxqvhRPnLz7s=", false, function() {
     return [
         __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$firebase$2f$provider$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useUser"],
         __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$firebase$2f$provider$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useFirestore"],
