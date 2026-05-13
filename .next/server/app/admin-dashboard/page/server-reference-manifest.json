@@ -1,0 +1,20 @@
+{
+  "node": {
+    "403c365aedeb3bec46b29ee1e2fc351130e0739bbb": {
+      "workers": {
+        "app/admin-dashboard/page": {
+          "moduleId": "[project]/.next-internal/server/app/admin-dashboard/page/actions.js { ACTIONS_MODULE0 => \"[project]/src/app/actions/cloudinary.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "uploadToCloudinary",
+          "filename": "src/app/actions/cloudinary.ts"
+        }
+      },
+      "layer": {
+        "app/admin-dashboard/page": "action-browser"
+      },
+      "exportedName": "uploadToCloudinary",
+      "filename": "src/app/actions/cloudinary.ts"
+    }
+  },
+  "edge": {}
+}

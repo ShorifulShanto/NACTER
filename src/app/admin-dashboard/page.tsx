@@ -2,16 +2,27 @@
 
 import { useState, useEffect } from "react";
 import { useFirestore, useCollection, useUser } from "@/firebase";
-import { collection, doc, setDoc, serverTimestamp, addDoc } from "firebase/firestore";
+import { collection, doc, setDoc, serverTimestamp, deleteDoc } from "firebase/firestore";
 import { Navbar } from "@/components/Navbar";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, RefreshCw, Plus, Upload, Loader2 } from "lucide-react";
+import { ArrowLeft, RefreshCw, Plus, Upload, Loader2, Trash2 } from "lucide-react";
 import { useMemoFirebase } from "@/firebase/provider";
 import Link from "next/link";
 import { useToast } from "@/hooks/use-toast";
 import { flavors } from "@/lib/flavor-data";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogFooter } from "@/components/ui/dialog";
+import { 
+  AlertDialog, 
+  AlertDialogAction, 
+  AlertDialogCancel, 
+  AlertDialogContent, 
+  AlertDialogDescription, 
+  AlertDialogFooter, 
+  AlertDialogHeader, 
+  AlertDialogTitle, 
+  AlertDialogTrigger 
+} from "@/components/ui/alert-dialog";
 import { Input } from "@/components/ui/input";
 import { useRouter } from "next/navigation";
 import { uploadToCloudinary } from "@/app/actions/cloudinary";
@@ -98,6 +109,16 @@ export default function AdminDashboard() {
     }
   };
 
+  const handleDeleteProduct = async (productId: string) => {
+    if (!db) return;
+    try {
+      await deleteDoc(doc(db, "products", productId));
+      toast({ title: "Product Terminated", description: "The flavor has been removed from the catalog." });
+    } catch (e: any) {
+      toast({ variant: "destructive", title: "Deletion Failed", description: e.message });
+    }
+  };
+
   if (isUserLoading) return <div className="min-h-screen bg-black flex items-center justify-center"><RefreshCw className="animate-spin text-primary" /></div>;
   if (!user || !ADMIN_EMAILS.includes(user.email || "")) return null;
 
@@ -177,7 +198,28 @@ export default function AdminDashboard() {
                       <h4 className="text-sm font-bold uppercase tracking-widest">{product.name}</h4>
                       <p className="text-[10px] text-white/40 font-mono tracking-widest">${product.price.toFixed(2)} • Stock: {product.amount}</p>
                     </div>
-                    <p className="text-[8px] uppercase tracking-[0.4em] text-white/10 group-hover:text-primary transition-colors">{product.id}</p>
+                    <div className="flex items-center gap-4">
+                      <p className="text-[8px] uppercase tracking-[0.4em] text-white/10 group-hover:text-primary transition-colors">{product.id}</p>
+                      <AlertDialog>
+                        <AlertDialogTrigger asChild>
+                          <Button variant="ghost" size="icon" className="text-white/20 hover:text-red-500 transition-colors bg-transparent no-glow">
+                            <Trash2 size={16} />
+                          </Button>
+                        </AlertDialogTrigger>
+                        <AlertDialogContent className="bg-neutral-900 border-white/10 text-white rounded-[2rem] shadow-2xl">
+                          <AlertDialogHeader>
+                            <AlertDialogTitle className="font-headline tracking-widest uppercase text-red-500">Terminate Flavor?</AlertDialogTitle>
+                            <AlertDialogDescription className="text-white/40 text-sm">
+                              This will permanently remove <b>{product.name}</b> from the NECTAR catalog. This action is irreversible.
+                            </AlertDialogDescription>
+                          </AlertDialogHeader>
+                          <AlertDialogFooter className="mt-6">
+                            <AlertDialogCancel className="bg-white/5 border-white/10 text-white hover:bg-white/10 rounded-full h-12 uppercase text-[10px] tracking-widest">Cancel</AlertDialogCancel>
+                            <AlertDialogAction onClick={() => handleDeleteProduct(product.id)} className="bg-red-500 text-white hover:bg-red-600 rounded-full h-12 uppercase text-[10px] tracking-widest font-bold">Terminate</AlertDialogAction>
+                          </AlertDialogFooter>
+                        </AlertDialogContent>
+                      </AlertDialog>
+                    </div>
                   </div>
                 ))
               ) : (
