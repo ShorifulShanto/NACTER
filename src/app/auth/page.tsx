@@ -63,7 +63,7 @@ export default function NectarAuthPage() {
       if (view === "login") {
         const userCred = await signInWithEmailAndPassword(auth, email, password);
         await syncUserToFirestore(userCred.user);
-        toast({ title: "Welcome back to NECTAR" });
+        toast({ title: "Identity Confirmed", description: "Welcome back to the NECTAR grove." });
         router.push("/");
       } else if (view === "signup") {
         const userCred = await createUserWithEmailAndPassword(auth, email, password);
@@ -71,15 +71,15 @@ export default function NectarAuthPage() {
           await updateProfile(userCred.user, { displayName: name });
         }
         await syncUserToFirestore(userCred.user);
-        toast({ title: "Welcome to NECTAR" });
+        toast({ title: "Welcome to NECTAR", description: "Your journey into pure cold-pressed essence begins." });
         router.push("/");
       } else if (view === "forgot-password") {
         await sendPasswordResetEmail(auth, email);
-        toast({ title: "Reset link sent", description: "Security protocol initiated. Check your inbox." });
+        toast({ title: "Recovery Pulse Sent", description: "Security protocol initiated. Check your inbox for the reset link." });
         setView("login");
       }
     } catch (error: any) {
-      toast({ variant: "destructive", title: "Auth Failed", description: error.message });
+      toast({ variant: "destructive", title: "Authentication Failed", description: error.message });
     } finally {
       setIsLoading(false);
     }
@@ -91,10 +91,10 @@ export default function NectarAuthPage() {
     try {
       const userCred = await signInWithPopup(auth, provider);
       await syncUserToFirestore(userCred.user);
-      toast({ title: "Welcome to NECTAR" });
+      toast({ title: "Identity Verified", description: "Connected via Google Secure Access." });
       router.push("/");
     } catch (error: any) {
-      toast({ variant: "destructive", title: "Sign-In Failed", description: error.message });
+      toast({ variant: "destructive", title: "Sign-In Error", description: error.message });
     } finally {
       setIsLoading(false);
     }
@@ -103,64 +103,65 @@ export default function NectarAuthPage() {
   if (!mounted) return null;
 
   return (
-    <div className="min-h-screen w-full bg-black flex items-center justify-center p-4 min-[720px]:p-10 font-body overflow-y-auto gpu-smooth">
-      <div className="relative w-full max-w-[900px] bg-black border-[3px] border-primary shadow-[0_0_60px_rgba(29,205,159,0.15)] rounded-[2rem] min-[720px]:rounded-[3rem] overflow-hidden flex flex-col min-[720px]:flex-row">
+    <div className="min-h-screen w-full bg-black flex items-center justify-center p-6 lg:p-12 font-body gpu-smooth">
+      <div className="relative w-full max-w-[950px] bg-black border-[3px] border-primary/40 shadow-[0_0_80px_rgba(29,205,159,0.1)] rounded-[3rem] overflow-hidden flex flex-col lg:flex-row">
         
-        <div className="flex-[0.4] min-[720px]:flex-[0.55] relative overflow-hidden bg-black border-b min-[720px]:border-b-0 min-[720px]:border-r border-primary/30 min-h-[300px] min-[720px]:min-h-0">
+        <div className="flex-[0.55] relative overflow-hidden bg-black border-r border-white/5 min-h-[350px] lg:min-h-[600px]">
           <Image 
             src="https://res.cloudinary.com/dhzt5kvoz/image/upload/v1777057652/334fab87-6bd2-410d-93e5-5a4bc04edda9.png"
-            alt="NECTAR Brand Experience"
+            alt="NECTAR Cinematic Branding"
             fill
-            className="object-cover"
+            className="object-cover opacity-80"
             priority
           />
+          <div className="absolute inset-0 bg-gradient-to-r from-black via-transparent to-transparent opacity-60" />
         </div>
 
-        <div className="flex-1 min-[720px]:flex-[0.45] bg-black flex flex-col items-center justify-center p-8 min-[720px]:p-10 relative">
-          <div className="w-full max-w-[320px] space-y-8">
+        <div className="flex-1 p-10 lg:p-16 relative flex flex-col items-center justify-center bg-[#050505]">
+          <div className="w-full max-w-[340px] space-y-10">
             <div className="text-center">
-              <p className="text-[10px] uppercase tracking-[0.4em] text-white/40 font-bold mb-2">NECTAR BATCH NO. 25</p>
+              <p className="text-[10px] uppercase tracking-[0.5em] text-white/20 font-bold mb-3">BATCH NO. 25 SECURITY</p>
               <h2 className="text-4xl font-headline font-black text-primary uppercase tracking-tight">
-                {view === "login" ? "Login" : view === "signup" ? "Sign Up" : "Reset"}
+                {view === "login" ? "Login" : view === "signup" ? "Sign Up" : "Recovery"}
               </h2>
             </div>
 
-            <form onSubmit={handleAuth} className="space-y-4">
+            <form onSubmit={handleAuth} className="space-y-5">
               {view === "signup" && (
                 <div className="space-y-1.5">
-                  <label className="text-[10px] font-bold uppercase tracking-widest text-white/40 ml-1">Full Name</label>
+                  <label className="text-[9px] font-bold uppercase tracking-[0.3em] text-white/30 ml-1">Member Name</label>
                   <Input 
                     type="text" 
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     placeholder="Enter your name"
-                    className="h-12 bg-white/5 border-none rounded-xl text-white px-4 focus:ring-2 focus:ring-primary text-sm"
+                    className="h-12 bg-white/5 border-white/5 rounded-2xl text-white px-6 focus:ring-1 focus:ring-primary text-sm transition-all"
                     required
                   />
                 </div>
               )}
 
               <div className="space-y-1.5">
-                <label className="text-[10px] font-bold uppercase tracking-widest text-white/40 ml-1">Email Address</label>
+                <label className="text-[9px] font-bold uppercase tracking-[0.3em] text-white/30 ml-1">Email Protocol</label>
                 <Input 
                   type="email" 
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="name@email.com"
-                  className="h-12 bg-white/5 border-none rounded-xl text-white px-4 focus:ring-2 focus:ring-primary text-sm"
+                  className="h-12 bg-white/5 border-white/5 rounded-2xl text-white px-6 focus:ring-1 focus:ring-primary text-sm transition-all"
                   required
                 />
               </div>
 
               {view !== "forgot-password" && (
                 <div className="space-y-1.5">
-                  <label className="text-[10px] font-bold uppercase tracking-widest text-white/40 ml-1">Password</label>
+                  <label className="text-[9px] font-bold uppercase tracking-[0.3em] text-white/30 ml-1">Access Token</label>
                   <Input 
                     type="password" 
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="••••••••"
-                    className="h-12 bg-white/5 border-none rounded-xl text-white px-4 focus:ring-2 focus:ring-primary text-sm"
+                    className="h-12 bg-white/5 border-white/5 rounded-2xl text-white px-6 focus:ring-1 focus:ring-primary text-sm transition-all"
                     required
                   />
                 </div>
@@ -169,29 +170,29 @@ export default function NectarAuthPage() {
               <button 
                 type="submit" 
                 disabled={isLoading}
-                className="w-full h-12 bg-primary text-black font-bold rounded-xl text-[12px] uppercase tracking-widest hover:bg-[#7AE2CF] transition-all flex items-center justify-center gap-2 active:scale-95 disabled:opacity-50 shadow-[0_0_20px_rgba(29,205,159,0.3)] mt-4 no-glow"
+                className="w-full h-14 bg-primary text-black font-bold rounded-full text-[11px] uppercase tracking-[0.3em] hover:bg-[#7AE2CF] transition-all flex items-center justify-center gap-3 active:scale-95 disabled:opacity-50 mt-6 shadow-[0_10px_30px_rgba(29,205,159,0.2)] no-glow"
               >
-                {isLoading ? <Loader2 className="animate-spin" size={18} /> : <span>{view === "login" ? "Sign In" : view === "signup" ? "Create Account" : "Send Reset Link"}</span>}
+                {isLoading ? <Loader2 className="animate-spin" size={20} /> : <span>{view === "login" ? "Authorize Entry" : view === "signup" ? "Create Identity" : "Transmit Link"}</span>}
               </button>
             </form>
 
             {view !== "forgot-password" && (
               <>
                 <div className="relative flex items-center gap-4">
-                  <div className="flex-1 h-[1px] bg-white/10" />
-                  <span className="text-[10px] text-white/20 font-bold uppercase tracking-widest">or</span>
-                  <div className="flex-1 h-[1px] bg-white/10" />
+                  <div className="flex-1 h-[1px] bg-white/5" />
+                  <span className="text-[9px] text-white/10 font-bold uppercase tracking-widest">or</span>
+                  <div className="flex-1 h-[1px] bg-white/5" />
                 </div>
 
                 <AuthSocial onGoogle={handleGoogleSignIn} isLoading={isLoading} />
               </>
             )}
 
-            <div className="text-center pt-2 space-y-3">
+            <div className="text-center pt-4 space-y-4">
               {view === "login" && (
                 <button 
                   onClick={() => setView("forgot-password")}
-                  className="block w-full text-[10px] font-bold text-white/30 hover:text-primary transition-colors uppercase tracking-widest"
+                  className="block w-full text-[9px] font-bold text-white/20 hover:text-primary transition-colors uppercase tracking-[0.3em] no-glow"
                 >
                   Forgot Password?
                 </button>
@@ -199,7 +200,7 @@ export default function NectarAuthPage() {
               
               <button 
                 onClick={() => setView(view === "login" ? "signup" : "login")}
-                className="text-[11px] font-bold text-white/40 hover:text-primary transition-colors uppercase tracking-widest"
+                className="text-[10px] font-bold text-white/40 hover:text-primary transition-colors uppercase tracking-[0.3em] no-glow"
               >
                 {view === "login" ? "Need an account? Sign Up" : "Already a member? Sign In"}
               </button>
@@ -208,8 +209,8 @@ export default function NectarAuthPage() {
         </div>
       </div>
 
-      <Link href="/" className="fixed bottom-6 text-[11px] uppercase tracking-[0.5em] text-white/40 hover:text-primary transition-all font-bold flex items-center gap-2 z-50 bg-black/50 backdrop-blur-md px-4 py-2 rounded-full">
-        <ArrowRight size={16} className="rotate-180" /> Back to Home
+      <Link href="/" className="fixed bottom-10 text-[10px] uppercase tracking-[0.6em] text-white/20 hover:text-primary transition-all font-bold flex items-center gap-3 z-50 bg-black/40 backdrop-blur-xl px-8 py-3 rounded-full border border-white/5">
+        <ArrowRight size={14} className="rotate-180" /> Back to Grove
       </Link>
     </div>
   );

@@ -13,7 +13,8 @@ import {
   Loader2,
   Trash2,
   Plus,
-  Minus
+  Minus,
+  ShieldCheck
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -63,8 +64,8 @@ export default function CheckoutPage() {
 
     if (!profile?.location || !profile?.firstName) {
       toast({
-        title: "Profile Incomplete",
-        description: "Please update your delivery details in your profile before confirming your order.",
+        title: "Protocol Interrupted",
+        description: "Please update your delivery coordinates in your profile before confirming the harvest.",
         variant: "destructive"
       });
       router.push("/profile?edit=true");
@@ -111,10 +112,10 @@ export default function CheckoutPage() {
       });
       await batch.commit();
 
-      toast({ title: "Order Confirmed", description: "Your NECTAR harvest is being prepared." });
+      toast({ title: "Order Transmitted", description: "Your NECTAR harvest is being prepared for dispatch." });
       router.push("/checkout/success");
     } catch (e: any) {
-      toast({ variant: "destructive", title: "Order Failed", description: e.message });
+      toast({ variant: "destructive", title: "Transmission Failed", description: e.message });
     } finally {
       setIsProcessing(false);
     }
@@ -141,83 +142,86 @@ export default function CheckoutPage() {
       <Navbar />
       
       <div className="container mx-auto px-6 pt-32 pb-32">
-        <div className="max-w-4xl mx-auto">
-          <div className="mb-12">
-            <Link href="/" className="inline-flex items-center gap-2 text-[10px] uppercase tracking-[0.4em] text-white/30 hover:text-white transition-all mb-8 group">
+        <div className="max-w-5xl mx-auto">
+          <div className="mb-16">
+            <Link href="/" className="inline-flex items-center gap-3 text-[10px] uppercase tracking-[0.5em] text-white/30 hover:text-white transition-all mb-8 group">
               <ArrowLeft size={14} className="group-hover:-translate-x-1 transition-transform" />
-              Back to Selection
+              Return to Selection
             </Link>
-            <h1 className="text-5xl font-headline font-bold uppercase tracking-tighter">Order Summary</h1>
-            <p className="text-[10px] text-white/30 uppercase tracking-[0.5em] mt-2 font-bold">Review your final batch</p>
+            <h1 className="text-6xl font-headline font-bold uppercase tracking-tighter">Order Summary</h1>
+            <p className="text-[10px] text-primary uppercase tracking-[0.6em] mt-3 font-bold">Review your final batch</p>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 items-start">
-            <div className="lg:col-span-2 space-y-8">
-              <div className="space-y-4">
-                <p className="text-[9px] text-white/20 uppercase tracking-[0.4em] font-bold">Included Flavors</p>
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-16 items-start">
+            <div className="lg:col-span-2 space-y-12">
+              <div className="space-y-6">
+                <p className="text-[9px] text-white/20 uppercase tracking-[0.5em] font-bold">Selected Flavors</p>
                 {items && items.length > 0 ? (
                   items.map((item) => {
                     const price = item.priceAtAddToCart || 12.00;
                     const qty = Number(item.quantity) || 0;
                     
                     return (
-                      <div key={item.id} className="bg-white/5 border border-white/5 rounded-2xl p-6 flex items-center gap-6 group">
-                        <div className="relative w-20 h-20 bg-black/40 rounded-xl overflow-hidden flex-shrink-0">
+                      <div key={item.id} className="bg-white/2 border border-white/5 rounded-3xl p-8 flex items-center gap-8 group hover:border-primary/20 transition-all">
+                        <div className="relative w-24 h-24 bg-black/40 rounded-2xl overflow-hidden flex-shrink-0">
                           <Image 
                             src={item.image || "https://picsum.photos/seed/juice/400/600"} 
                             alt={item.name || "NECTAR Flavor"} 
                             fill 
-                            className="object-contain p-2" 
+                            className="object-contain p-3" 
                           />
                         </div>
                         <div className="flex-1 min-w-0">
                           <div className="flex justify-between items-start">
-                            <h4 className="text-sm font-bold uppercase tracking-widest truncate">{item.name || "NECTAR Flavor"}</h4>
+                            <div>
+                               <h4 className="text-sm font-bold uppercase tracking-widest truncate">{item.name || "NECTAR Flavor"}</h4>
+                               <p className="text-[9px] text-white/20 uppercase tracking-[0.3em] mt-1">350ml Bottle</p>
+                            </div>
                             <button 
                               onClick={() => removeItem(item.id)}
-                              className="text-white/20 hover:text-red-500 transition-colors p-1 bg-transparent no-glow"
+                              className="text-white/10 hover:text-red-500 transition-colors p-2 bg-transparent no-glow"
                             >
                               <Trash2 size={16} />
                             </button>
                           </div>
                           
-                          <div className="flex justify-between items-center mt-6">
-                            <div className="flex items-center border border-white/10 rounded-full px-3 py-1 bg-black/40">
-                              <button onClick={() => updateQty(item.id, qty - 1)} className="p-1 text-white/40 hover:text-white transition-colors bg-transparent no-glow"><Minus size={14} /></button>
-                              <span className="w-10 text-center text-xs font-bold font-mono">{String(qty)}</span>
-                              <button onClick={() => updateQty(item.id, qty + 1)} className="p-1 text-white/40 hover:text-white transition-colors bg-transparent no-glow"><Plus size={14} /></button>
+                          <div className="flex justify-between items-center mt-8">
+                            <div className="flex items-center border border-white/10 rounded-full px-4 py-1.5 bg-black/60">
+                              <button onClick={() => updateQty(item.id, qty - 1)} className="p-1 text-white/30 hover:text-white transition-colors bg-transparent no-glow"><Minus size={14} /></button>
+                              <span className="w-12 text-center text-[11px] font-bold font-mono tracking-widest">{String(qty)}</span>
+                              <button onClick={() => updateQty(item.id, qty + 1)} className="p-1 text-white/30 hover:text-white transition-colors bg-transparent no-glow"><Plus size={14} /></button>
                             </div>
-                            <p className="text-sm font-bold text-primary">${(price * qty).toFixed(2)}</p>
+                            <p className="text-lg font-headline font-bold text-primary">${(price * qty).toFixed(2)}</p>
                           </div>
                         </div>
                       </div>
                     );
                   })
                 ) : (
-                  <div className="bg-white/5 border border-white/5 rounded-2xl p-12 text-center">
-                    <ShoppingBag className="mx-auto text-white/10 mb-4" size={32} />
-                    <p className="text-[10px] uppercase tracking-widest text-white/20">Selection is empty</p>
+                  <div className="bg-white/2 border border-white/5 rounded-3xl p-20 text-center">
+                    <ShoppingBag className="mx-auto text-white/5 mb-6" size={48} />
+                    <p className="text-[10px] uppercase tracking-[0.4em] text-white/20">Your harvest collection is empty</p>
                   </div>
                 )}
               </div>
 
-              <div className="space-y-4">
-                <p className="text-[9px] text-white/20 uppercase tracking-[0.4em] font-bold">Delivery Protocol</p>
-                <div className="bg-white/5 border border-white/5 rounded-2xl p-8 flex items-start gap-6">
-                  <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
-                    <MapPin className="text-primary" size={20} />
+              <div className="space-y-6">
+                <p className="text-[9px] text-white/20 uppercase tracking-[0.5em] font-bold">Logistics Protocol</p>
+                <div className="bg-white/2 border border-white/5 rounded-3xl p-10 flex items-start gap-8 group">
+                  <div className="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center flex-shrink-0 group-hover:bg-primary/20 transition-colors">
+                    <MapPin className="text-primary" size={24} />
                   </div>
                   <div className="flex-1">
                     {profile?.location ? (
-                      <div className="space-y-1">
-                        <p className="text-[12px] font-bold uppercase tracking-widest">{profile.firstName} {profile.lastName}</p>
-                        <p className="text-[11px] text-white/40 font-light leading-relaxed">{profile.location}</p>
-                        <p className="text-[10px] text-white/20 font-mono mt-2">{profile.phoneNumber}</p>
+                      <div className="space-y-2">
+                        <p className="text-[14px] font-bold uppercase tracking-widest">{profile.firstName} {profile.lastName}</p>
+                        <p className="text-[12px] text-white/40 font-light leading-relaxed max-w-sm">{profile.location}</p>
+                        <p className="text-[11px] text-white/20 font-mono mt-4 tracking-widest">{profile.phoneNumber}</p>
                       </div>
                     ) : (
-                      <div className="space-y-4">
-                        <p className="text-[11px] text-white/40 font-light italic">Delivery address not found.</p>
-                        <Button asChild variant="outline" className="rounded-full h-10 px-6 uppercase text-[9px] tracking-widest bg-transparent">
+                      <div className="space-y-6">
+                        <p className="text-[11px] text-white/40 font-light italic">Delivery coordinates missing from identity profile.</p>
+                        <Button asChild variant="outline" className="rounded-full h-12 px-8 uppercase text-[10px] tracking-widest border-white/10 bg-transparent hover:bg-white/5">
                           <Link href="/profile">Update Profile</Link>
                         </Button>
                       </div>
@@ -228,10 +232,10 @@ export default function CheckoutPage() {
             </div>
 
             <div className="lg:col-span-1">
-              <div className="sticky top-32 bg-white/5 border border-white/10 rounded-3xl p-8 shadow-2xl backdrop-blur-xl">
-                <h3 className="text-[11px] font-bold uppercase tracking-[0.3em] mb-8 border-b border-white/5 pb-4">Order Value</h3>
+              <div className="sticky top-32 bg-neutral-950 border border-white/10 rounded-[2.5rem] p-10 shadow-2xl">
+                <h3 className="text-[11px] font-bold uppercase tracking-[0.4em] mb-10 border-b border-white/5 pb-6">Final Value</h3>
                 
-                <div className="space-y-4 mb-10">
+                <div className="space-y-5 mb-12">
                   <div className="flex justify-between text-[11px] uppercase tracking-widest text-white/40">
                     <span>Subtotal</span>
                     <span className="font-mono">${subtotal.toFixed(2)}</span>
@@ -240,21 +244,24 @@ export default function CheckoutPage() {
                     <span>Logistics Fee</span>
                     <span className="font-mono">${SHIPPING_FEE.toFixed(2)}</span>
                   </div>
-                  <div className="h-px w-full bg-white/5 my-4" />
+                  <div className="h-px w-full bg-white/5 my-6" />
                   <div className="flex justify-between items-end">
-                    <span className="text-[11px] font-bold uppercase tracking-[0.3em] text-primary">Total Harvest</span>
-                    <span className="text-3xl font-headline font-bold">${total.toFixed(2)}</span>
+                    <span className="text-[11px] font-bold uppercase tracking-[0.4em] text-primary">Total Harvest</span>
+                    <span className="text-4xl font-headline font-bold">${total.toFixed(2)}</span>
                   </div>
                 </div>
 
-                <div className="space-y-4">
+                <div className="space-y-6">
                   <Button 
                     onClick={handlePlaceOrder}
                     disabled={isProcessing || !items?.length}
-                    className="w-full h-14 bg-white text-black hover:bg-neutral-200 rounded-full font-bold uppercase tracking-[0.2em] text-[10px] shadow-2xl transition-all active:scale-95 no-glow"
+                    className="w-full h-16 bg-white text-black hover:bg-neutral-200 rounded-full font-bold uppercase tracking-[0.3em] text-[11px] shadow-2xl transition-all active:scale-95 no-glow"
                   >
-                    {isProcessing ? <Loader2 className="animate-spin" size={18} /> : "Proceed to Checkout"}
+                    {isProcessing ? <Loader2 className="animate-spin" size={20} /> : "Transmit Order"}
                   </Button>
+                  <p className="text-[8px] uppercase tracking-[0.5em] text-center text-white/20 font-bold flex items-center justify-center gap-2">
+                    <ShieldCheck size={10} /> Secure Identity Verified
+                  </p>
                 </div>
               </div>
             </div>

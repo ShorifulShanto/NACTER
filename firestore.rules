@@ -35,8 +35,10 @@ service cloud.firestore {
 
     match /orders/{orderId} {
       allow create: if isSignedIn();
+      // Allow users to get their own orders, or admins to get any order
       allow get: if isSignedIn() && (isAdmin() || resource.data.userId == request.auth.uid);
-      allow list: if isSignedIn() && (isAdmin() || request.query.limit <= 20); 
+      // Allow users to list their own orders by filtering by userId, or admins to list all
+      allow list: if isSignedIn() && (isAdmin() || (request.query.limit <= 20 && resource.data.userId == request.auth.uid));
     }
 
     match /users/{userId} {

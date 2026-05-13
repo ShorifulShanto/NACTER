@@ -2,19 +2,19 @@
 
 import { useState, useEffect } from "react";
 import { useFirestore, useCollection, useUser } from "@/firebase";
-import { collection, deleteDoc, doc, updateDoc, setDoc, serverTimestamp } from "firebase/firestore";
+import { collection, doc, setDoc, serverTimestamp, addDoc } from "firebase/firestore";
 import { Navbar } from "@/components/Navbar";
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Trash2, Search, ArrowLeft, Package, Activity, RefreshCw, AlertCircle, Plus } from "lucide-react";
+import { ArrowLeft, RefreshCw, Plus, Upload, Loader2 } from "lucide-react";
 import { useMemoFirebase } from "@/firebase/provider";
 import Link from "next/link";
 import { useToast } from "@/hooks/use-toast";
 import { flavors } from "@/lib/flavor-data";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogFooter } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
 import { useRouter } from "next/navigation";
+import { uploadToCloudinary } from "@/app/actions/cloudinary";
 
 const ADMIN_EMAILS = ["md.si.shanto001@gmail.com"];
 
@@ -24,6 +24,9 @@ export default function AdminDashboard() {
   const { toast } = useToast();
   const router = useRouter();
   const [isSyncing, setIsSyncing] = useState(false);
+  const [isUploading, setIsUploading] = useState(false);
+  const [newProduct, setNewProduct] = useState({ name: "", price: 12.0, amount: 50, description: "" });
+  const [selectedImage, setSelectedImage] = useState<File | null>(null);
 
   useEffect(() => {
     if (!isUserLoading && (!user || !ADMIN_EMAILS.includes(user.email || ""))) {
@@ -43,9 +46,6 @@ export default function AdminDashboard() {
 
   const { data: entries, isLoading: isHubLoading } = useCollection(hubQuery);
   const { data: dbProducts, isLoading: isProductsLoading } = useCollection(productsQuery);
-
-  if (isUserLoading) return <div className="min-h-screen bg-black flex items-center justify-center"><RefreshCw className="animate-spin text-primary" /></div>;
-  if (!user || !ADMIN_EMAILS.includes(user.email || "")) return null;
 
   const handleSyncProducts = async () => {
     if (!db) return;
@@ -71,6 +71,36 @@ export default function AdminDashboard() {
     }
   };
 
+  const handleAddProduct = async () => {
+    if (!db || !selectedImage) return;
+    setIsUploading(true);
+    try {
+      const formData = new FormData();
+      formData.append("file", selectedImage);
+      const imageUrl = await uploadToCloudinary(formData);
+      
+      const productId = `NECTAR_${Date.now()}`;
+      await setDoc(doc(db, "products", productId), {
+        id: productId,
+        ...newProduct,
+        image: imageUrl,
+        createdAt: serverTimestamp(),
+        updatedAt: serverTimestamp()
+      });
+
+      toast({ title: "Product Added to Collection" });
+      setNewProduct({ name: "", price: 12.0, amount: 50, description: "" });
+      setSelectedImage(null);
+    } catch (e: any) {
+      toast({ variant: "destructive", title: "Upload Failed", description: e.message });
+    } finally {
+      setIsUploading(false);
+    }
+  };
+
+  if (isUserLoading) return <div className="min-h-screen bg-black flex items-center justify-center"><RefreshCw className="animate-spin text-primary" /></div>;
+  if (!user || !ADMIN_EMAILS.includes(user.email || "")) return null;
+
   return (
     <div className="min-h-screen bg-[#050505] text-white">
       <Navbar />
@@ -79,7 +109,52 @@ export default function AdminDashboard() {
           <Link href="/" className="inline-flex items-center gap-2 text-[10px] uppercase tracking-widest text-white/40 hover:text-white mb-4 no-glow">
             <ArrowLeft size={12} /> Back to Site
           </Link>
-          <h1 className="text-4xl font-headline font-bold uppercase">Admin Control</h1>
+          <div className="flex justify-between items-end">
+            <div>
+              <p className="text-primary text-[9px] uppercase tracking-[0.5em] mb-2 font-bold">Secure Protocol</p>
+              <h1 className="text-4xl font-headline font-bold uppercase tracking-tight">Admin Control</h1>
+            </div>
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button className="rounded-full bg-white text-black hover:bg-neutral-200 px-8 uppercase text-[10px] tracking-widest font-bold">
+                  <Plus size={14} className="mr-2" /> Add Flavor
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="bg-neutral-900 border-white/10 text-white rounded-3xl">
+                <DialogHeader>
+                  <DialogTitle className="font-headline tracking-widest uppercase">New Product Entry</DialogTitle>
+                </DialogHeader>
+                <div className="space-y-4 py-4">
+                  <div className="space-y-2">
+                    <label className="text-[10px] uppercase tracking-widest text-white/40">Flavor Name</label>
+                    <Input value={newProduct.name} onChange={e => setNewProduct({...newProduct, name: e.target.value})} className="bg-black/40 border-white/5" />
+                  </div>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <label className="text-[10px] uppercase tracking-widest text-white/40">Price ($)</label>
+                      <Input type="number" value={newProduct.price} onChange={e => setNewProduct({...newProduct, price: parseFloat(e.target.value)})} className="bg-black/40 border-white/5" />
+                    </div>
+                    <div className="space-y-2">
+                      <label className="text-[10px] uppercase tracking-widest text-white/40">Initial Stock</label>
+                      <Input type="number" value={newProduct.amount} onChange={e => setNewProduct({...newProduct, amount: parseInt(e.target.value)})} className="bg-black/40 border-white/5" />
+                    </div>
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-[10px] uppercase tracking-widest text-white/40">Product Imagery</label>
+                    <div className="flex items-center gap-4">
+                      <Input type="file" accept="image/*" onChange={e => setSelectedImage(e.target.files?.[0] || null)} className="bg-black/40 border-white/5 text-[10px]" />
+                      <Upload size={20} className="text-primary" />
+                    </div>
+                  </div>
+                </div>
+                <DialogFooter>
+                  <Button onClick={handleAddProduct} disabled={isUploading} className="w-full bg-primary text-black font-bold rounded-full h-12">
+                    {isUploading ? <Loader2 className="animate-spin" /> : "Deploy to Catalog"}
+                  </Button>
+                </DialogFooter>
+              </DialogContent>
+            </Dialog>
+          </div>
         </div>
 
         <Tabs defaultValue="products" className="w-full">
@@ -94,25 +169,31 @@ export default function AdminDashboard() {
                 <div className="p-20 text-center text-white/20 uppercase tracking-widest text-[10px]">Fetching Catalog...</div>
               ) : dbProducts && dbProducts.length > 0 ? (
                 dbProducts.map((product) => (
-                  <div key={product.id} className="bg-neutral-950 border border-white/5 rounded-xl p-6 flex items-center gap-6">
-                    <div className="w-16 h-16 bg-neutral-900 rounded-lg overflow-hidden flex-shrink-0">
+                  <div key={product.id} className="bg-neutral-950 border border-white/5 rounded-2xl p-6 flex items-center gap-6 group hover:border-primary/20 transition-all">
+                    <div className="w-16 h-16 bg-neutral-900 rounded-xl overflow-hidden flex-shrink-0">
                       <img src={product.image} alt={product.name} className="w-full h-full object-contain p-2" />
                     </div>
                     <div className="flex-1">
                       <h4 className="text-sm font-bold uppercase tracking-widest">{product.name}</h4>
-                      <p className="text-[10px] text-white/40 font-mono">${product.price.toFixed(2)} • Stock: {product.amount}</p>
+                      <p className="text-[10px] text-white/40 font-mono tracking-widest">${product.price.toFixed(2)} • Stock: {product.amount}</p>
                     </div>
+                    <p className="text-[8px] uppercase tracking-[0.4em] text-white/10 group-hover:text-primary transition-colors">{product.id}</p>
                   </div>
                 ))
               ) : (
-                <Button onClick={handleSyncProducts} disabled={isSyncing} className="bg-white text-black">Initialize Flavors</Button>
+                <div className="py-20 flex flex-col items-center">
+                   <p className="text-white/20 uppercase tracking-[0.4em] text-[10px] mb-8">Catalog is offline</p>
+                   <Button onClick={handleSyncProducts} disabled={isSyncing} className="bg-white text-black rounded-full px-12 h-14 font-bold uppercase tracking-widest text-[10px]">
+                     {isSyncing ? <Loader2 className="animate-spin" /> : "Initialize Harvest"}
+                   </Button>
+                </div>
               )}
             </div>
           </TabsContent>
           
           <TabsContent value="activity">
-             <div className="bg-neutral-950 border border-white/5 rounded-xl p-8 text-center text-white/40 text-[10px] uppercase tracking-widest">
-               {isHubLoading ? "Loading activity logs..." : (entries?.length ? `${entries.length} recorded events` : "No activity recorded")}
+             <div className="bg-neutral-950 border border-white/5 rounded-2xl p-12 text-center text-white/40 text-[10px] uppercase tracking-[0.5em] font-bold">
+               {isHubLoading ? "Syncing activity..." : (entries?.length ? `${entries.length} recorded events` : "Zero activity detected")}
              </div>
           </TabsContent>
         </Tabs>
