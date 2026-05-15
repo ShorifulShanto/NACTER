@@ -15,103 +15,91 @@ var _s = __turbopack_context__.k.signature();
 function Loader(param) {
     let { onComplete } = param;
     _s();
-    const [progress, setProgress] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(0);
+    const [fadeOut, setFadeOut] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
+    const videoRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRef"])(null);
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
         "Loader.useEffect": ()=>{
-            const startTime = performance.now();
-            const duration = 2000;
-            const update = {
-                "Loader.useEffect.update": (currentTime)=>{
-                    const elapsed = currentTime - startTime;
-                    const nextProgress = Math.min(Math.floor(elapsed / duration * 100), 100);
-                    setProgress(nextProgress);
-                    if (nextProgress < 100) {
-                        requestAnimationFrame(update);
-                    } else {
-                        setTimeout(onComplete, 400);
-                    }
+            // Fallback timer to ensure the site reveals even if the video fails to load or end properly
+            const timer = setTimeout({
+                "Loader.useEffect.timer": ()=>{
+                    setFadeOut(true);
+                    setTimeout(onComplete, 1000);
                 }
-            }["Loader.useEffect.update"];
-            const frame = requestAnimationFrame(update);
+            }["Loader.useEffect.timer"], 6000); // 6 seconds maximum reveal
             return ({
-                "Loader.useEffect": ()=>cancelAnimationFrame(frame)
+                "Loader.useEffect": ()=>clearTimeout(timer)
             })["Loader.useEffect"];
         }
     }["Loader.useEffect"], [
         onComplete
     ]);
+    const handleVideoEnded = ()=>{
+        setFadeOut(true);
+        setTimeout(onComplete, 1000);
+    };
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-        className: "fixed inset-0 z-[9999] bg-[#000000] flex flex-col items-center justify-center transition-opacity duration-1000 gpu-smooth",
+        className: "fixed inset-0 z-[9999] bg-[#000000] flex items-center justify-center transition-opacity duration-1000 gpu-smooth ".concat(fadeOut ? 'opacity-0' : 'opacity-100'),
         children: [
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("video", {
+                ref: videoRef,
+                autoPlay: true,
+                muted: true,
+                playsInline: true,
+                onEnded: handleVideoEnded,
+                className: "w-full h-full object-cover opacity-70",
+                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("source", {
+                    src: "https://res.cloudinary.com/drmpjeatm/video/upload/q_auto/f_auto/v1778859538/motion2Fast_Cinematic_wide_shot_of_a_powerful_bioluminescent_w_01-ezgif.com-resize-video_rl78xu.mp4",
+                    type: "video/mp4"
+                }, void 0, false, {
+                    fileName: "[project]/src/components/Loader.tsx",
+                    lineNumber: 36,
+                    columnNumber: 9
+                }, this)
+            }, void 0, false, {
+                fileName: "[project]/src/components/Loader.tsx",
+                lineNumber: 28,
+                columnNumber: 7
+            }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "mb-12 text-center flex flex-col items-center",
+                className: "absolute inset-0 flex flex-col items-center justify-center pointer-events-none",
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "animate-heartbeat",
+                        className: "animate-pulse",
                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
-                            className: "text-5xl md:text-7xl font-headline font-bold tracking-[0.3em] text-white",
+                            className: "text-4xl md:text-6xl font-headline font-bold tracking-[0.5em] text-white opacity-30 select-none",
                             children: "NECTAR"
                         }, void 0, false, {
                             fileName: "[project]/src/components/Loader.tsx",
-                            lineNumber: 33,
+                            lineNumber: 45,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/components/Loader.tsx",
-                        lineNumber: 32,
+                        lineNumber: 44,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                        className: "text-[10px] tracking-[0.4em] uppercase text-white/30 mt-4 font-bold",
-                        children: "Fresh Cold-Pressed Juice"
+                        className: "text-[10px] tracking-[0.4em] uppercase text-white/10 mt-6 font-bold",
+                        children: "Fresh Cold-Pressed Batch"
                     }, void 0, false, {
                         fileName: "[project]/src/components/Loader.tsx",
-                        lineNumber: 37,
+                        lineNumber: 49,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/Loader.tsx",
-                lineNumber: 31,
-                columnNumber: 7
-            }, this),
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "w-64 h-0.5 bg-white/10 rounded-full overflow-hidden mb-6",
-                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                    className: "h-full bg-primary transition-all duration-300 ease-out shadow-[0_0_15px_#1DCD9F]",
-                    style: {
-                        width: "".concat(progress, "%")
-                    }
-                }, void 0, false, {
-                    fileName: "[project]/src/components/Loader.tsx",
-                    lineNumber: 42,
-                    columnNumber: 9
-                }, this)
-            }, void 0, false, {
-                fileName: "[project]/src/components/Loader.tsx",
-                lineNumber: 41,
-                columnNumber: 7
-            }, this),
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                className: "font-mono text-[9px] tracking-[0.3em] text-white/20 uppercase font-bold",
-                children: [
-                    "Initializing ",
-                    progress,
-                    "%"
-                ]
-            }, void 0, true, {
-                fileName: "[project]/src/components/Loader.tsx",
-                lineNumber: 47,
+                lineNumber: 43,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/Loader.tsx",
-        lineNumber: 30,
+        lineNumber: 25,
         columnNumber: 5
     }, this);
 }
-_s(Loader, "ZVQpwjU6Dz5R8VBOzPsnxGRmMVo=");
+_s(Loader, "Pj06/N8pbDfrByrXArSQMCaOAqc=");
 _c = Loader;
 var _c;
 __turbopack_context__.k.register(_c, "Loader");
