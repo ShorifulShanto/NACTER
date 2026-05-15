@@ -23,9 +23,15 @@ export default function Home() {
 
   return (
     <>
-      {!isLoaded && <Loader onComplete={() => setIsLoaded(true)} />}
+      <Loader onComplete={() => setIsLoaded(true)} />
       
-      <main className={`transition-opacity duration-1000 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}>
+      <main 
+        className={`transition-all duration-[1500ms] ease-out gpu-smooth ${
+          isLoaded 
+            ? 'opacity-100 blur-0 scale-100' 
+            : 'opacity-0 blur-[20px] scale-95'
+        }`}
+      >
         <Navbar />
         <NectarHero />
         <ProductCollection />
