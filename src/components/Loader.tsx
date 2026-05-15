@@ -50,9 +50,9 @@ export function Loader({ onComplete }: { onComplete: () => void }) {
         />
       </video>
       
-      {/* Minimalist Centered Brand Overlay */}
+      {/* Minimalist Centered Brand Overlay - Resized for elegance */}
       <div className="relative z-10 text-center px-6">
-        <h1 className="text-6xl md:text-9xl font-headline font-black tracking-[0.5em] text-white opacity-80 animate-pulse select-none">
+        <h1 className="text-4xl md:text-7xl font-headline font-black tracking-[0.5em] text-white opacity-80 animate-pulse select-none">
           NECTAR
         </h1>
       </div>
