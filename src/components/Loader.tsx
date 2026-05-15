@@ -9,7 +9,7 @@ export function Loader({ onComplete }: { onComplete: () => void }) {
 
   useEffect(() => {
     setIsMounted(true);
-    // Strict 4-second cinematic timing before snappy reveal
+    // 4-second cinematic timing for the video playback
     const timer = setTimeout(() => {
       handleTransition();
     }, 4000); 
@@ -19,7 +19,7 @@ export function Loader({ onComplete }: { onComplete: () => void }) {
 
   const handleTransition = () => {
     setIsFinishing(true);
-    // Signal the parent immediately so the content unblurs WHILE the loader scales out
+    // Signal the parent to start revealing the site immediately as the loader scales out
     onComplete();
   };
 
@@ -29,12 +29,12 @@ export function Loader({ onComplete }: { onComplete: () => void }) {
     <div 
       className={`fixed inset-0 z-[9999] bg-black flex items-center justify-center transition-all duration-1500 ease-in-out gpu-smooth ${
         isFinishing 
-          ? 'opacity-0 scale-[1.5] blur-[80px] pointer-events-none' 
+          ? 'opacity-0 scale-[1.2] blur-[20px] pointer-events-none' 
           : 'opacity-100 scale-100 blur-0'
       }`}
       style={{
-        // Professional Out-Expo easing for high-end cinematic feel
-        transitionTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)'
+        // Explosive Out-Quart easing for a fast, punchy exit
+        transitionTimingFunction: 'cubic-bezier(0.165, 0.84, 0.44, 1)'
       }}
     >
       {/* Bioluminescent Morph Video */}
@@ -51,7 +51,7 @@ export function Loader({ onComplete }: { onComplete: () => void }) {
         />
       </video>
       
-      {/* Minimalist Centered Brand Overlay - Resized for elegance */}
+      {/* Minimalist Centered Brand Overlay */}
       <div className="relative z-10 text-center px-6">
         <h1 className="text-4xl md:text-7xl font-headline font-black tracking-[0.5em] text-white opacity-80 animate-pulse select-none">
           NECTAR

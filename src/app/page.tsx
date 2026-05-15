@@ -20,10 +20,10 @@ export default function Home() {
       // Start the teal atmosphere reveal immediately when the morph begins
       setShowTealAtmosphere(true);
       
-      // Snappy fade out of the teal smoke for a responsive load feel
+      // Fast fade out of the teal smoke to match the snappier load feel
       const timer = setTimeout(() => {
         setShowTealAtmosphere(false);
-      }, 3000);
+      }, 2000);
       
       return () => clearTimeout(timer);
     }
@@ -42,7 +42,7 @@ export default function Home() {
       
       {/* Cinematic Teal Smoke Atmosphere - Bridging the bioluminescent video to the obsidian black */}
       <div 
-        className={`fixed inset-0 pointer-events-none z-[5] transition-opacity duration-3000 ease-out gpu-smooth ${
+        className={`fixed inset-0 pointer-events-none z-[5] transition-opacity duration-2000 ease-out gpu-smooth ${
           showTealAtmosphere ? 'opacity-40' : 'opacity-0'
         }`}
         style={{
@@ -56,7 +56,7 @@ export default function Home() {
         className={`transition-all duration-1500 gpu-smooth relative z-10 ${
           isLoaded 
             ? 'opacity-100 blur-0 scale-100' 
-            : 'opacity-0 blur-[30px] scale-[1.05]'
+            : 'opacity-0 blur-[10px] scale-[1.02]'
         }`}
         style={{
           // Snappy Out-Expo reveal for a fast but high-end feel
@@ -64,7 +64,7 @@ export default function Home() {
         }}
       >
         <Navbar />
-        <NectarHero />
+        < nectarHero />
         <ProductCollection />
         <IngredientsSection />
         <NutritionSection />
