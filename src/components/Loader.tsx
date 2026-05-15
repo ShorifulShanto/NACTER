@@ -9,7 +9,7 @@ export function Loader({ onComplete }: { onComplete: () => void }) {
 
   useEffect(() => {
     setIsMounted(true);
-    // Strict 4-second cinematic timing before reveal
+    // Strict 4-second cinematic timing before snappy reveal
     const timer = setTimeout(() => {
       handleTransition();
     }, 4000); 
@@ -27,13 +27,14 @@ export function Loader({ onComplete }: { onComplete: () => void }) {
 
   return (
     <div 
-      className={`fixed inset-0 z-[9999] bg-black flex items-center justify-center transition-all duration-2000 ease-in-out gpu-smooth ${
+      className={`fixed inset-0 z-[9999] bg-black flex items-center justify-center transition-all duration-1500 ease-in-out gpu-smooth ${
         isFinishing 
-          ? 'opacity-0 scale-[1.6] blur-[100px] pointer-events-none' 
+          ? 'opacity-0 scale-[1.5] blur-[80px] pointer-events-none' 
           : 'opacity-100 scale-100 blur-0'
       }`}
       style={{
-        transitionTimingFunction: 'cubic-bezier(0.23, 1, 0.32, 1)'
+        // Professional Out-Expo easing for high-end cinematic feel
+        transitionTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)'
       }}
     >
       {/* Bioluminescent Morph Video */}

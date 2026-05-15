@@ -20,10 +20,10 @@ export default function Home() {
       // Start the teal atmosphere reveal immediately when the morph begins
       setShowTealAtmosphere(true);
       
-      // Slowly fade out the teal smoke after 4 seconds of immersive reveal
+      // Snappy fade out of the teal smoke for a responsive load feel
       const timer = setTimeout(() => {
         setShowTealAtmosphere(false);
-      }, 4000);
+      }, 3000);
       
       return () => clearTimeout(timer);
     }
@@ -53,13 +53,14 @@ export default function Home() {
       />
 
       <main 
-        className={`transition-all duration-2000 gpu-smooth relative z-10 ${
+        className={`transition-all duration-1500 gpu-smooth relative z-10 ${
           isLoaded 
             ? 'opacity-100 blur-0 scale-100' 
-            : 'opacity-0 blur-[40px] scale-[1.1]'
+            : 'opacity-0 blur-[30px] scale-[1.05]'
         }`}
         style={{
-          transitionTimingFunction: 'cubic-bezier(0.23, 1, 0.32, 1)'
+          // Snappy Out-Expo reveal for a fast but high-end feel
+          transitionTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)'
         }}
       >
         <Navbar />
