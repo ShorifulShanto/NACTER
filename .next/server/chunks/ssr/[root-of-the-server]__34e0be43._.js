@@ -17,7 +17,7 @@ function Loader({ onComplete }) {
     const videoRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useRef"])(null);
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
         setIsMounted(true);
-        // Strict 4-second cinematic timing before snappy reveal
+        // 4-second cinematic timing for the video playback
         const timer = setTimeout(()=>{
             handleTransition();
         }, 4000);
@@ -25,15 +25,15 @@ function Loader({ onComplete }) {
     }, []);
     const handleTransition = ()=>{
         setIsFinishing(true);
-        // Signal the parent immediately so the content unblurs WHILE the loader scales out
+        // Signal the parent to start revealing the site immediately as the loader scales out
         onComplete();
     };
     if (!isMounted) return null;
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-        className: `fixed inset-0 z-[9999] bg-black flex items-center justify-center transition-all duration-1500 ease-in-out gpu-smooth ${isFinishing ? 'opacity-0 scale-[1.5] blur-[80px] pointer-events-none' : 'opacity-100 scale-100 blur-0'}`,
+        className: `fixed inset-0 z-[9999] bg-black flex items-center justify-center transition-all duration-1500 ease-in-out gpu-smooth ${isFinishing ? 'opacity-0 scale-[1.2] blur-[20px] pointer-events-none' : 'opacity-100 scale-100 blur-0'}`,
         style: {
-            // Professional Out-Expo easing for high-end cinematic feel
-            transitionTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)'
+            // Explosive Out-Quart easing for a fast, punchy exit
+            transitionTimingFunction: 'cubic-bezier(0.165, 0.84, 0.44, 1)'
         },
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("video", {
@@ -4123,10 +4123,10 @@ function Home() {
         if (isLoaded) {
             // Start the teal atmosphere reveal immediately when the morph begins
             setShowTealAtmosphere(true);
-            // Snappy fade out of the teal smoke for a responsive load feel
+            // Fast fade out of the teal smoke to match the snappier load feel
             const timer = setTimeout(()=>{
                 setShowTealAtmosphere(false);
-            }, 3000);
+            }, 2000);
             return ()=>clearTimeout(timer);
         }
     }, [
@@ -4150,7 +4150,7 @@ function Home() {
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: `fixed inset-0 pointer-events-none z-[5] transition-opacity duration-3000 ease-out gpu-smooth ${showTealAtmosphere ? 'opacity-40' : 'opacity-0'}`,
+                className: `fixed inset-0 pointer-events-none z-[5] transition-opacity duration-2000 ease-out gpu-smooth ${showTealAtmosphere ? 'opacity-40' : 'opacity-0'}`,
                 style: {
                     background: 'radial-gradient(circle at center, #1DCD9F 0%, transparent 75%)',
                     filter: 'blur(120px)',
@@ -4162,7 +4162,7 @@ function Home() {
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("main", {
-                className: `transition-all duration-1500 gpu-smooth relative z-10 ${isLoaded ? 'opacity-100 blur-0 scale-100' : 'opacity-0 blur-[30px] scale-[1.05]'}`,
+                className: `transition-all duration-1500 gpu-smooth relative z-10 ${isLoaded ? 'opacity-100 blur-0 scale-100' : 'opacity-0 blur-[10px] scale-[1.02]'}`,
                 style: {
                     // Snappy Out-Expo reveal for a fast but high-end feel
                     transitionTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)'

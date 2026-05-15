@@ -64,7 +64,7 @@ export default function Home() {
         }}
       >
         <Navbar />
-        < nectarHero />
+        <NectarHero />
         <ProductCollection />
         <IngredientsSection />
         <NutritionSection />
