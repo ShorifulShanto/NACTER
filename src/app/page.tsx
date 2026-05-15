@@ -1,7 +1,7 @@
 
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Loader } from "@/components/Loader";
 import { Navbar } from "@/components/Navbar";
 import { NectarHero } from "@/components/NectarHero";
@@ -14,6 +14,21 @@ import { Footer } from "@/components/Footer";
 
 export default function Home() {
   const [isLoaded, setIsLoaded] = useState(false);
+  const [showTealAtmosphere, setShowTealAtmosphere] = useState(false);
+
+  useEffect(() => {
+    if (isLoaded) {
+      // Start the teal atmosphere reveal immediately when loaded
+      setShowTealAtmosphere(true);
+      
+      // Slowly fade out the teal smoke after a few seconds of immersion
+      const timer = setTimeout(() => {
+        setShowTealAtmosphere(false);
+      }, 3500);
+      
+      return () => clearTimeout(timer);
+    }
+  }, [isLoaded]);
 
   const scrollToProducts = () => {
     const section = document.getElementById('product');
@@ -26,8 +41,20 @@ export default function Home() {
     <>
       <Loader onComplete={() => setIsLoaded(true)} />
       
+      {/* Cinematic Teal Smoke Atmosphere - Bridging the video to the black background */}
+      <div 
+        className={`fixed inset-0 pointer-events-none z-[5] transition-opacity duration-[3000ms] ease-out gpu-smooth ${
+          showTealAtmosphere ? 'opacity-40' : 'opacity-0'
+        }`}
+        style={{
+          background: 'radial-gradient(circle at center, #1DCD9F 0%, transparent 75%)',
+          filter: 'blur(120px)',
+          mixBlendMode: 'screen'
+        }}
+      />
+
       <main 
-        className={`transition-all duration-[2000ms] gpu-smooth ${
+        className={`transition-all duration-[2000ms] gpu-smooth relative z-10 ${
           isLoaded 
             ? 'opacity-100 blur-0 scale-100' 
             : 'opacity-0 blur-[40px] scale-[1.1]'

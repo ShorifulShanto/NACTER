@@ -29,22 +29,31 @@ export function Loader({ onComplete }: { onComplete: () => void }) {
 
   return (
     <div 
-      className={`fixed inset-0 z-[9999] bg-black flex items-center justify-center transition-all duration-[1800ms] ease-in-out gpu-smooth ${
+      className={`fixed inset-0 z-[9999] bg-black flex items-center justify-center transition-all duration-[2200ms] ease-in-out gpu-smooth ${
         isFinishing 
-          ? 'opacity-0 scale-[1.5] blur-[100px] pointer-events-none' 
+          ? 'opacity-0 scale-[1.6] blur-[120px] pointer-events-none' 
           : 'opacity-100 scale-100 blur-0'
       }`}
       style={{
         transitionTimingFunction: 'cubic-bezier(0.23, 1, 0.32, 1)'
       }}
     >
+      {/* Background Teal Aura - Bridges the video colors during morph */}
+      <div 
+        className={`absolute inset-0 transition-opacity duration-[1500ms] ${isFinishing ? 'opacity-60' : 'opacity-0'}`}
+        style={{
+          background: 'radial-gradient(circle at center, #1DCD9F 0%, transparent 80%)',
+          filter: 'blur(100px)'
+        }}
+      />
+
       <video
         ref={videoRef}
         autoPlay
         muted
         playsInline
         onEnded={handleVideoEnded}
-        className="absolute inset-0 w-full h-full object-cover opacity-60"
+        className="absolute inset-0 w-full h-full object-cover opacity-70"
       >
         <source 
           src="https://res.cloudinary.com/drmpjeatm/video/upload/q_auto/f_auto/v1778859538/motion2Fast_Cinematic_wide_shot_of_a_powerful_bioluminescent_w_01-ezgif.com-resize-video_rl78xu.mp4" 
@@ -54,7 +63,7 @@ export function Loader({ onComplete }: { onComplete: () => void }) {
       
       {/* Minimalist Centered Brand */}
       <div className="relative z-10 text-center px-6">
-        <h1 className="text-5xl md:text-8xl font-headline font-black tracking-[0.4em] text-white opacity-80 animate-pulse select-none">
+        <h1 className="text-6xl md:text-9xl font-headline font-black tracking-[0.5em] text-white opacity-80 animate-pulse select-none">
           NECTAR
         </h1>
       </div>
