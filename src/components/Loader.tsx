@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useEffect, useState, useRef } from "react";
@@ -17,8 +18,9 @@ export function Loader({ onComplete }: { onComplete: () => void }) {
 
   const handleTransition = () => {
     setIsFinishing(true);
-    // The blur/fade duration is 1.2s in CSS, so we wait slightly less to start revealing content
-    setTimeout(onComplete, 1000);
+    // Signal the parent immediately so the content fades in WHILE the loader is fading out
+    // This creates the "morphing" movie-like reveal and avoids any blank screens.
+    onComplete();
   };
 
   const handleVideoEnded = () => {
@@ -27,9 +29,14 @@ export function Loader({ onComplete }: { onComplete: () => void }) {
 
   return (
     <div 
-      className={`fixed inset-0 z-[9999] bg-black flex items-center justify-center transition-all duration-[1200ms] ease-in-out gpu-smooth ${
-        isFinishing ? 'opacity-0 scale-110 blur-[40px] pointer-events-none' : 'opacity-100 scale-100 blur-0'
+      className={`fixed inset-0 z-[9999] bg-black flex items-center justify-center transition-all duration-[1800ms] ease-in-out gpu-smooth ${
+        isFinishing 
+          ? 'opacity-0 scale-[1.5] blur-[100px] pointer-events-none' 
+          : 'opacity-100 scale-100 blur-0'
       }`}
+      style={{
+        transitionTimingFunction: 'cubic-bezier(0.23, 1, 0.32, 1)'
+      }}
     >
       <video
         ref={videoRef}

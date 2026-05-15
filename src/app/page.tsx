@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState } from "react";
@@ -26,11 +27,14 @@ export default function Home() {
       <Loader onComplete={() => setIsLoaded(true)} />
       
       <main 
-        className={`transition-all duration-[1500ms] ease-out gpu-smooth ${
+        className={`transition-all duration-[2000ms] gpu-smooth ${
           isLoaded 
             ? 'opacity-100 blur-0 scale-100' 
-            : 'opacity-0 blur-[20px] scale-95'
+            : 'opacity-0 blur-[40px] scale-[1.1]'
         }`}
+        style={{
+          transitionTimingFunction: 'cubic-bezier(0.23, 1, 0.32, 1)'
+        }}
       >
         <Navbar />
         <NectarHero />

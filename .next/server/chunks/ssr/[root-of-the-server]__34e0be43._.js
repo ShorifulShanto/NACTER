@@ -23,14 +23,18 @@ function Loader({ onComplete }) {
     }, []);
     const handleTransition = ()=>{
         setIsFinishing(true);
-        // The blur/fade duration is 1.2s in CSS, so we wait slightly less to start revealing content
-        setTimeout(onComplete, 1000);
+        // Signal the parent immediately so the content fades in WHILE the loader is fading out
+        // This creates the "morphing" movie-like reveal and avoids any blank screens.
+        onComplete();
     };
     const handleVideoEnded = ()=>{
         handleTransition();
     };
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-        className: `fixed inset-0 z-[9999] bg-black flex items-center justify-center transition-all duration-[1200ms] ease-in-out gpu-smooth ${isFinishing ? 'opacity-0 scale-110 blur-[40px] pointer-events-none' : 'opacity-100 scale-100 blur-0'}`,
+        className: `fixed inset-0 z-[9999] bg-black flex items-center justify-center transition-all duration-[1800ms] ease-in-out gpu-smooth ${isFinishing ? 'opacity-0 scale-[1.5] blur-[100px] pointer-events-none' : 'opacity-100 scale-100 blur-0'}`,
+        style: {
+            transitionTimingFunction: 'cubic-bezier(0.23, 1, 0.32, 1)'
+        },
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("video", {
                 ref: videoRef,
@@ -44,12 +48,12 @@ function Loader({ onComplete }) {
                     type: "video/mp4"
                 }, void 0, false, {
                     fileName: "[project]/src/components/Loader.tsx",
-                    lineNumber: 42,
+                    lineNumber: 49,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/components/Loader.tsx",
-                lineNumber: 34,
+                lineNumber: 41,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -59,25 +63,25 @@ function Loader({ onComplete }) {
                     children: "NECTAR"
                 }, void 0, false, {
                     fileName: "[project]/src/components/Loader.tsx",
-                    lineNumber: 50,
+                    lineNumber: 57,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/components/Loader.tsx",
-                lineNumber: 49,
+                lineNumber: 56,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: "absolute inset-0 bg-gradient-to-t from-black via-transparent to-black opacity-40 pointer-events-none"
             }, void 0, false, {
                 fileName: "[project]/src/components/Loader.tsx",
-                lineNumber: 55,
+                lineNumber: 62,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/Loader.tsx",
-        lineNumber: 29,
+        lineNumber: 31,
         columnNumber: 5
     }, this);
 }
@@ -4129,45 +4133,48 @@ function Home() {
                 onComplete: ()=>setIsLoaded(true)
             }, void 0, false, {
                 fileName: "[project]/src/app/page.tsx",
-                lineNumber: 26,
+                lineNumber: 27,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("main", {
-                className: `transition-all duration-[1500ms] ease-out gpu-smooth ${isLoaded ? 'opacity-100 blur-0 scale-100' : 'opacity-0 blur-[20px] scale-95'}`,
+                className: `transition-all duration-[2000ms] gpu-smooth ${isLoaded ? 'opacity-100 blur-0 scale-100' : 'opacity-0 blur-[40px] scale-[1.1]'}`,
+                style: {
+                    transitionTimingFunction: 'cubic-bezier(0.23, 1, 0.32, 1)'
+                },
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$Navbar$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Navbar"], {}, void 0, false, {
-                        fileName: "[project]/src/app/page.tsx",
-                        lineNumber: 35,
-                        columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$NectarHero$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["NectarHero"], {}, void 0, false, {
-                        fileName: "[project]/src/app/page.tsx",
-                        lineNumber: 36,
-                        columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ProductCollection$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["ProductCollection"], {}, void 0, false, {
-                        fileName: "[project]/src/app/page.tsx",
-                        lineNumber: 37,
-                        columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$IngredientsSection$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["IngredientsSection"], {}, void 0, false, {
-                        fileName: "[project]/src/app/page.tsx",
-                        lineNumber: 38,
-                        columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$NutritionSection$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["NutritionSection"], {}, void 0, false, {
                         fileName: "[project]/src/app/page.tsx",
                         lineNumber: 39,
                         columnNumber: 9
                     }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ReviewsSection$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["ReviewsSection"], {}, void 0, false, {
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$NectarHero$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["NectarHero"], {}, void 0, false, {
                         fileName: "[project]/src/app/page.tsx",
                         lineNumber: 40,
                         columnNumber: 9
                     }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$FAQSection$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["FAQSection"], {}, void 0, false, {
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ProductCollection$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["ProductCollection"], {}, void 0, false, {
                         fileName: "[project]/src/app/page.tsx",
                         lineNumber: 41,
+                        columnNumber: 9
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$IngredientsSection$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["IngredientsSection"], {}, void 0, false, {
+                        fileName: "[project]/src/app/page.tsx",
+                        lineNumber: 42,
+                        columnNumber: 9
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$NutritionSection$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["NutritionSection"], {}, void 0, false, {
+                        fileName: "[project]/src/app/page.tsx",
+                        lineNumber: 43,
+                        columnNumber: 9
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ReviewsSection$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["ReviewsSection"], {}, void 0, false, {
+                        fileName: "[project]/src/app/page.tsx",
+                        lineNumber: 44,
+                        columnNumber: 9
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$FAQSection$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["FAQSection"], {}, void 0, false, {
+                        fileName: "[project]/src/app/page.tsx",
+                        lineNumber: 45,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
@@ -4181,12 +4188,12 @@ function Home() {
                                     children: "FRESH"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/page.tsx",
-                                    lineNumber: 46,
+                                    lineNumber: 50,
                                     columnNumber: 14
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/app/page.tsx",
-                                lineNumber: 45,
+                                lineNumber: 49,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4197,7 +4204,7 @@ function Home() {
                                         children: "GET STARTED"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/page.tsx",
-                                        lineNumber: 51,
+                                        lineNumber: 55,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
@@ -4206,14 +4213,14 @@ function Home() {
                                             "TASTE THE",
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("br", {}, void 0, false, {
                                                 fileName: "[project]/src/app/page.tsx",
-                                                lineNumber: 53,
+                                                lineNumber: 57,
                                                 columnNumber: 24
                                             }, this),
                                             "DIFFERENCE"
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/page.tsx",
-                                        lineNumber: 52,
+                                        lineNumber: 56,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -4221,7 +4228,7 @@ function Home() {
                                         children: "Order your first case today and discover why thousands have made NECTAR their daily ritual. Real fruit. Real taste. Real good."
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/page.tsx",
-                                        lineNumber: 55,
+                                        lineNumber: 59,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4233,7 +4240,7 @@ function Home() {
                                                 children: "EXPLORE ALL"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/page.tsx",
-                                                lineNumber: 59,
+                                                lineNumber: 63,
                                                 columnNumber: 15
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -4242,36 +4249,36 @@ function Home() {
                                                 children: "SHOP NOW"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/page.tsx",
-                                                lineNumber: 65,
+                                                lineNumber: 69,
                                                 columnNumber: 15
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/page.tsx",
-                                        lineNumber: 58,
+                                        lineNumber: 62,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/page.tsx",
-                                lineNumber: 50,
+                                lineNumber: 54,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/page.tsx",
-                        lineNumber: 44,
+                        lineNumber: 48,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$Footer$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Footer"], {}, void 0, false, {
                         fileName: "[project]/src/app/page.tsx",
-                        lineNumber: 75,
+                        lineNumber: 79,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/page.tsx",
-                lineNumber: 28,
+                lineNumber: 29,
                 columnNumber: 7
             }, this)
         ]
