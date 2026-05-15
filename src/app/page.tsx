@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState, useEffect } from "react";
@@ -18,13 +17,13 @@ export default function Home() {
 
   useEffect(() => {
     if (isLoaded) {
-      // Start the teal atmosphere reveal immediately when loaded
+      // Start the teal atmosphere reveal immediately when the morph begins
       setShowTealAtmosphere(true);
       
-      // Slowly fade out the teal smoke after a few seconds of immersion
+      // Slowly fade out the teal smoke after 4 seconds of immersive reveal
       const timer = setTimeout(() => {
         setShowTealAtmosphere(false);
-      }, 3500);
+      }, 4000);
       
       return () => clearTimeout(timer);
     }
@@ -41,9 +40,9 @@ export default function Home() {
     <>
       <Loader onComplete={() => setIsLoaded(true)} />
       
-      {/* Cinematic Teal Smoke Atmosphere - Bridging the video to the black background */}
+      {/* Cinematic Teal Smoke Atmosphere - Bridging the bioluminescent video to the obsidian black */}
       <div 
-        className={`fixed inset-0 pointer-events-none z-[5] transition-opacity duration-[3000ms] ease-out gpu-smooth ${
+        className={`fixed inset-0 pointer-events-none z-[5] transition-opacity duration-3000 ease-out gpu-smooth ${
           showTealAtmosphere ? 'opacity-40' : 'opacity-0'
         }`}
         style={{
@@ -54,7 +53,7 @@ export default function Home() {
       />
 
       <main 
-        className={`transition-all duration-[2000ms] gpu-smooth relative z-10 ${
+        className={`transition-all duration-2000 gpu-smooth relative z-10 ${
           isLoaded 
             ? 'opacity-100 blur-0 scale-100' 
             : 'opacity-0 blur-[40px] scale-[1.1]'
@@ -71,7 +70,6 @@ export default function Home() {
         <ReviewsSection />
         <FAQSection />
         
-        {/* Final CTA Section */}
         <section id="cta-section" className="py-32 bg-black relative flex flex-col items-center justify-center text-center overflow-hidden border-t border-white/5">
           <div className="absolute inset-0 opacity-5 pointer-events-none select-none">
              <h2 className="text-[15rem] font-headline font-bold text-white leading-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
@@ -79,7 +77,7 @@ export default function Home() {
              </h2>
           </div>
           <div className="container mx-auto px-6 relative z-10">
-            <p className="text-white/30 text-[9px] uppercase tracking-[0.4em] mb-4">GET STARTED</p>
+            <p className="text-white/30 text-[9px] uppercase tracking-[0.4em] mb-4 font-bold">GET STARTED</p>
             <h2 className="text-5xl md:text-7xl font-headline font-bold text-white uppercase leading-[0.9] mb-8 tracking-tighter">
               TASTE THE<br />DIFFERENCE
             </h2>

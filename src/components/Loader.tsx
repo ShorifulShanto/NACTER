@@ -1,58 +1,47 @@
-
 "use client";
 
 import { useEffect, useState, useRef } from "react";
 
 export function Loader({ onComplete }: { onComplete: () => void }) {
   const [isFinishing, setIsFinishing] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
-    // Safety timeout to ensure the site reveals even if the video has issues
+    setIsMounted(true);
+    // Strict 4-second cinematic timing before reveal
     const timer = setTimeout(() => {
       handleTransition();
-    }, 7000); 
+    }, 4000); 
 
     return () => clearTimeout(timer);
   }, []);
 
   const handleTransition = () => {
     setIsFinishing(true);
-    // Signal the parent immediately so the content fades in WHILE the loader is fading out
-    // This creates the "morphing" movie-like reveal and avoids any blank screens.
+    // Signal the parent immediately so the content unblurs WHILE the loader scales out
     onComplete();
   };
 
-  const handleVideoEnded = () => {
-    handleTransition();
-  };
+  if (!isMounted) return null;
 
   return (
     <div 
-      className={`fixed inset-0 z-[9999] bg-black flex items-center justify-center transition-all duration-[2200ms] ease-in-out gpu-smooth ${
+      className={`fixed inset-0 z-[9999] bg-black flex items-center justify-center transition-all duration-2000 ease-in-out gpu-smooth ${
         isFinishing 
-          ? 'opacity-0 scale-[1.6] blur-[120px] pointer-events-none' 
+          ? 'opacity-0 scale-[1.6] blur-[100px] pointer-events-none' 
           : 'opacity-100 scale-100 blur-0'
       }`}
       style={{
         transitionTimingFunction: 'cubic-bezier(0.23, 1, 0.32, 1)'
       }}
     >
-      {/* Background Teal Aura - Bridges the video colors during morph */}
-      <div 
-        className={`absolute inset-0 transition-opacity duration-[1500ms] ${isFinishing ? 'opacity-60' : 'opacity-0'}`}
-        style={{
-          background: 'radial-gradient(circle at center, #1DCD9F 0%, transparent 80%)',
-          filter: 'blur(100px)'
-        }}
-      />
-
+      {/* Bioluminescent Morph Video */}
       <video
         ref={videoRef}
         autoPlay
         muted
         playsInline
-        onEnded={handleVideoEnded}
         className="absolute inset-0 w-full h-full object-cover opacity-70"
       >
         <source 
@@ -61,7 +50,7 @@ export function Loader({ onComplete }: { onComplete: () => void }) {
         />
       </video>
       
-      {/* Minimalist Centered Brand */}
+      {/* Minimalist Centered Brand Overlay */}
       <div className="relative z-10 text-center px-6">
         <h1 className="text-6xl md:text-9xl font-headline font-black tracking-[0.5em] text-white opacity-80 animate-pulse select-none">
           NECTAR
