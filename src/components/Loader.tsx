@@ -27,14 +27,15 @@ export function Loader({ onComplete }: { onComplete: () => void }) {
 
   return (
     <div 
-      className={`fixed inset-0 z-[9999] bg-black flex items-center justify-center transition-all duration-1500 ease-in-out gpu-smooth ${
+      className={`fixed inset-0 z-[9999] bg-black flex items-center justify-center transition-[opacity,transform,filter] duration-[1500ms] ease-in-out gpu-smooth ${
         isFinishing 
           ? 'opacity-0 scale-[1.2] blur-[20px] pointer-events-none' 
           : 'opacity-100 scale-100 blur-0'
       }`}
       style={{
-        // Explosive Out-Quart easing for a fast, punchy exit
-        transitionTimingFunction: 'cubic-bezier(0.165, 0.84, 0.44, 1)'
+        // Snappy Out-Quart easing for a fast, punchy exit
+        transitionTimingFunction: 'cubic-bezier(0.165, 0.84, 0.44, 1)',
+        willChange: 'opacity, transform, filter'
       }}
     >
       {/* Bioluminescent Morph Video */}
@@ -44,6 +45,7 @@ export function Loader({ onComplete }: { onComplete: () => void }) {
         muted
         playsInline
         className="absolute inset-0 w-full h-full object-cover opacity-70"
+        poster="https://res.cloudinary.com/drmpjeatm/video/upload/v1778859538/motion2Fast_Cinematic_wide_shot_of_a_powerful_bioluminescent_w_01-ezgif.com-resize-video_rl78xu.jpg"
       >
         <source 
           src="https://res.cloudinary.com/drmpjeatm/video/upload/q_auto/f_auto/v1778859538/motion2Fast_Cinematic_wide_shot_of_a_powerful_bioluminescent_w_01-ezgif.com-resize-video_rl78xu.mp4" 

@@ -23,7 +23,7 @@ export default function Home() {
       // Fast fade out of the teal smoke to match the snappier load feel
       const timer = setTimeout(() => {
         setShowTealAtmosphere(false);
-      }, 2000);
+      }, 2500);
       
       return () => clearTimeout(timer);
     }
@@ -42,25 +42,26 @@ export default function Home() {
       
       {/* Cinematic Teal Smoke Atmosphere - Bridging the bioluminescent video to the obsidian black */}
       <div 
-        className={`fixed inset-0 pointer-events-none z-[5] transition-opacity duration-2000 ease-out gpu-smooth ${
-          showTealAtmosphere ? 'opacity-40' : 'opacity-0'
+        className={`fixed inset-0 pointer-events-none z-[5] transition-opacity duration-[2000ms] ease-out gpu-smooth ${
+          showTealAtmosphere ? 'opacity-30' : 'opacity-0'
         }`}
         style={{
           background: 'radial-gradient(circle at center, #1DCD9F 0%, transparent 75%)',
-          filter: 'blur(120px)',
-          mixBlendMode: 'screen'
+          filter: 'blur(100px)',
+          mixBlendMode: 'screen',
+          willChange: 'opacity'
         }}
       />
 
       <main 
-        className={`transition-all duration-1500 gpu-smooth relative z-10 ${
+        className={`relative z-10 transition-[opacity,transform,filter] duration-[1500ms] gpu-smooth ${
           isLoaded 
             ? 'opacity-100 blur-0 scale-100' 
             : 'opacity-0 blur-[10px] scale-[1.02]'
         }`}
         style={{
-          // Snappy Out-Expo reveal for a fast but high-end feel
-          transitionTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)'
+          transitionTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)',
+          willChange: 'opacity, transform, filter'
         }}
       >
         <Navbar />
